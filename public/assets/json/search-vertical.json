@@ -1,0 +1,14 @@
+{
+    "pages": [
+        {
+            "name": "Home",
+            "icon": "bx-home-circle",
+            "url": "home"
+        },
+        {
+            "name": "Hapus Transaksi",
+            "icon": "bx-trash",
+            "url": "journal/delete"
+        }
+    ]
+}

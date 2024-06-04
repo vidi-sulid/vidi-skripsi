@@ -17,6 +17,10 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('rekening_volt_id')->nullable();
+            //$table->foreign('rekening_volt_id')->references('id')->on('coas');
+            $table->string('rekening_kas')->nullable();
+            //$table->foreign('rekening_kas_id')->references('id')->on('coas');
             $table->rememberToken();
             $table->timestamps();
         });
