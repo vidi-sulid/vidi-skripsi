@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\System\Invoice;
 use App\Models\System\Setting;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -10,6 +11,7 @@ function menu()
         "Coa" => array("Coa" => ["Write", "Read", "Update", "Delete"]),
         "Pembukuan" => array("Journal" => ["Write", "Read", "Update", "Delete"]),
         "Master Golongan Aset" => array("ProductAset" => ["Write", "Read", "Update", "Delete"]),
+        "Pembelian Aset" => array("Aset" => ["Write", "Read", "Update", "Delete"]),
 
     );
     return $data;
@@ -44,6 +46,18 @@ if (!function_exists('format_currency')) {
     }
 }
 
+if (!function_exists('convertRupiahToNumber')) {
+    function convertRupiahToNumber($rupiah)
+    {
+        // Hapus awalan 'Rp ' dan tanda pemisah ribuan
+        $number = str_replace(['Rp ', ','], '', $rupiah);
+
+        // Ubah string menjadi angka (float)
+        $number = (float) $number;
+
+        return $number;
+    }
+}
 if (!function_exists('settings')) {
     function settings()
     {
@@ -70,5 +84,28 @@ if (!function_exists('log_custom')) {
     {
         $userName = Auth::user()->name;
         Log::info("$userName $info", $data);
+    }
+}
+
+if (!function_exists('invoice')) {
+    function invoice($prefix, $lUpdate = false)
+    {
+        $year = now()->year;
+        $month = now()->month;
+        $day = now()->day;
+        $lastInvoice = Invoice::whereYear('created_at', $year)
+            ->whereMonth('created_at', $month)
+            ->whereDay('created_at', $day)
+            ->where("invoice_number", 'like', "%$prefix%")
+            ->orderBy('id', 'desc')
+            ->first();
+        $lastNumber    = $lastInvoice ? (int)substr($lastInvoice->invoice_number, -4) : 0;
+        $newNumber     = sprintf('%04d', $lastNumber + 1);
+        $isodate       = sprintf("%04d%02d%02d", $year, $month, $day);
+        $invoiceNumber = "{$prefix}-{$isodate}-{$newNumber}";
+
+        if ($lUpdate) Invoice::create(['invoice_number' => $invoiceNumber]);
+
+        return $invoiceNumber;
     }
 }

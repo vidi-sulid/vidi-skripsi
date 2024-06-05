@@ -6,6 +6,7 @@ use App\Http\Controllers\Master\ProductAsetController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\System\PermissionController;
 use App\Http\Controllers\System\UserController;
+use App\Http\Controllers\Transaksi\AsetController;
 use App\Http\Controllers\Transaksi\JournalController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,6 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('permission', PermissionController::class);
     Route::resource('journal', JournalController::class);
     Route::resource('product-aset', ProductAsetController::class);
+    Route::resource('aset', AsetController::class);
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

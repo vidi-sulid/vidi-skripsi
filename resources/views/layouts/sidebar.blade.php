@@ -57,6 +57,13 @@
             <div class="text-truncate" data-i18n="Transaksi">Transaksi</div>
         </a>
         <ul class="menu-sub">
+            @can('aset_read')
+                <li class="menu-item" id="aset">
+                    <a href="{{ route('aset.index') }}" class="menu-link">
+                        <div class="text-truncate" data-i18n="Pembelian Aset">Pembelian Aset</div>
+                    </a>
+                </li>
+            @endcan
             @can('journal_create')
                 <li class="menu-item" id="pembukuan">
                     <a href="{{ route('journal.create') }}" class="menu-link">
