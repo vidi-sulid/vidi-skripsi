@@ -62,8 +62,9 @@ class AsetController extends Controller
         log_custom("Insert data master aset", $data);
         Aset::create($data);
 
+        $invoice = invoice("AS", true);
         $vaMutasi = array(
-            "invoice" => invoice("AS", true),
+            "invoice" => $invoice,
             "asset_id" => $data['code'],
             "date" => $data['purchase_date'],
             "username" => $data['username'],
@@ -72,6 +73,7 @@ class AsetController extends Controller
             "debit_book_value" => $data['price']
         );
         AsetMutation::create($vaMutasi);
+        UpdAset($invoice);
     }
 
     /**

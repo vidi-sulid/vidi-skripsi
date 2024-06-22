@@ -49,6 +49,20 @@
                     </a>
                 </li>
             @endcan
+            @can('productsaving_read')
+                <li class="menu-item" id="saving-master">
+                    <a href="{{ route('product-saving.index') }}" class="menu-link">
+                        <div class="text-truncate" data-i18n="Simpanan">Simpanan</div>
+                    </a>
+                </li>
+            @endcan
+            @can('productloan_read')
+                <li class="menu-item" id="loan-master">
+                    <a href="{{ route('product-loan.index') }}" class="menu-link">
+                        <div class="text-truncate" data-i18n="Pinjaman">Pinjaman</div>
+                    </a>
+                </li>
+            @endcan
         </ul>
     </li>
     <li class="menu-item" id="transaksi">
@@ -79,10 +93,17 @@
             <div class="text-truncate" data-i18n="Laporan">Laporan</div>
         </a>
         <ul class="menu-sub">
-            @can('purchasereport_read')
-                <li class="menu-item" id="purchase-report">
-                    <a href="" class="menu-link">
-                        <div class="text-truncate" data-i18n="Pembelian">Pembelian</div>
+            @can('aset_read')
+                <li class="menu-item" id="aset-report">
+                    <a href="{{ route('aset-report.index') }}" class="menu-link">
+                        <div class="text-truncate" data-i18n="Penyusustan Aset">Penyusutan Aset</div>
+                    </a>
+                </li>
+            @endcan
+            @can('journal_read')
+                <li class="menu-item" id="journal-report">
+                    <a href="{{ route('journal-report.index') }}" class="menu-link">
+                        <div class="text-truncate" data-i18n="Jurnal Umum">Jurnal Umum</div>
                     </a>
                 </li>
             @endcan

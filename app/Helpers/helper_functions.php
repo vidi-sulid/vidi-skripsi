@@ -2,7 +2,11 @@
 
 use App\Models\System\Invoice;
 use App\Models\System\Setting;
+use App\Models\Transaksi\AsetMutation;
+use App\Models\Transaksi\Journal;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 function menu()
@@ -11,6 +15,8 @@ function menu()
         "Coa" => array("Coa" => ["Write", "Read", "Update", "Delete"]),
         "Pembukuan" => array("Journal" => ["Write", "Read", "Update", "Delete"]),
         "Master Golongan Aset" => array("ProductAset" => ["Write", "Read", "Update", "Delete"]),
+        "Master Golongan Simpanan" => array("ProductSaving" => ["Write", "Read", "Update", "Delete"]),
+        "Master Golongan Pinjaman" => array("ProductLoan" => ["Write", "Read", "Update", "Delete"]),
         "Pembelian Aset" => array("Aset" => ["Write", "Read", "Update", "Delete"]),
 
     );
@@ -20,7 +26,7 @@ function menu()
 if (!function_exists('String2Number')) {
     function String2Number($cKey)
     {
-        return str_replace(",", "", $cKey);
+        return str_replace(".", "", $cKey);
     }
 }
 if (!function_exists('format_currency')) {
@@ -50,7 +56,7 @@ if (!function_exists('convertRupiahToNumber')) {
     function convertRupiahToNumber($rupiah)
     {
         // Hapus awalan 'Rp ' dan tanda pemisah ribuan
-        $number = str_replace(['Rp ', ','], '', $rupiah);
+        $number = str_replace(['Rp ', ',', '.'], '', $rupiah);
 
         // Ubah string menjadi angka (float)
         $number = (float) $number;
@@ -107,5 +113,54 @@ if (!function_exists('invoice')) {
         if ($lUpdate) Invoice::create(['invoice_number' => $invoiceNumber]);
 
         return $invoiceNumber;
+    }
+}
+
+function differenceDay($date_start, $date_end, $month = false)
+{
+    $date_start = Carbon::createFromFormat('Y-m-d', $date_start);
+    $date_end = Carbon::createFromFormat('Y-m-d', $date_end);
+
+    if ($month) {
+        return  $date_start->diffInMonths($date_end);
+    }
+    return  $date_start->diffInDays($date_end);
+}
+
+function getName($id, $table, $field = 'name', $where = '')
+{
+    $cResult = "";
+    $where = ($where == '') ? 'code' : $where;
+    $data = DB::select("select $field name from $table where $where ='$id'");
+    foreach ($data as $key => $value) {
+        $cResult = $value->name;
+    }
+    return $cResult;
+}
+
+
+function UpdAset($invoice)
+{
+    $vaMutasi = AsetMutation::with(['asets'])->where("invoice", $invoice)->get();
+    foreach ($vaMutasi as $key => $value) {
+        $mutation = [
+            "invoice"     => $value->invoice,
+            "date"        => $value->date,
+            "rekening"    => getName($value->asets->product_asset_id, "product_asets", "account_aset", "id"),
+            "description" => $value->description,
+            "debit"       => $value->debit_price,
+            "credit"      => $value->credit_price,
+            "created_by"  => $value->username
+        ];
+        Journal::create($mutation);
+        if ($mutation['debit'] > 0) {
+            $mutation['credit'] = $mutation['debit'];
+            unset($mutation['debit']);
+        } else {
+            $mutation['debit'] = $mutation['credit'];
+            unset($mutation['credit']);
+        }
+        $mutation['rekening'] = Auth::user()->rekening_kas;
+        Journal::create($mutation);
     }
 }

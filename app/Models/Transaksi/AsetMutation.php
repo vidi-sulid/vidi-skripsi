@@ -9,4 +9,9 @@ class AsetMutation extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+    public function asets()
+    {
+        return $this->belongsTo(Aset::class, 'asset_id', 'code');
+    }
 }

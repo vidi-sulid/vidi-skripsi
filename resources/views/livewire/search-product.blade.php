@@ -2,14 +2,45 @@
     <div class="card mb-0 border-0 shadow-sm">
         <div class="card-body">
             <div class="form-group mb-0">
+                <label for="jenis" class="form-label">Jenis</label>
+                <div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="jenis" id="pengeluaran" checked
+                            value="pengeluaran" wire:model="jenis">
+                        <label class="form-check-label" for="pengeluaran">Pengeluaran</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input " type="radio" name="jenis" id="pemasukan" value="pemasukan"
+                            wire:model="jenis">
+                        <label class="form-check-label" for="pemasukan">Pemasukan</label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group mb-0">
+                <label for="nominal" class="form-label">Nominal</label>
+                <input type="text" id="nominal" class="form-control numeral-mask" placeholder="Nominal..."
+                    wire:model="nominal" />
+                @error('nominal')
+                    <span class="text-danger mt-1">{{ $message }}</span>
+                @enderror
+            </div>
+            <div class="form-group mb-0 mt-3">
+                <label for="keterangan" class="form-label">Keterangan</label>
+                <input type="text" id="keterangan" class="form-control" placeholder="Keterangan..."
+                    wire:model="keterangan" />
+                @error('keterangan')
+                    <span class="text-danger mt-1">{{ $message }}</span>
+                @enderror
+            </div>
+
+            <div class="form-group mb-0">
+                <label for="searchInput" class="form-label">Rekening</label>
                 <div class="input-group input-group-merge">
                     <span class="input-group-text" id="basic-addon-search31"><i class="bx bx-search"></i></span>
                     <input type="text" class="form-control" placeholder="Search..." aria-label="Search..."
                         aria-describedby="basic-addon-search31" wire:keydown.escape="resetQuery"
                         wire:model.live.debounce.500ms="query" />
                 </div>
-
-
             </div>
         </div>
     </div>
@@ -60,3 +91,17 @@
         @endif
     @endif
 </div>
+
+@section('addon_js')
+    <script>
+        $('.numeral-masks').toArray().forEach(function(field) {
+            var cleave = new Cleave(field, {
+                numeral: true,
+                numeralThousandsGroupStyle: 'thousand',
+                prefix: 'Rp ',
+                noImmediatePrefix: true,
+                rawValueTrimPrefix: true
+            });
+        });
+    </script>
+@endsection
