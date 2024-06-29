@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\Master\CoaController;
+use App\Http\Controllers\Master\MemberController;
 use App\Http\Controllers\Master\ProductAsetController;
 use App\Http\Controllers\Master\ProductLoanController;
 use App\Http\Controllers\Master\ProductSavingController;
@@ -30,6 +31,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('product-aset', ProductAsetController::class);
     Route::resource('product-saving', ProductSavingController::class);
     Route::resource('product-loan', ProductLoanController::class);
+    Route::resource('member', MemberController::class);
     Route::resource('aset', AsetController::class);
     Route::get('aset-report', [ReportController::class, 'asetReport'])
         ->name('aset-report.index');

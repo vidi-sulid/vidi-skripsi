@@ -17,6 +17,7 @@ function menu()
         "Master Golongan Aset" => array("ProductAset" => ["Write", "Read", "Update", "Delete"]),
         "Master Golongan Simpanan" => array("ProductSaving" => ["Write", "Read", "Update", "Delete"]),
         "Master Golongan Pinjaman" => array("ProductLoan" => ["Write", "Read", "Update", "Delete"]),
+        "Master Anggota" => array("Member" => ["Write", "Read", "Update", "Delete"]),
         "Pembelian Aset" => array("Aset" => ["Write", "Read", "Update", "Delete"]),
 
     );

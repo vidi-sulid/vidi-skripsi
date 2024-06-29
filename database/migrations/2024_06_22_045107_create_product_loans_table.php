@@ -15,11 +15,10 @@ return new class extends Migration
             $table->id();
             $table->string('code')->unique();
             $table->string('name');
-            $table->string('account_saving');
+            $table->string('account_loan');
             $table->string('account_income_administration');
-            $table->string('account_cost');
-            $table->double('principal_deposit', 16, 2)->default('0.00');
-            $table->double('mandatory_deposit', 16, 2)->default('0.00');
+            $table->string('account_income_interest');
+            $table->string('account_dutystamp');
             $table->timestamps();
         });
     }

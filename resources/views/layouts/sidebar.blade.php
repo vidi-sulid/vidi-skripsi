@@ -6,6 +6,10 @@
             <div data-i18n="Dashboards">Dashboards</div>
         </a>
     </li>
+    <!-- Anggota -->
+    <li class="menu-header small text-uppercase">
+        <span class="menu-header-text" data-i18n="User Role & Permission">User Role & Permission</span>
+    </li>
     <li class="menu-item" id="role-permission">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
             <i class='menu-icon tf-icons bx bx-check-shield'></i>
@@ -29,6 +33,27 @@
 
         </ul>
     </li>
+    <!-- Anggota -->
+    <li class="menu-header small text-uppercase">
+        <span class="menu-header-text" data-i18n="Anggota">Anggota</span>
+    </li>
+
+    @can('create_anggota')
+        <li class="menu-item {{ request()->routeIs('member.create') ? 'active' : '' }}">
+            <a href="{{ route('member.create') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-user-plus"></i>
+                <div class="text-truncate" data-i18n="Tambah Anggota">Tambah Anggota</div>
+            </a>
+        </li>
+    @endcan
+    @can('access_anggota')
+        <li class="menu-item {{ request()->routeIs('member.index') ? 'active' : '' }}">
+            <a href="{{ route('member.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-group"></i>
+                <div class="text-truncate" data-i18n="Daftar Anggota">Daftar Anggota</div>
+            </a>
+        </li>
+    @endcan
     <li class="menu-item" id="master">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
             <i class='menu-icon tf-icons bx bx-cube'></i>
@@ -65,6 +90,7 @@
             @endcan
         </ul>
     </li>
+
     <li class="menu-item" id="transaksi">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
             <i class='menu-icon tf-icons bx bx-cube'></i>
