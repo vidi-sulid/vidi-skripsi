@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Models\Master;
+namespace App\Models\System;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Member extends Model
+class Config extends Model
 {
     use HasFactory;
-
-    protected $guarded = [];
 }

@@ -30,4 +30,25 @@ class ReportController extends Controller
         ";
         return view('report.journal', $data);
     }
+
+    public function memberReport()
+    {
+        abort_if(Gate::denies('member_read'), 403);
+        $data = Template::get();
+        $data['jsTambahan'] = "
+        $('#member-report').addClass('active');
+        ";
+        return view('report.member', $data);
+    }
+    public function balancesheetReport()
+    {
+        abort_if(Gate::denies('neraca_read'), 403);
+        $data = Template::get();
+        $data['jsTambahan'] = "
+        $('#balancesheet-report').addClass('active');
+        
+        $('#report').addClass('open active');
+        ";
+        return view('report.balancesheet', $data);
+    }
 }

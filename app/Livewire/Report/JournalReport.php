@@ -30,9 +30,10 @@ class JournalReport extends Component
 
     public function render()
     {
-        $journal = Journal::whereBetween('date', [$this->date_start, $this->date_end])
+        $journal = Journal::with(['coa'])->whereBetween('date', [$this->date_start, $this->date_end])
 
             ->orderBy('id', 'desc')->paginate(100);
+
 
         return view('livewire.report.journal-report', [
             'journal' => $journal

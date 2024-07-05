@@ -33,12 +33,20 @@
 
         </ul>
     </li>
+    @can('member_write')
+        <li class="menu-item ">
+            <a href="{{ route('log-viewer.index') }}" class="menu-link" target="_blank">
+                <i class="menu-icon tf-icons bx bx-history"></i>
+                <div class="text-truncate" data-i18n="Log User">Log User</div>
+            </a>
+        </li>
+    @endcan
     <!-- Anggota -->
     <li class="menu-header small text-uppercase">
         <span class="menu-header-text" data-i18n="Anggota">Anggota</span>
     </li>
 
-    @can('create_anggota')
+    @can('member_write')
         <li class="menu-item {{ request()->routeIs('member.create') ? 'active' : '' }}">
             <a href="{{ route('member.create') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-user-plus"></i>
@@ -46,9 +54,9 @@
             </a>
         </li>
     @endcan
-    @can('access_anggota')
-        <li class="menu-item {{ request()->routeIs('member.index') ? 'active' : '' }}">
-            <a href="{{ route('member.index') }}" class="menu-link">
+    @can('member_read')
+        <li class="menu-item {{ request()->routeIs('member-report.index') ? 'active' : '' }}">
+            <a href="{{ route('member-report.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-group"></i>
                 <div class="text-truncate" data-i18n="Daftar Anggota">Daftar Anggota</div>
             </a>
@@ -133,6 +141,14 @@
                     </a>
                 </li>
             @endcan
+            @can('balancesheet_read')
+                <li class="menu-item" id="balancesheet-report">
+                    <a href="{{ route('balancesheet-report.index') }}" class="menu-link">
+                        <div class="text-truncate" data-i18n="Neraca">Neraca</div>
+                    </a>
+                </li>
+            @endcan
+
         </ul>
     </li>
 </ul>

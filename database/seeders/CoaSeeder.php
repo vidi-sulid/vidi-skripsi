@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Master\Coa;
+use App\Models\Master\ProductSaving;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -29,11 +30,26 @@ class CoaSeeder extends Seeder
             ["code" => '1.150.10', "name" => "Aset Inventaris Perlengkapan Kantor", "type" => 0],
             ["code" => '1.151', "name" => "Akumulasi Penyusutan Aset Inventaris", "type" => 1],
             ["code" => '1.151.10', "name" => "Akumulasi Penyusutan Aset Inventaris", "type" => 0],
+            ['kode' => "3.100", 'name' => 'Simpanan Anggota', "type" => 1],
+            ['kode' => "3.100.10", 'name' => 'Simpanan Pokok', "type" => 0],
+            ['kode' => "3.100.20", 'name' => 'Simpanan Wajib', "type" => 0],
             ["code" => '4.500', "name" => "Pendapatan Lainnya ", "type" => 1],
             ["code" => '4.500.10', "name" => "Pendapatan Lainnya", "type" => 0],
             ["code" => '5.500', "name" => "Beban Administrasi Umum ", "type" => 1],
             ["code" => '5.500.10', "name" => "Beban Penyususutan", "type" => 0],
         ];
-        Coa::insert($data);;
+        Coa::insert($data);
+
+        $vaProduct = [
+            [
+                "code" => 'SP_01', "name" => "Simpanan Pokok", "account_saving" => "3.100.10", "account_income_administration" => "4.500.10", "account_cost" => "5.500.10",
+                "principal_deposit" => 10000, "mandatory_deposit" => 5000, "type" => "P"
+            ],
+            [
+                "code" => 'SP_02', "name" => "Simpanan Wajib", "account_saving" => "3.100.10", "account_income_administration" => "4.500.10", "account_cost" => "5.500.10",
+                "principal_deposit" => 10000, "mandatory_deposit" => 5000, "type" => "W"
+            ]
+        ];
+        ProductSaving::insert($vaProduct);
     }
 }

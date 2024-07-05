@@ -1,9 +1,12 @@
 <?php
 
+use App\Models\Master\Member;
+use App\Models\System\Config;
 use App\Models\System\Invoice;
 use App\Models\System\Setting;
 use App\Models\Transaksi\AsetMutation;
 use App\Models\Transaksi\Journal;
+use App\Models\Transaksi\SavingMutation;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -164,4 +167,156 @@ function UpdAset($invoice)
         $mutation['rekening'] = Auth::user()->rekening_kas;
         Journal::create($mutation);
     }
+}
+
+function getWorks()
+{
+    $Works = [
+        '001' => 'Belum/Tidak Bekerja',
+        '002' => 'Mengurus Rumah Tangga',
+        '003' => 'Pelajar/Mahasiswa',
+        '004' => 'Pensiunan',
+        '005' => 'Tukang Cukur',
+        '006' => 'Tukang Listrik',
+        '007' => 'Tukang Batu',
+        '008' => 'Tukang Kayu',
+        '009' => 'Tukang Sol Sepatu',
+        '010' => 'Tukang Las/Pandai Besi',
+        '011' => 'Tukang Jahit',
+        '012' => 'Tukang Gigi',
+        '013' => 'Penata Rias',
+        '014' => 'Penata Busana',
+        '015' => 'Penata Rambut',
+        '016' => 'Mekanik',
+        '017' => 'Seniman',
+        '018' => 'Tabib',
+        '019' => 'Paraji',
+        '020' => 'Perancang Busana',
+        '021' => 'Penterjemah',
+        '022' => 'Imam Masjid',
+        '023' => 'Pendeta',
+        '024' => 'Pastor',
+        '025' => 'Wartawan',
+        '026' => 'Ustadz/Mubaligh',
+        '027' => 'Juru Masak',
+        '028' => 'Pelayan Negeri Sipil',
+        '029' => 'Tentara Nasional Indonesia',
+        '030' => 'Kepolisian RI',
+        '031' => 'Perdagangan',
+        '032' => 'Petani/Pekebun',
+        '033' => 'Peternak',
+        '034' => 'Nelayan/Perikanan',
+        '035' => 'Industri',
+        '036' => 'Konstruksi',
+        '037' => 'Transportasi',
+        '038' => 'Karyawan Swasta',
+        '039' => 'Karyawan BUMN',
+        '040' => 'Karyawan BUMD',
+        '041' => 'Karyawan Honorer',
+        '042' => 'Buruh Harian Lepas',
+        '043' => 'Buruh Tani/Perkebunan',
+        '044' => 'Buruh Nelayan/Perikanan',
+        '045' => 'Buruh Peternakan',
+        '046' => 'Pembantu Rumah Tangga',
+        '047' => 'Presiden',
+        '048' => 'Wakil Presiden',
+        '049' => 'Anggota DPR-RI',
+        '050' => 'Anggota DPD',
+        '051' => 'Anggota BPK',
+        '052' => 'Anggota Mahkamah Konstitusi',
+        '053' => 'Anggota Kabinet/Kementerian',
+        '054' => 'Duta Besar',
+        '055' => 'Gubernur',
+        '056' => 'Wakil Gubernur',
+        '057' => 'Bupati',
+        '058' => 'Wakil Bupati',
+        '059' => 'Walikota',
+        '060' => 'Wakil Walikota',
+        '061' => 'Anggota DPRD Provinsi',
+        '062' => 'Anggota DPRD Kabupaten/Kota',
+        '063' => 'Dosen',
+        '064' => 'Guru',
+        '065' => 'Pilot',
+        '066' => 'Pengacara',
+        '067' => 'Notaris',
+        '068' => 'Arsitek',
+        '069' => 'Akuntan',
+        '070' => 'Konsultan',
+        '071' => 'Dokter',
+        '072' => 'Bidan',
+        '073' => 'Perawat',
+        '074' => 'Apoteker',
+        '075' => 'Psikiater/Psikolog',
+        '076' => 'Penyiar Televisi',
+        '077' => 'Penyiar Radio',
+        '078' => 'Pelaut',
+        '079' => 'Peneliti',
+        '080' => 'Sopir',
+        '081' => 'Pialang',
+        '082' => 'Paranormal',
+        '083' => 'Pedagang',
+        '084' => 'Perangkat Desa',
+        '085' => 'Kepala Desa',
+        '086' => 'Biarawati',
+        '087' => 'Wiraswasta',
+    ];
+    return $Works;
+}
+function getConfig($code, $default = '')
+{
+    $data = Config::where('code', $code)->first();
+    $value = $data ? $data->value : $default;
+    return $value;
+}
+
+function getLastMemberCode()
+{
+    $lastCode = Member::latest('code')->first();
+    $lastCode = $lastCode ? intval($lastCode->code) : 0;
+    $Code = sprintf("%07d", $lastCode + 1);
+    return $Code;
+}
+
+function UpdateJournalSaving($invoice)
+{
+    $mutations   = SavingMutation::where("invoice", $invoice)->get();
+    $CashAccount = Auth::user()->rekening_kas;
+    foreach ($mutations as $value) {
+        $mutation = [
+            "invoice"     => $value->invoice,
+            "date"        => $value->date,
+            "rekening"    => getName($value->savings->product_saving_id, "product_savings", "account_saving"),
+            "description" => $value->description,
+            "debit"       => $value->debit,
+            "credit"      => $value->credit,
+            "created_by"  => $value->username
+        ];
+        Journal::create($mutation);
+
+        if ($value->cash == "K") {
+            $mutation['rekening'] = $CashAccount;
+            if ($value->debit > 0) {
+                $mutation['credit'] = $mutation['debit'];
+                unset($mutation['debit']);
+                Journal::create($mutation);
+            } else {
+                $mutation['debit'] = $mutation['credit'];
+                unset($mutation['credit']);
+                Journal::create($mutation);
+            }
+        }
+    }
+}
+function getTgl($user_id = '')
+{
+    return date("Y-m-d");
+    $user_id = ($user_id == "") ? Auth::user()->id : $user_id;
+    $dTgl = date("Y-m-d");
+    $dateNow = Date("Y-m-d H:i:s");
+    $data = getDataTable("date", "user_dates", "", "user_id = '$user_id' and date_end > '$dateNow' ", "", "id desc", "1");
+    $arr = (array)$data;
+    if ($arr) {
+        $dTgl = $data[0]->date;
+    }
+    return $dTgl;
 }

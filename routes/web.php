@@ -33,11 +33,20 @@ Route::middleware('auth')->group(function () {
     Route::resource('product-loan', ProductLoanController::class);
     Route::resource('member', MemberController::class);
     Route::resource('aset', AsetController::class);
+
     Route::get('aset-report', [ReportController::class, 'asetReport'])
         ->name('aset-report.index');
-
     Route::get('journal-report', [ReportController::class, 'journalReport'])
         ->name('journal-report.index');
+
+    Route::get('member-report', [ReportController::class, 'memberReport'])
+        ->name('member-report.index');
+
+
+    Route::get('balancesheet-report', [ReportController::class, 'balancesheetReport'])
+        ->name('balancesheet-report.index');
+
+
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');

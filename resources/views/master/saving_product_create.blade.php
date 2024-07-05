@@ -60,12 +60,27 @@
                     </select>
                 </div>
                 <div class="col-6">
+                    <label class="form-check-label">Jenis</label>
+                    <div class="col mt-2">
+                        <div class="form-check form-check-inline">
+                            <input name="type" class="form-check-input" type="radio" value="W"
+                                id="induk" />
+                            <label class="form-check-label" for="Wajib">Wajib</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input name="type" class="form-check-input" type="radio" value="P" id="detail"
+                                checked="" />
+                            <label class="form-check-label" for="Pokok"> Pokok</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
                     <label for="principal_deposit" class="form-label">Setoran Pokok</label>
                     <input type="text" id="principal_deposit" name="principal_deposit"
                         class="form-control numeral-mask" value="0" />
                 </div>
-            </div>
-            <div class="row">
                 <div class="col-6">
                     <label for="mandatory_deposit" class="form-label">Setoran Wajib</label>
                     <input type="text" id="mandatory_deposit" name="mandatory_deposit"

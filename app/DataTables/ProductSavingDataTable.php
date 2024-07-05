@@ -27,7 +27,7 @@ class   ProductSavingDataTable extends DataTable
                 return view('master.saving_product_action', compact('data'));
             })
             ->addColumn('type', function ($data) {
-                $data->type = $data->type ? "Induk" : "Detail";
+                // $data->type = $data->type == "W" ? "Wajib" : "Detail";
                 return $data->type;
             })
             ->addColumn('principal_deposit', function ($data) {
@@ -83,6 +83,7 @@ class   ProductSavingDataTable extends DataTable
             Column::make('account_saving')->title("Rekening Simpanan"),
             Column::make('account_income_administration')->title("Rekening Pendapatan Administrasi"),
             Column::make('account_cost')->title("Rekening Biaya"),
+            Column::make('type')->title("Jenis Simpanan"),
             Column::make('principal_deposit')->title("Simpanan Pokok"),
             Column::make('mandatory_deposit')->title("Simpanan Wajib"),
 

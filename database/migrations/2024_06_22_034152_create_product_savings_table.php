@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('account_cost');
             $table->double('principal_deposit', 16, 2)->default('0.00');
             $table->double('mandatory_deposit', 16, 2)->default('0.00');
+            $table->string('type', 1);
             $table->timestamps();
         });
     }
