@@ -2,7 +2,10 @@
 
 namespace App\DataTables;
 
-use App\Models\User;
+use App\Models\Master\ProductAset;
+use App\Models\Master\ProductLoan;
+use App\Models\Master\ProductSaving;
+use App\Models\Transaksi\Loan;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -12,7 +15,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class UserDataTable extends DataTable
+class   LoanDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -23,11 +26,20 @@ class UserDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($data) {
-                return view('user.user_action', compact('data'));
+                return view('transaksi.loan_action', compact('data'));
             })
-            ->addColumn('name', function ($data) {
-                return " <span class='badge  bg-label-primary m-1'> $data->name </span>";
+            ->addColumn('member_code', function ($data) {
+                return $data->member_code;
+                return $data->member->name;
             })
+            ->addColumn('loan_amount', function ($data) {
+                return format_currency($data->loan_amount);
+            })
+
+            ->addColumn('date_open', function ($data) {
+                return tanggalIndonesia($data->date_open);
+            })
+
             ->rawColumns(["name", "action"])
             ->setRowId('id');
     }
@@ -35,9 +47,9 @@ class UserDataTable extends DataTable
     /**
      * Get the query source of dataTable.
      */
-    public function query(User $model): QueryBuilder
+    public function query(Loan $model): QueryBuilder
     {
-        return $model->newQuery()->where("name", "!=", "Administrator");
+        return $model->newQuery()->with(['member']);
     }
 
     /**
@@ -50,7 +62,7 @@ class UserDataTable extends DataTable
             ->columns($this->getColumns())
             ->minifiedAjax()
             //->dom('Bfrtip')
-            ->orderBy(1)
+            ->orderBy([1, 'asc'])
             ->parameters([
                 'responsive' => true,
 
@@ -70,12 +82,11 @@ class UserDataTable extends DataTable
                 ->printable(false)
                 ->addClass('text-center')
                 ->addClass('align-middle'),
-            Column::make('id')
-                ->addClass('text-center')
-                ->addClass('align-middle'),
-
-            Column::make('name'),
-            Column::make('email'),
+            Column::make('rekening')->title("rekening"),
+            Column::make('date_open')->title("Tanggal"),
+            Column::make('member_code')->title("Nama"),
+            Column::make('loan_amount')->title("Plafond"),
+            Column::make('loan_term')->title("Lama"),
 
         ];
     }

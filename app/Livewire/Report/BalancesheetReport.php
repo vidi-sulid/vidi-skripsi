@@ -97,7 +97,6 @@ class BalancesheetReport extends Component
                 }
             }
         }
-
         ksort($vaNeraca);
         foreach ($vaNeraca as $key => $value) {
             $nominal = $value['saldoawal'] + $value['debit'] + $value['credit'];

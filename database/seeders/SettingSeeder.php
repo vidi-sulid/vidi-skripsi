@@ -14,24 +14,15 @@ class SettingSeeder extends Seeder
     public function run(): void
     {
         Setting::create([
-            'company_name' => 'Triangle POS',
+            'company_name' => 'Koperasi',
             'company_email' => 'company@test.com',
-            'company_phone' => '012345678901',
+            'company_phone' => '23849238423/234234234',
+            'site_logo' => 'storate/logo.png',
             'notification_email' => 'notification@test.com',
             'default_currency_id' => 1,
             'default_currency_position' => 'prefix',
             'footer_text' => 'Triangle Pos © 2021 || Developed by <strong><a target="_blank" href="https://fahimanzam.me">Fahim Anzam</a></strong>',
-            'company_address' => 'Tangail, Bangladesh'
+            'company_address' => 'Cemorokandang, Kec. Kedungkandang, Kota Malang, Jawa Timur'
         ]);
-        // Setting::create([
-        //     'company_name' => 'Pandawa Green Park',
-        //     'company_email' => 'pandawa@test.com',
-        //     'company_phone' => '012345678901',
-        //     'notification_email' => 'notification@test.com',
-        //     'default_currency_id' => 1,
-        //     'default_currency_position' => 'prefix',
-        //     'footer_text' => 'Pandawa © 2021 || Developed by <strong><a target="_blank" href="https://fahimanzam.me">Fahim Anzam</a></strong>',
-        //     'company_address' => 'Cemorokandang, Kec. Kedungkandang, Kota Malang, Jawa Timur'
-        // ]);
     }
 }

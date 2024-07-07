@@ -6,6 +6,8 @@ use App\Models\System\Invoice;
 use App\Models\System\Setting;
 use App\Models\Transaksi\AsetMutation;
 use App\Models\Transaksi\Journal;
+use App\Models\Transaksi\Loan;
+use App\Models\Transaksi\LoanMutation;
 use App\Models\Transaksi\SavingMutation;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -22,6 +24,12 @@ function menu()
         "Master Golongan Pinjaman" => array("ProductLoan" => ["Write", "Read", "Update", "Delete"]),
         "Master Anggota" => array("Member" => ["Write", "Read", "Update", "Delete"]),
         "Pembelian Aset" => array("Aset" => ["Write", "Read", "Update", "Delete"]),
+        "Rubah Tanggal User" => array("UserDate" => ["Write", "Read", "Update", "Delete"]),
+        "Laporan Pinjaman" => array("LoanReport" => ["Read"]),
+        "Kasir" => array("cashier" => ["Write"]),
+
+
+        "Pinjaman" => array("Loan" => ["Write", "Read", "Update", "Delete"]),
 
     );
     return $data;
@@ -143,32 +151,6 @@ function getName($id, $table, $field = 'name', $where = '')
 }
 
 
-function UpdAset($invoice)
-{
-    $vaMutasi = AsetMutation::with(['asets'])->where("invoice", $invoice)->get();
-    foreach ($vaMutasi as $key => $value) {
-        $mutation = [
-            "invoice"     => $value->invoice,
-            "date"        => $value->date,
-            "rekening"    => getName($value->asets->product_asset_id, "product_asets", "account_aset", "id"),
-            "description" => $value->description,
-            "debit"       => $value->debit_price,
-            "credit"      => $value->credit_price,
-            "created_by"  => $value->username
-        ];
-        Journal::create($mutation);
-        if ($mutation['debit'] > 0) {
-            $mutation['credit'] = $mutation['debit'];
-            unset($mutation['debit']);
-        } else {
-            $mutation['debit'] = $mutation['credit'];
-            unset($mutation['credit']);
-        }
-        $mutation['rekening'] = Auth::user()->rekening_kas;
-        Journal::create($mutation);
-    }
-}
-
 function getWorks()
 {
     $Works = [
@@ -277,36 +259,18 @@ function getLastMemberCode()
     return $Code;
 }
 
-function UpdateJournalSaving($invoice)
+function getRekeningLoan($code, $product)
 {
-    $mutations   = SavingMutation::where("invoice", $invoice)->get();
-    $CashAccount = Auth::user()->rekening_kas;
-    foreach ($mutations as $value) {
-        $mutation = [
-            "invoice"     => $value->invoice,
-            "date"        => $value->date,
-            "rekening"    => getName($value->savings->product_saving_id, "product_savings", "account_saving"),
-            "description" => $value->description,
-            "debit"       => $value->debit,
-            "credit"      => $value->credit,
-            "created_by"  => $value->username
-        ];
-        Journal::create($mutation);
-
-        if ($value->cash == "K") {
-            $mutation['rekening'] = $CashAccount;
-            if ($value->debit > 0) {
-                $mutation['credit'] = $mutation['debit'];
-                unset($mutation['debit']);
-                Journal::create($mutation);
-            } else {
-                $mutation['debit'] = $mutation['credit'];
-                unset($mutation['credit']);
-                Journal::create($mutation);
-            }
-        }
+    $frekuensi = "001";
+    $max_id = Loan::where("member_code", $code)->where("product_loan_id", $product)->max('rekening');
+    if ($max_id) {
+        $frekuensi = str_pad(substr($max_id, -3) + 1, "3", "0", STR_PAD_LEFT);
     }
+    $rekening = implode('.', ['01', $product, $code, $frekuensi]);
+    return $rekening;
 }
+
+
 function getTgl($user_id = '')
 {
     return date("Y-m-d");
@@ -319,4 +283,42 @@ function getTgl($user_id = '')
         $dTgl = $data[0]->date;
     }
     return $dTgl;
+}
+
+function getDataTable($field, $table, $join = '', $where = '', $group = '', $order = '', $limit = '')
+{
+    $where = $where != '' ? "where " . $where : $where;
+    $group = $group != '' ? "group by " . $group : $group;
+    $order = $order != '' ? "order by " . $order : $order;
+    $limit = $limit != '' ? "limit  " . $limit : $limit;
+    $data = DB::select("select $field from $table $join $where $group $order $limit");
+    return $data;
+}
+function tanggalIndonesia($tgl)
+{
+    return Carbon::parse($tgl)->format('d M, Y');
+}
+
+function nextMonth($dateStart, $interval_bulan)
+{
+    // Tanggal awal
+    $dateStart = Carbon::parse($dateStart);
+    $dateEnd = $dateStart->copy()->addMonthsNoOverflow($interval_bulan);
+
+    // Format tanggal ke dalam format yang diinginkan
+    $dateEnd = $dateEnd->toDateString();
+    return $dateEnd;
+}
+
+function getKe($date_start, $n, $date)
+{
+
+    $ke = 0;
+    for ($start = 1; $start <= $n; $start++) {
+        $jthtmp = nextMonth($date_start, $start, true);
+        if (strtotime($jthtmp) <= strtotime($date)) {
+            $ke++;
+        }
+    }
+    return $ke;
 }

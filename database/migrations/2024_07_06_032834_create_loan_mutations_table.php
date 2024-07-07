@@ -11,18 +11,21 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('journals', function (Blueprint $table) {
+        Schema::create('loan_mutations', function (Blueprint $table) {
             $table->id();
             $table->date('date');
             $table->string("invoice", 25);
-            $table->string("type", 2)->nullable();
-            $table->string('rekening', 20)->nullable();
+            $table->string('rekening');
+            $table->string('status')->default(1);
+            //$table->foreign('interbank_code')->references('code')->on('interbanks');
             $table->string('description');
             $table->double('debit', 16, 2)->default('0.00');
             $table->double('credit', 16, 2)->default('0.00');
+            $table->double('debit_interest', 16, 2)->default('0.00');
+            $table->double('credit_interest', 16, 2)->default('0.00');
             $table->string('cash')->default("K");
-            $table->timestamps();
             $table->string('username', 50)->default('');
+            $table->timestamps();
         });
     }
 
@@ -31,6 +34,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('journals');
+        Schema::dropIfExists('loan_mutations');
     }
 };

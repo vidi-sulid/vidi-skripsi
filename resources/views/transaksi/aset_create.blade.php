@@ -26,7 +26,7 @@
                 <div class="col">
                     <label for="purchase_date" class="form-label">Tgl Pembelian</label>
                     <input type="date" id="purchase_date" name="purchase_date" class="form-control" readonly disabled
-                        value="{{ date('Y-m-d') }}" />
+                        value="{{ getTgl() }}" />
                 </div>
                 <div class="col-6">
                     <label for="name" class="form-label">Nama</label>

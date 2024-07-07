@@ -11,13 +11,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('savings', function (Blueprint $table) {
+        Schema::create('loans', function (Blueprint $table) {
             $table->id();
+
+            $table->string("invoice", 25);
             $table->string('rekening')->unique();
             $table->date('date_open')->default(date("Y-m-d"));
             $table->date('date_close')->default("9999-12-31");
-            $table->string("member_code");
-            $table->string('product_saving_id');
+            $table->double('loan_amount', 16, 2);
+            $table->double('loan_term', 16, 2);
+            $table->double('interest_rate', 16, 2);
+            $table->double('administration_fee', 16, 2);
+            $table->double('provision_fee', 16, 2);
+            $table->double('stamp_duty', 16, 2);
+
+            $table->string('member_code');
+            $table->string('product_loan_id');
             $table->string('username');
 
             $table->timestamps();
@@ -29,6 +38,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('savings');
+        Schema::dropIfExists('loans');
     }
 };

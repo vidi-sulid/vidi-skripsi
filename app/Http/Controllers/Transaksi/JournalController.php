@@ -62,7 +62,7 @@ class JournalController extends Controller
                 "description" => $value['keterangan'],
                 "debit"       => $debit,
                 "credit"      => $kredit,
-                "created_by"  => Auth::user()->name
+                "username"  => Auth::user()->name
             ];
             Journal::create($mutation);
             if ($mutation['debit'] > 0) {

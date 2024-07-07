@@ -2,7 +2,8 @@
 
 namespace App\DataTables;
 
-use App\Models\User;
+use App\Models\System\UserDate;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -12,7 +13,7 @@ use Yajra\DataTables\Html\Editor\Editor;
 use Yajra\DataTables\Html\Editor\Fields;
 use Yajra\DataTables\Services\DataTable;
 
-class UserDataTable extends DataTable
+class UserDateDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -22,22 +23,28 @@ class UserDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', function ($data) {
-                return view('user.user_action', compact('data'));
+            ->addColumn('date_end', function ($data) {
+                $carbonDate = Carbon::parse($data->date_end);
+                $formattedDate = $carbonDate->format('Y-m-d H:i:s');
+                return $formattedDate;
             })
-            ->addColumn('name', function ($data) {
-                return " <span class='badge  bg-label-primary m-1'> $data->name </span>";
+            ->addColumn('date_start', function ($data) {
+                $carbonDate = Carbon::parse($data->date_start);
+                $formattedDate = $carbonDate->format('Y-m-d H:i:s');
+                return $formattedDate;
             })
-            ->rawColumns(["name", "action"])
+            ->addColumn('user_id', function ($data) {
+                return $data->user->name;
+            })
             ->setRowId('id');
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(User $model): QueryBuilder
+    public function query(UserDate $model): QueryBuilder
     {
-        return $model->newQuery()->where("name", "!=", "Administrator");
+        return $model->newQuery()->with(['user']);
     }
 
     /**
@@ -50,7 +57,7 @@ class UserDataTable extends DataTable
             ->columns($this->getColumns())
             ->minifiedAjax()
             //->dom('Bfrtip')
-            ->orderBy(1)
+            ->orderBy([1, 'asc'])
             ->parameters([
                 'responsive' => true,
 
@@ -65,18 +72,13 @@ class UserDataTable extends DataTable
     {
         return [
 
-            Column::computed('action')
-                ->exportable(false)
-                ->printable(false)
-                ->addClass('text-center')
-                ->addClass('align-middle'),
-            Column::make('id')
-                ->addClass('text-center')
-                ->addClass('align-middle'),
+            Column::make('id'),
 
-            Column::make('name'),
-            Column::make('email'),
-
+            Column::make('user_id')->title("Username"),
+            Column::make('date')->title("Tanggal"),
+            Column::make('description')->title("Keterangan"),
+            Column::make('date_start')->title("Waktu Mulai"),
+            Column::make('date_end')->title("Waktu Habis"),
         ];
     }
 
@@ -85,6 +87,6 @@ class UserDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'User_' . date('YmdHis');
+        return 'UserDate_' . date('YmdHis');
     }
 }

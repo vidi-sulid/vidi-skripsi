@@ -6,6 +6,14 @@
             <div data-i18n="Dashboards">Dashboards</div>
         </a>
     </li>
+    @can('cashier_write')
+        <li class="menu-item" id="cashier">
+            <a href="{{ route('cashier.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-money"></i>
+                <div class="text-truncate" data-i18n="Kasir">Kasir</div>
+            </a>
+        </li>
+    @endcan
     <!-- Anggota -->
     <li class="menu-header small text-uppercase">
         <span class="menu-header-text" data-i18n="User Role & Permission">User Role & Permission</span>
@@ -41,6 +49,14 @@
             </a>
         </li>
     @endcan
+    @can('userdate_read')
+        <li class="menu-item ">
+            <a href="{{ route('user-date.index') }}" class="menu-link" target="_blank">
+                <i class="menu-icon tf-icons bx bx-calendar"></i>
+                <div class="text-truncate" data-i18n="User Tanggal">User Tanggal</div>
+            </a>
+        </li>
+    @endcan
     <!-- Anggota -->
     <li class="menu-header small text-uppercase">
         <span class="menu-header-text" data-i18n="Anggota">Anggota</span>
@@ -62,78 +78,81 @@
             </a>
         </li>
     @endcan
+    @can('loan_write')
+        <li class="menu-item" id="loan">
+            <a href="{{ route('loan.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-credit-card"></i>
+                <div class="text-truncate" data-i18n="Pinjaman">Pinjaman</div>
+            </a>
+        </li>
+    @endcan
+    <li class="menu-item" id="loan-report">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class='menu-icon tf-icons bx bx-book'></i>
+            <div class="text-truncate" data-i18n="Laporan">Laporan</div>
+        </a>
+        <ul class="menu-sub">
+            @can('loanreport_read')
+                <li class="menu-item" id="loan-report-bil">
+                    <a href="{{ route('loan-report.index') }}" class="menu-link">
+                        <div class="text-truncate" data-i18n="Laporan Pinjaman">Laporan Pinjaman</div>
+                    </a>
+                </li>
+            @endcan
+        </ul>
+    </li>
     <li class="menu-item" id="master">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class='menu-icon tf-icons bx bx-cube'></i>
+            <i class='menu-icon tf-icons bx bx-folder'></i>
             <div class="text-truncate" data-i18n="Master">Master</div>
         </a>
         <ul class="menu-sub">
-            @can('coa_read')
-                <li class="menu-item" id="coa">
-                    <a href="{{ route('coa.index') }}" class="menu-link">
-                        <div class="text-truncate" data-i18n="COA">COA</div>
-                    </a>
-                </li>
-            @endcan
-            @can('productaset_read')
-                <li class="menu-item" id="aset-master">
-                    <a href="{{ route('product-aset.index') }}" class="menu-link">
-                        <div class="text-truncate" data-i18n="Aset">Aset</div>
-                    </a>
-                </li>
-            @endcan
             @can('productsaving_read')
-                <li class="menu-item" id="saving-master">
+                <li class="menu-item" id="coa">
                     <a href="{{ route('product-saving.index') }}" class="menu-link">
-                        <div class="text-truncate" data-i18n="Simpanan">Simpanan</div>
+                        <div class="text-truncate" data-i18n="Golongan Simpanan">Golongan Simpanan</div>
                     </a>
                 </li>
             @endcan
             @can('productloan_read')
-                <li class="menu-item" id="loan-master">
+                <li class="menu-item" id="coa">
                     <a href="{{ route('product-loan.index') }}" class="menu-link">
-                        <div class="text-truncate" data-i18n="Pinjaman">Pinjaman</div>
+                        <div class="text-truncate" data-i18n="Golongan Pinjaman">Golongan Pinjaman</div>
                     </a>
                 </li>
             @endcan
         </ul>
     </li>
 
-    <li class="menu-item" id="transaksi">
-        <a href="javascript:void(0);" class="menu-link menu-toggle">
-            <i class='menu-icon tf-icons bx bx-cube'></i>
-            <div class="text-truncate" data-i18n="Transaksi">Transaksi</div>
-        </a>
-        <ul class="menu-sub">
-            @can('aset_read')
-                <li class="menu-item" id="aset">
-                    <a href="{{ route('aset.index') }}" class="menu-link">
-                        <div class="text-truncate" data-i18n="Pembelian Aset">Pembelian Aset</div>
-                    </a>
-                </li>
-            @endcan
-            @can('journal_create')
-                <li class="menu-item" id="pembukuan">
-                    <a href="{{ route('journal.create') }}" class="menu-link">
-                        <div class="text-truncate" data-i18n="Pembukuan">Pembukuan</div>
-                    </a>
-                </li>
-            @endcan
-        </ul>
+    <!-- Akuntansi -->
+    <li class="menu-header small text-uppercase">
+        <span class="menu-header-text" data-i18n="Akuntansi">Akuntansi</span>
     </li>
-    <li class="menu-item" id="report">
+
+    @can('coa_read')
+        <li class="menu-item">
+            <a href="{{ route('coa.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-folder"></i>
+                <div class="text-truncate" data-i18n="Bagan Akun">Bagan Akun</div>
+            </a>
+        </li>
+    @endcan
+
+    @can('journal_write')
+        <li class="menu-item">
+            <a href="{{ route('journal.create') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-money"></i>
+                <div class="text-truncate" data-i18n="Transaksi Kas">Transaksi Kas</div>
+            </a>
+        </li>
+    @endcan
+    <li class="menu-item" id="akuntansi-report">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
             <i class='menu-icon tf-icons bx bx-book-bookmark'></i>
             <div class="text-truncate" data-i18n="Laporan">Laporan</div>
         </a>
         <ul class="menu-sub">
-            @can('aset_read')
-                <li class="menu-item" id="aset-report">
-                    <a href="{{ route('aset-report.index') }}" class="menu-link">
-                        <div class="text-truncate" data-i18n="Penyusustan Aset">Penyusutan Aset</div>
-                    </a>
-                </li>
-            @endcan
+
             @can('journal_read')
                 <li class="menu-item" id="journal-report">
                     <a href="{{ route('journal-report.index') }}" class="menu-link">
@@ -151,4 +170,33 @@
 
         </ul>
     </li>
+    <!-- Aset -->
+    <li class="menu-header small text-uppercase">
+        <span class="menu-header-text" data-i18n="Aset dan Inventaris">Aset dan Inventaris</span>
+    </li>
+    @can('productaset_read')
+        <li class="menu-item">
+            <a href="{{ route('product-aset.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-folder"></i>
+                <div class="text-truncate" data-i18n=" Golongan Aset"> Golongan Aset</div>
+            </a>
+        </li>
+    @endcan
+    @can('aset_read')
+        <li class="menu-item {{ request()->routeIs('aset.index') ? 'active' : '' }}">
+            <a href="{{ route('aset.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-money"></i>
+                <div class="text-truncate" data-i18n="Pembelian Aset">Pembelian Aset</div>
+            </a>
+        </li>
+    @endcan
+
+    @can('productaset_read')
+        <li class="menu-item {{ request()->routeIs('aset-report.index') ? 'active' : '' }}">
+            <a href="{{ route('aset-report.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-book"></i>
+                <div class="text-truncate" data-i18n="Penyusutan Aset">Penyusutan Aset</div>
+            </a>
+        </li>
+    @endcan
 </ul>

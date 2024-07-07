@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Report;
 
 use App\Http\Controllers\Controller;
 use App\Library\Template;
+use App\Models\Transaksi\Loan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -26,7 +27,7 @@ class ReportController extends Controller
         $data = Template::get();
         $data['jsTambahan'] = "
         $('#journal-report').addClass('active');
-        $('#report').addClass('open active');
+        $('#akuntansi-report').addClass('open active');
         ";
         return view('report.journal', $data);
     }
@@ -50,5 +51,17 @@ class ReportController extends Controller
         $('#report').addClass('open active');
         ";
         return view('report.balancesheet', $data);
+    }
+    public function loanReport()
+    {
+
+        abort_if(Gate::denies('loanreport_read'), 403);
+        $data = Template::get();
+        $data['jsTambahan'] = "
+        $('#loan-report-bil').addClass('active');
+        
+        $('#loan-report').addClass('open active');
+        ";
+        return view('report.loan', $data);
     }
 }

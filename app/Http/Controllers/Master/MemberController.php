@@ -53,7 +53,7 @@ class MemberController extends Controller
         $golonganWajib            = $data['saving_mandatory'];
         $golonganPokok            = $data['saving_principal'];
         $data['Code']             = getLastMemberCode();
-        $data['created_by']       = Auth::user()->name;
+        $data['username']       = Auth::user()->name;
         $data['PrincipalAmount']  = filter_var($data['PrincipalAmount'], FILTER_SANITIZE_NUMBER_INT);
         $data['MandatoryAmount']  = filter_var($data['MandatoryAmount'], FILTER_SANITIZE_NUMBER_INT);
         $data['PrincipalAccount'] = implode('.', [01, $golonganPokok, $data['Code']]);

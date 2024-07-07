@@ -88,7 +88,11 @@ function info(message,bgtype='bg-success') {
 
 function openModal(url) {
     $("#modalForm").modal('show');
-    $("#modalContent").load(url);
+    $("#modalContent").load(url,function(){
+        // console.log(Livewire);
+        // Livewire.restart(); 
+        
+    });
 }
 
 function number_format(number, decimals, decimalSeparator, thousandsSeparator) {

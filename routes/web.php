@@ -10,9 +10,13 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Report\ReportController;
 use App\Http\Controllers\System\PermissionController;
 use App\Http\Controllers\System\UserController;
+use App\Http\Controllers\System\UserDateController;
 use App\Http\Controllers\Transaksi\AsetController;
+use App\Http\Controllers\Transaksi\CashierController;
 use App\Http\Controllers\Transaksi\JournalController;
+use App\Http\Controllers\Transaksi\LoanController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 Route::get('/', function () {
     return redirect()->route('dashboard');
@@ -33,6 +37,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('product-loan', ProductLoanController::class);
     Route::resource('member', MemberController::class);
     Route::resource('aset', AsetController::class);
+    Route::resource('loan', LoanController::class);
+    Route::resource('user-date', UserDateController::class);
+    Route::resource('cashier', CashierController::class);
 
     Route::get('aset-report', [ReportController::class, 'asetReport'])
         ->name('aset-report.index');
@@ -43,9 +50,29 @@ Route::middleware('auth')->group(function () {
         ->name('member-report.index');
 
 
+    Route::get('loan-report', [ReportController::class, 'loanReport'])
+        ->name('loan-report.index');
+
+
     Route::get('balancesheet-report', [ReportController::class, 'balancesheetReport'])
         ->name('balancesheet-report.index');
 
+    Route::get('journal-pdf', function (Request $request) {
+
+        $journal = $request->session()->get('journal');
+        // return view('print.journal', ["data" => $journal]);
+        $pdf = \PDF::loadView('print.journal', [
+            'data' => $journal,
+        ])->setPaper('a4', 'landscape');
+        return $pdf->stream();
+    })->name('journal-pdf.index');
+
+
+    Route::get('tes', function () {
+        $pdf = \PDF::loadView('print.tex', [
+            'purchase' => '',
+        ])->setPaper('a4');
+    })->name('tes-pdf');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

@@ -6,6 +6,7 @@ use App\Models\Transaksi\Journal;
 use Livewire\Component;
 use Livewire\WithPagination;
 
+
 class JournalReport extends Component
 {
 
@@ -18,7 +19,7 @@ class JournalReport extends Component
     public $date_end;
 
     protected $rules = [
-        'periode'   => 'required|',
+        "date_start" => "required"
     ];
 
     public function mount($username)
@@ -33,8 +34,7 @@ class JournalReport extends Component
         $journal = Journal::with(['coa'])->whereBetween('date', [$this->date_start, $this->date_end])
 
             ->orderBy('id', 'desc')->paginate(100);
-
-
+        session()->put('journal', $journal);
         return view('livewire.report.journal-report', [
             'journal' => $journal
         ]);

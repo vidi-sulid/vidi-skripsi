@@ -56,7 +56,7 @@ class AsetController extends Controller
 
         $data = $request->all();
         $max_id = Aset::max('id');
-        $data['purchase_date'] = date("Y-m-d");
+        $data['purchase_date'] =  getTgl();
         $data['username'] = Auth::user()->name;
         $data['code'] = str_pad($max_id ? $max_id + 1 : 1, 6, '0', STR_PAD_LEFT);
         log_custom("Insert data master aset", $data);

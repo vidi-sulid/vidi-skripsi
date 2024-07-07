@@ -39,7 +39,7 @@ return new class extends Migration
             $table->double('mandatoryamount', 16, 2)->default('0.00');
             $table->boolean('status')->default(true);
             $table->string('branch_entry', 3)->nullable();
-            $table->string('created_by', 50)->nullable();
+            $table->string('username', 50)->nullable();
             $table->timestamps();
         });
     }

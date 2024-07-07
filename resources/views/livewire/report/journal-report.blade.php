@@ -38,13 +38,21 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="form-group mb-0 mt-1">
-                            <button type="submit" class="btn btn-primary">
-                                <span wire:target="generateReport" wire:loading class="spinner-border spinner-border-sm"
-                                    role="status" aria-hidden="true"></span>
-                                <i wire:target="generateReport" wire:loading.remove class="bi bi-shuffle"></i>
-                                Filter Report
-                            </button>
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="form-group mb-0 mt-1">
+                                    <button type="submit" class="btn btn-primary">
+                                        <span wire:target="generateReport" wire:loading
+                                            class="spinner-border spinner-border-sm" role="status"
+                                            aria-hidden="true"></span>
+                                        <i wire:target="generateReport" wire:loading.remove class="bx bx-sort"></i>
+                                        Filter Report
+                                    </button>
+                                    <a class="btn  btn-primary" href="{{ route('journal-pdf.index') }}"><i
+                                            class="bx bx-file"></i>Cetak</a>
+                                </div>
+                            </div>
+
                         </div>
                     </form>
                 </div>
@@ -94,7 +102,7 @@
                                         <td class="text-nowrap">{{ $data->invoice }}</td>
                                         <td align="left" class="text-nowrap">
                                             {{ $data->rekening . ' ' . $data->coa->name }}</td>
-                                        <td>{{ $data->description }}</td>
+                                        <td align="left">{{ $data->description }}</td>
 
                                         <td align="right">{{ format_currency($data->debit) }}</td>
                                         <td align="right">{{ format_currency($data->credit) }}</td>

@@ -11,16 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('savings', function (Blueprint $table) {
+        Schema::create('user_dates', function (Blueprint $table) {
             $table->id();
-            $table->string('rekening')->unique();
-            $table->date('date_open')->default(date("Y-m-d"));
-            $table->date('date_close')->default("9999-12-31");
-            $table->string("member_code");
-            $table->string('product_saving_id');
-            $table->string('username');
-
+            $table->date('date');
+            $table->dateTime('date_start', 0);
+            $table->dateTime('date_end', 0);
+            $table->string('description');
+            $table->string('user_id', 11)->default(false);
             $table->timestamps();
+            $table->string('username', 50)->default('');
         });
     }
 
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('savings');
+        Schema::dropIfExists('user_dates');
     }
 };
