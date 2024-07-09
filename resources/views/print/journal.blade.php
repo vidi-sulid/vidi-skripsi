@@ -5,6 +5,7 @@ $debit = $credit = $faktur = $n = 0;
 @section('content')
     <div class="title-laporan">
         <h3>Laporan Jurnal Umum</h3>
+        <p>{{ session()->get('judulJournal') }} </p>
     </div>
     <table class="data">
         <tr>

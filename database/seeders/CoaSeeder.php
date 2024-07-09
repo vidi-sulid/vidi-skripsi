@@ -45,10 +45,17 @@ class CoaSeeder extends Seeder
             ['code' => '3.500', 'name' => 'SHU', 'type' => 1],
             ['code' => '3.500.01', 'name' => 'SHU', 'type' => 0],
 
-            ["code" => '4.500', "name" => "Pendapatan Lainnya ", "type" => 1],
-            ["code" => '4.500.10', "name" => "Pendapatan Lainnya", "type" => 0],
-            ["code" => '5.500', "name" => "Beban Administrasi Umum ", "type" => 1],
-            ["code" => '5.500.10', "name" => "Beban Penyususutan", "type" => 0],
+            ["code" => '4.500', "name" => "Pendapatan Simpanan ", "type" => 1],
+            ["code" => '4.500.10', "name" => "Pendapatan Administrasi", "type" => 0],
+
+            ["code" => '4.510', "name" => "Pendapatan Pinjaman ", "type" => 1],
+            ["code" => '4.510.10', "name" => "Pendapatan Administrasi", "type" => 0],
+            ["code" => '4.510.20', "name" => "Pendapatan Bunga", "type" => 0],
+
+            ["code" => '5.500', "name" => "Beban Simpanan ", "type" => 1],
+            ["code" => '5.500.10', "name" => "Beban Simpanan", "type" => 0],
+            ["code" => '5.510', "name" => "Beban Administrasi Umum ", "type" => 1],
+            ["code" => '5.510.20', "name" => "Beban Penyususutan", "type" => 0],
 
 
         ];
@@ -77,11 +84,11 @@ class CoaSeeder extends Seeder
         ProductSaving::insert($vaProduct);
         $vaProduct = [
             [
-                "code" => 'PJ_01', "name" => "Modal Kerja", "account_loan" => "1.120.10", "account_income_administration" => "4.500.10", "account_income_interest" => "5.500.10",
+                "code" => 'PJ_01', "name" => "Modal Kerja", "account_loan" => "1.120.10", "account_income_administration" => "4.510.10", "account_income_interest" => "4.510.20",
                 "account_dutystamp" => "1.160.10",
             ],
             [
-                "code" => 'PJ_02', "name" => "Umum", "account_loan" => "1.120.10", "account_income_administration" => "4.500.10", "account_income_interest" => "5.500.10",
+                "code" => 'PJ_02', "name" => "Umum", "account_loan" => "1.120.10", "account_income_administration" => "4.510.10", "account_income_interest" => "4.510.20",
                 "account_dutystamp" => "1.160.10",
             ]
         ];
@@ -92,7 +99,7 @@ class CoaSeeder extends Seeder
                 "identitycardnumber" => "1802230506670003",
                 "gender" => "L",
                 "address" =>
-                "DUSUN IV PURWOREJO KECAMATAN KOTAGAJAH  LAMPUNG TE Lampung Tengah Kec. Kota Gajah Kel. Purworejo RT/RW 013/006",
+                "JL IR RAIS RT/RW 013/006",
                 "date" => "2021-11-01",
                 "code" => "0000001",
                 "principalaccount" => "001.01.000001",

@@ -8,16 +8,8 @@
 @extends('layouts.app')
 @section('content')
     <h4 class="py-3 mb-4">
-        <span class="text-muted fw-light">Master /</span> Simpanan
+        <span class="text-muted fw-light">Tambah /</span>Anggota
     </h4>
-
-    @include('utils.modal')
-    <!-- Ajax Sourced Server-side -->
-    @can('coa_write')
-        <button class="btn btn-primary mb-1 btn-sm " onclick="openModal('{{ route('product-saving.create') }}')"><i
-                class="bx bx-plus"></i>Tambah</button>
-    @endcan
-
     <!-- Property Listing Wizard -->
     <div id="wizard-member-listing" class="bs-stepper vertical mt-2">
         <div class="bs-stepper-header">

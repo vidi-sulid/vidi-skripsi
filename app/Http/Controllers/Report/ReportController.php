@@ -43,19 +43,34 @@ class ReportController extends Controller
     }
     public function balancesheetReport()
     {
-        abort_if(Gate::denies('neraca_read'), 403);
+        abort_if(Gate::denies('balancesheet_read'), 403);
         $data = Template::get();
         $data['jsTambahan'] = "
         $('#balancesheet-report').addClass('active');
         
-        $('#report').addClass('open active');
+        $('#akuntansi-report').addClass('open active');
         ";
         return view('report.balancesheet', $data);
     }
+    public function profitlossReport()
+    {
+        abort_if(Gate::denies('profitloss_read'), 403);
+        $data = Template::get();
+        $data['jsTambahan'] = "
+        $('#profitloss-report').addClass('active');
+        
+        $('#akuntansi-report').addClass('open active');
+        ";
+        return view('report.profitloss', $data);
+    }
+
+
+
+
     public function loanReport()
     {
 
-        abort_if(Gate::denies('loanreport_read'), 403);
+        abort_if(Gate::denies('loan_read'), 403);
         $data = Template::get();
         $data['jsTambahan'] = "
         $('#loan-report-bil').addClass('active');

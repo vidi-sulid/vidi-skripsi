@@ -7,7 +7,7 @@
                         <div class="row">
                             <div class="col-lg-4">
                                 <div class="form-group">
-                                    <label>Start Date <span class="text-danger">*</span></label>
+                                    <label>Tanggal Awal <span class="text-danger">*</span></label>
                                     <input wire:model="start_date" type="date" class="form-control" name="start_date"
                                         value="{{ $date_start }}">
                                     @error('start_date')
@@ -17,7 +17,7 @@
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
-                                    <label>End Date <span class="text-danger">*</span></label>
+                                    <label>Tanggal Akhir <span class="text-danger">*</span></label>
                                     <input wire:model="end_date" type="date" class="form-control" name="end_date"
                                         value="{{ $date_end }}">
                                     @error('end_date')
@@ -30,9 +30,12 @@
                             <button type="submit" class="btn btn-primary">
                                 <span wire:target="generateReport" wire:loading class="spinner-border spinner-border-sm"
                                     role="status" aria-hidden="true"></span>
-                                <i wire:target="generateReport" wire:loading.remove class="bi bi-shuffle"></i>
+                                <i wire:target="generateReport" wire:loading.remove class="bx bx-sort"></i>
                                 Filter Report
                             </button>
+                            <a class="btn  btn-primary" href="{{ route('balancesheet-pdf.index') }}"><i
+                                    class="bx bx-file"></i>Cetak</a>
+
                         </div>
 
 

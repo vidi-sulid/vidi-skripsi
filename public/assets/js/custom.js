@@ -16,7 +16,12 @@ function save(url,type) {
             $("#modalForm").modal('hide');
             $("#detail-rekening").html("");
             $("#detail-mutasi").html("");
-            
+                        
+            Livewire.on('eventName', (data) => {
+                console.log('Received event from Livewire:', data);
+                // Lakukan tindakan berdasarkan data yang diterima
+            });
+
             
         },
         error: function(xhr, status, error) {
@@ -116,3 +121,10 @@ function number_format(number, decimals, decimalSeparator, thousandsSeparator) {
 
     return integerPart + decimalPart;
 }
+
+document.addEventListener('livewire:load', function () {
+    Livewire.on('componentReset', function () {
+        // Handle the reset event, e.g., reload data or update UI
+        console.log('Livewire component has been reset');
+    });
+});

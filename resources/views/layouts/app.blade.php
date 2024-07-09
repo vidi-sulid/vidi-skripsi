@@ -361,16 +361,27 @@ data-bs-delay="2000" id="toastId">
 <!-- / Layout wrapper -->
 
 
-@livewireScripts
 @foreach ($pilihJs as $value)
 <script src="{{ asset($js[$value]) }}"></script>
 @endforeach
 
+@livewireScripts
 @yield('addon_js')
+@stack('custom_js')
 
 </body>
 
 <script>
+    document.addEventListener('livewire:load', function() {
+        console.log('okee');
+        Livewire.hook('updated', () => {
+            // Manipulasi input di sini menggunakan JavaScript
+            // Contoh: mengubah nilai, menambah event listener, dll
+            let input = document.getElementById('dynamic-input');
+            // Manipulasi sesuai kebutuhan
+        });
+    });
+
     <?php echo @$jsTambahan; ?>
 </script>
 

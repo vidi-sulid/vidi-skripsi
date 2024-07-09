@@ -105,6 +105,9 @@ class BalancesheetReport extends Component
             }
         }
         $data['data'] = $vaNeraca;
+        session()->put('balancesheet', $vaNeraca);
+        $judul = tanggalIndonesia($this->date_start) . " s/d " . tanggalIndonesia($this->date_end);
+        session()->put('judulBalancesheet', $judul);
         $data['tanggalAwal'] = $this->date_start;
         $data['tanggalAkhir'] = $this->date_end;
 

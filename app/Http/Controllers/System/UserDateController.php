@@ -20,6 +20,8 @@ class UserDateController extends Controller
         log_custom("Buka menu user tanggal");
         $data = Template::get("datatable");
         $data['jsTambahan'] = "
+        
+        $('#user-date').addClass('active');
         ";
         return $dataTable->render('user.userdate', $data);
     }

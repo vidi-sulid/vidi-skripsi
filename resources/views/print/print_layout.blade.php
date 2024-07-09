@@ -125,7 +125,7 @@
             <table width='100%' padding=0>
                 <tr>
                     <td width='100px'>
-                        <img src="{{ asset(settings()->site_logo) }}" width="100px">
+                        {{-- <img src="{{ asset(settings()->site_logo) }}" width="100px"> --}}
                     </td>
 
                     <td align="center">

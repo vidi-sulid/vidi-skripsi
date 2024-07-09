@@ -7,7 +7,7 @@
                         <div class="row">
                             <div class="col-lg-4">
                                 <div class="form-group">
-                                    <label>Start Date <span class="text-danger">*</span></label>
+                                    <label>Tanggal Awal <span class="text-danger">*</span></label>
                                     <input wire:model="start_date" type="date" class="form-control" name="start_date"
                                         value="{{ $date_start }}">
                                     @error('start_date')
@@ -17,7 +17,7 @@
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
-                                    <label>End Date <span class="text-danger">*</span></label>
+                                    <label>Tanggal Akhir <span class="text-danger">*</span></label>
                                     <input wire:model="end_date" type="date" class="form-control" name="end_date"
                                         value="{{ $date_end }}">
                                     @error('end_date')
@@ -112,7 +112,7 @@
                                 @empty
                                     <tr>
                                         <td colspan="8">
-                                            <span class="text-danger">No Sales Data Available!</span>
+                                            <span class="text-danger">Data tidak ditemukan !</span>
                                         </td>
                                     </tr>
                                 @endforelse

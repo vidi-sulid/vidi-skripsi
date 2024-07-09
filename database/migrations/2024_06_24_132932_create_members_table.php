@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('code', 7);
             $table->date('date');
+            $table->date('date_close')->default("9999-12-31");
             $table->string("name", 50)->nullable();
             $table->string("gender", 1)->nullable();
             $table->string("bloodtype", 3)->nullable();

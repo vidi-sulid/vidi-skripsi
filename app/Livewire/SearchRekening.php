@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Master\Saving;
 use App\Models\Transaksi\Loan;
 use Livewire\Component;
 
@@ -31,19 +32,28 @@ class SearchRekening extends Component
     public function updatedQuery()
     {
 
+        $data = array();
         $rekening = $this->query;
+
         $loan = Loan::with(['member' => function ($query) use ($rekening) {
             $query->where("name", "like", "%$rekening%");
         }])->get();
         foreach ($loan as $value) {
             $data['data'][] = array("rekening" => $value->rekening, "name" => $value->member->name, "type" => "loan");
         }
+
+        $loan = Saving::with(['member' => function ($query) use ($rekening) {
+            $query->where("name", "like", "%$rekening%");
+        }])->get();
+
+        foreach ($loan as $value) {
+            $data['data'][] = array("rekening" => $value->rekening, "name" => $value->member->name, "type" => "saving");
+        }
         $this->search_results = $data;
     }
 
     public function loadMore()
     {
-        $this->how_many += 5;
         $this->updatedQuery();
     }
 

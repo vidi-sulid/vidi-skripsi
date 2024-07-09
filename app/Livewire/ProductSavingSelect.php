@@ -33,7 +33,7 @@ class ProductSavingSelect extends Component
         $this->rekeningWajib = "01." . $value . "." . $this->kodeCif . ".001";
         $data = ProductSaving::where("code", $value)->first();
         if ($data) {
-            $this->nominalWajib = $data->mandatory_deposit;
+            $this->nominalWajib = 100000; // format_currency($data->mandatory_deposit);
         }
     }
     public function handleSelectChangePokok($value)
@@ -41,7 +41,7 @@ class ProductSavingSelect extends Component
         $this->rekeningPokok = "01." . $value . "." . $this->kodeCif . ".001";
         $data = ProductSaving::where("code", $value)->first();
         if ($data) {
-            $this->nominalPokok = $data->principal_deposit;
+            $this->nominalPokok = 50000; //format_currency($data->principal_deposit);
         }
     }
 }

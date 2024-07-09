@@ -57,22 +57,10 @@ Route::middleware('auth')->group(function () {
     Route::get('balancesheet-report', [ReportController::class, 'balancesheetReport'])
         ->name('balancesheet-report.index');
 
-    Route::get('journal-pdf', function (Request $request) {
 
-        $journal = $request->session()->get('journal');
-        // return view('print.journal', ["data" => $journal]);
-        $pdf = \PDF::loadView('print.journal', [
-            'data' => $journal,
-        ])->setPaper('a4', 'landscape');
-        return $pdf->stream();
-    })->name('journal-pdf.index');
+    Route::get('profitloss-report', [ReportController::class, 'profitlossReport'])
+        ->name('profitloss-report.index');
 
-
-    Route::get('tes', function () {
-        $pdf = \PDF::loadView('print.tex', [
-            'purchase' => '',
-        ])->setPaper('a4');
-    })->name('tes-pdf');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -80,3 +68,4 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__ . '/auth.php';
+require __DIR__ . '/print.php';

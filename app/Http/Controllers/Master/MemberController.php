@@ -56,8 +56,8 @@ class MemberController extends Controller
         $data['username']       = Auth::user()->name;
         $data['PrincipalAmount']  = filter_var($data['PrincipalAmount'], FILTER_SANITIZE_NUMBER_INT);
         $data['MandatoryAmount']  = filter_var($data['MandatoryAmount'], FILTER_SANITIZE_NUMBER_INT);
-        $data['PrincipalAccount'] = implode('.', [01, $golonganPokok, $data['Code']]);
-        $data['MandatoryAccount'] = implode('.', [01, $golonganWajib, $data['Code']]);
+        $data['PrincipalAccount'] = implode('.', ["01", $golonganPokok, $data['Code']]);
+        $data['MandatoryAccount'] = implode('.', ["01", $golonganWajib, $data['Code']]);
         unset($data['saving_mandatory']);
         unset($data['saving_principal']);
         Member::create($data);

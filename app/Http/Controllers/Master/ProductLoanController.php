@@ -17,8 +17,8 @@ class ProductLoanController extends Controller
         log_custom("Buka menu master pinjaman");
         $data = Template::get("datatable");
         $data['jsTambahan'] = "
-        $('#loan-master').addClass('active');
-        $('#master').addClass('open active');
+           $('#product-loan').addClass('active');
+           $('#master-member').addClass('open active');
         ";
         return $dataTable->render("master.loan_product", $data);
     }

@@ -36,6 +36,15 @@ class   ProductSavingDataTable extends DataTable
             ->addColumn('mandatory_deposit', function ($data) {
                 return format_currency($data->mandatory_deposit);
             })
+            ->addColumn('account_saving', function ($data) {
+                return $data->account_saving . "-" . getName($data->account_saving, "coas", "name");
+            })
+            ->addColumn('account_income_administration', function ($data) {
+                return $data->account_income_administration . "-" . getName($data->account_income_administration, "coas", "name");
+            })
+            ->addColumn('account_cost', function ($data) {
+                return $data->account_cost . "-" . getName($data->account_cost, "coas", "name");
+            })
             ->rawColumns(["name", "action"])
             ->setRowId('id');
     }

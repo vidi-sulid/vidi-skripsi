@@ -50,8 +50,8 @@
         </li>
     @endcan
     @can('userdate_read')
-        <li class="menu-item ">
-            <a href="{{ route('user-date.index') }}" class="menu-link" target="_blank">
+        <li class="menu-item" id="user-date">
+            <a href="{{ route('user-date.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-calendar"></i>
                 <div class="text-truncate" data-i18n="User Tanggal">User Tanggal</div>
             </a>
@@ -92,30 +92,30 @@
             <div class="text-truncate" data-i18n="Laporan">Laporan</div>
         </a>
         <ul class="menu-sub">
-            @can('loanreport_read')
+            @can('loan_read')
                 <li class="menu-item" id="loan-report-bil">
                     <a href="{{ route('loan-report.index') }}" class="menu-link">
-                        <div class="text-truncate" data-i18n="Laporan Pinjaman">Laporan Pinjaman</div>
+                        <div class="text-truncate" data-i18n="Pinjaman">Pinjaman</div>
                     </a>
                 </li>
             @endcan
         </ul>
     </li>
-    <li class="menu-item" id="master">
+    <li class="menu-item" id="master-member">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
             <i class='menu-icon tf-icons bx bx-folder'></i>
             <div class="text-truncate" data-i18n="Master">Master</div>
         </a>
         <ul class="menu-sub">
             @can('productsaving_read')
-                <li class="menu-item" id="coa">
+                <li class="menu-item" id="product-saving">
                     <a href="{{ route('product-saving.index') }}" class="menu-link">
                         <div class="text-truncate" data-i18n="Golongan Simpanan">Golongan Simpanan</div>
                     </a>
                 </li>
             @endcan
             @can('productloan_read')
-                <li class="menu-item" id="coa">
+                <li class="menu-item" id="product-loan">
                     <a href="{{ route('product-loan.index') }}" class="menu-link">
                         <div class="text-truncate" data-i18n="Golongan Pinjaman">Golongan Pinjaman</div>
                     </a>
@@ -130,7 +130,7 @@
     </li>
 
     @can('coa_read')
-        <li class="menu-item">
+        <li class="menu-item" id="coa">
             <a href="{{ route('coa.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-folder"></i>
                 <div class="text-truncate" data-i18n="Bagan Akun">Bagan Akun</div>
@@ -164,6 +164,13 @@
                 <li class="menu-item" id="balancesheet-report">
                     <a href="{{ route('balancesheet-report.index') }}" class="menu-link">
                         <div class="text-truncate" data-i18n="Neraca">Neraca</div>
+                    </a>
+                </li>
+            @endcan
+            @can('profitloss_read')
+                <li class="menu-item" id="profitloss-report">
+                    <a href="{{ route('profitloss-report.index') }}" class="menu-link">
+                        <div class="text-truncate" data-i18n="Laba Rugi">Laba Rugi</div>
                     </a>
                 </li>
             @endcan

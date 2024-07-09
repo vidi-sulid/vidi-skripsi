@@ -25,9 +25,9 @@ function menu()
         "Master Anggota" => array("Member" => ["Write", "Read", "Update", "Delete"]),
         "Pembelian Aset" => array("Aset" => ["Write", "Read", "Update", "Delete"]),
         "Rubah Tanggal User" => array("UserDate" => ["Write", "Read", "Update", "Delete"]),
-        "Laporan Pinjaman" => array("LoanReport" => ["Read"]),
         "Kasir" => array("cashier" => ["Write"]),
-
+        "Neraca" => array("balancesheet_read" => ["Read"]),
+        "Laba Rugi" => array("profitloss" => ["Read"]),
 
         "Pinjaman" => array("Loan" => ["Write", "Read", "Update", "Delete"]),
 

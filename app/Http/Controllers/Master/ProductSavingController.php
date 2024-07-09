@@ -21,8 +21,8 @@ class ProductSavingController extends Controller
         log_custom("Buka menu master simpanan");
         $data = Template::get("datatable");
         $data['jsTambahan'] = "
-        $('#saving-master').addClass('active');
-        $('#master').addClass('open active');
+        $('#product-saving').addClass('active');
+        $('#master-member').addClass('open active');
         ";
         return $dataTable->render("master.saving_product", $data);
     }

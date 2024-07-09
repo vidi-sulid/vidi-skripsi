@@ -21,9 +21,11 @@
                             <button type="submit" class="btn btn-primary">
                                 <span wire:target="generateReport" wire:loading class="spinner-border spinner-border-sm"
                                     role="status" aria-hidden="true"></span>
-                                <i wire:target="generateReport" wire:loading.remove class="bi bi-shuffle"></i>
+                                <i wire:target="generateReport" wire:loading.remove class="bx bx-sort"></i>
                                 Filter Report
                             </button>
+                            <a class="btn  btn-primary" href="{{ route('loan-pdf.index') }}"><i
+                                    class="bx bx-file"></i>Cetak</a>
                         </div>
                     </form>
                 </div>
@@ -50,11 +52,11 @@
                                     <th>Tanggal </th>
                                     <th>JthTmpo</th>
                                     <th>Nama</th>
-                                    <th>Total Pinjaman</th>
-                                    <th>Jangka Waktu</th>
-                                    <th>Suku Bunga</th>
-                                    <th>Tunggakan Pokok</th>
-                                    <th>Tunggakan Bunga</th>
+                                    <th class="text-nowrap">Total Pinjaman</th>
+                                    <th>Lama</th>
+                                    <th>SB</th>
+                                    <th class="text-nowrap">Tunggakan Pokok</th>
+                                    <th class="text-nowrap">Tunggakan Bunga</th>
                                 </tr>
 
                             </thead>
@@ -72,20 +74,21 @@
                                     @endphp
                                     <tr>
                                         <td> {{ $value['rekening'] }} </td>
-                                        <td style="white-space: normal;"> {{ tanggalIndonesia($value['date_open']) }}
+                                        <td class="text-nowrap"> {{ tanggalIndonesia($value['date_open']) }}
                                         </td>
-                                        <td> {{ tanggalIndonesia($value['jthtmp']) }} </td>
+                                        <td class="text-nowrap"> {{ tanggalIndonesia($value['jthtmp']) }} </td>
                                         <td> {{ $value['member']['name'] }} </td>
-                                        <td> {{ format_currency($value['loan_amount']) }} </td>
+                                        <td align="right"> {{ format_currency($value['loan_amount']) }} </td>
                                         <td> {{ $value['loan_term'] }} </td>
-                                        <td> {{ number_format($value['interest_rate'], 2) }} %</td>
-                                        <td> {{ format_currency($value['tunggakanPokok']) }} </td>
-                                        <td> {{ format_currency($value['tunggakanBunga']) }} </td>
+                                        <td align="right" class="text-nowrap">
+                                            {{ number_format($value['interest_rate'], 2) }} %</td>
+                                        <td align="right"> {{ format_currency($value['tunggakanPokok']) }} </td>
+                                        <td align="right"> {{ format_currency($value['tunggakanBunga']) }} </td>
 
                                     @empty
                                     <tr>
                                         <td colspan="8">
-                                            <span class="text-danger">No Sales Data Available!</span>
+                                            <span class="text-danger">Data tidak ditemukan !</span>
                                         </td>
                                     </tr>
                                 @endforelse

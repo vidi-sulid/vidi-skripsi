@@ -15,15 +15,28 @@
                                     @enderror
                                 </div>
                             </div>
+                            <div class="col-lg-4">
+                                <div class="form-group">
+                                    <label>Jenis Kelamin</label>
+                                    <select wire:model="gender" class="form-control select2" name="product_aset_id">
+                                        <option value="">Semua</option>
+                                        <option value="L">Laki laki</option>
+                                        <option value="P">Perempuan</option>
 
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group mb-0 mt-1">
+
                             <button type="submit" class="btn btn-primary">
                                 <span wire:target="generateReport" wire:loading class="spinner-border spinner-border-sm"
                                     role="status" aria-hidden="true"></span>
-                                <i wire:target="generateReport" wire:loading.remove class="bi bi-shuffle"></i>
+                                <i wire:target="generateReport" wire:loading.remove class="bx bx-sort"></i>
                                 Filter Report
                             </button>
+                            <a class="btn  btn-primary" href="{{ route('member-pdf.index') }}"><i
+                                    class="bx bx-file"></i>Cetak</a>
                         </div>
                     </form>
                 </div>
@@ -36,7 +49,7 @@
             <div class="card border-0 shadow-sm">
                 <div class="card-body">
                     <div class='table-responsive'>
-                        <table class="table table-bordered table-striped text-center mb-0">
+                        <table class="table table-bordered table-striped text-center mb-0" style="font-size: 12px;">
                             <div wire:loading.flex
                                 class="col-12 position-absolute justify-content-center align-items-center"
                                 style="top:0;right:0;left:0;bottom:0;background-color: rgba(255,255,255,0.5);z-index: 99;">
@@ -50,10 +63,9 @@
                                     <th>Tanggal</th>
                                     <th>Nama</th>
                                     <th>Alamat</th>
-                                    <th>Rekening Simpanan Wajib</th>
-                                    <th>Rekening Simpanan Pokok</th>
-                                    <th>Saldo Simpanan Pokok</th>
-                                    <th>Saldo Simpanan Wajib</th>
+                                    <th class="text-nowrap">Saldo Simpanan Pokok</th>
+                                    <th class="text-nowrap">Saldo Simpanan Wajib</th>
+                                    <th class="text-nowrap">Saldo Pinjaman</th>
                                     <td>Username</td>
                                 </tr>
 
@@ -62,36 +74,39 @@
                                 @php
                                     $pokok = 0;
                                     $wajib = 0;
+                                    $pinjaman = 0;
                                 @endphp
                                 @forelse($member as $value)
                                     @php
                                         $pokok += $value['principalBalance'];
                                         $wajib += $value['mandatoryBalance'];
+                                        $pinjaman += $value['loanBalance'];
                                     @endphp
                                     <tr>
                                         <td> {{ $value['code'] }} </td>
-                                        <td> {{ \Carbon\Carbon::parse($value['date'])->format('d M, Y') }} </td>
-                                        <td> {{ $value['name'] }} </td>
-                                        <td> {{ $value['address'] }} </td>
-                                        <td> {{ $value['principalaccount'] }} </td>
-                                        <td> {{ $value['mandatoryaccount'] }} </td>
-                                        <td> {{ format_currency($value['principalBalance']) }} </td>
-                                        <td> {{ format_currency($value['mandatoryBalance']) }} </td>
+                                        <td class="text-nowrap">
+                                            {{ tanggalIndonesia($value['date']) }} </td>
+                                        <td align="left"> {{ $value['name'] }} </td>
+                                        <td align="left" class="text-nowrap"> {{ $value['address'] }} </td>
+                                        <td align="right"> {{ format_currency($value['principalBalance']) }} </td>
+                                        <td align="right"> {{ format_currency($value['mandatoryBalance']) }} </td>
+                                        <td align="right"> {{ format_currency($value['loanBalance']) }} </td>
                                         <td> {{ $value['username'] }} </td>
                                     </tr>
                                 @empty
                                     <tr>
                                         <td colspan="8">
-                                            <span class="text-danger">No Sales Data Available!</span>
+                                            <span class="text-danger">Data tidak ditemukan !</span>
                                         </td>
                                     </tr>
                                 @endforelse
                                 @if ($member->isNotEmpty())
                                     <tr>
-                                        <td colspan="6" align="right"><strong>Total</strong></td>
+                                        <td colspan="4" align="right"><strong>Total</strong></td>
                                         <td align="right"><strong>{{ format_currency($pokok) }}</strong></td>
                                         <td align="right"><strong>{{ format_currency($wajib) }}</strong></td>
-                                        <td></td>
+                                        <td align="right"><strong>{{ format_currency($pinjaman) }}</strong></td>
+
                                     </tr>
                                 @endif
 
@@ -106,3 +121,38 @@
         </div>
     </div>
 </div>
+@section('addon_js')
+    <script>
+        var s, i, e = $(".select2"),
+            e = (e.length && e.each(function() {
+                var e = $(this);
+                e.wrap('<div class="position-relative"></div>').select2({
+                    dropdownParent: e.parent(),
+                    placeholder: e.data("placeholder")
+                })
+            }), $(".form-repeater"));
+        e.length && (s = 2, i = 1, e.on("submit", function(e) {
+            e.preventDefault()
+        }), e.repeater({
+            show: function() {
+                var a = $(this).find(".form-control, .form-select"),
+                    t = $(this).find(".form-label");
+                a.each(function(e) {
+                    var r = "form-repeater-" + s + "-" + i;
+                    $(a[e]).attr("id", r), $(t[e]).attr("for", r), i++
+                }), s++, $(this).slideDown(), $(".select2-container").remove(), $(
+                    ".select2.form-select").select2({
+                    placeholder: "Placeholder text"
+                }), $(".select2-container").css("width", "100%"), $(
+                    ".form-repeater:first .form-select").select2({
+                    dropdownParent: $(this).parent(),
+                    placeholder: "Placeholder text"
+                }), $(".position-relative .select2").each(function() {
+                    $(this).select2({
+                        dropdownParent: $(this).closest(".position-relative")
+                    })
+                })
+            }
+        }))
+    </script>
+@endsection

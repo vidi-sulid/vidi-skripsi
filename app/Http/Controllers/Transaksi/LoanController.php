@@ -108,6 +108,15 @@ class LoanController extends Controller
     public function update(Request $request, Loan $loan)
     {
         abort_if(Gate::denies('loan_update'), 403);
+
+        if ($loan->date_open != getTgl()) {
+            return response()->json([
+                'info' => 'The code field is required.',
+                'errors' => [
+                    'error' => ['Data sudah tidak bisa diedit.']
+                ]
+            ], 422);
+        }
         $request->merge([
             'loan_amount' => convertRupiahToNumber($request->loan_amount), 'administration_fee' => convertRupiahToNumber($request->administration_fee),
             'provision_fee' => convertRupiahToNumber($request->provision_fee), 'stamp_duty' => convertRupiahToNumber($request->stamp_duty)
@@ -134,6 +143,14 @@ class LoanController extends Controller
     public function destroy(Loan $loan)
     {
         abort_if(Gate::denies('loan_delete'), 403);
+        if ($loan->date_open != getTgl()) {
+            return response()->json([
+                'info' => 'The code field is required.',
+                'errors' => [
+                    'error' => ['Data sudah tidak bisa diedit.']
+                ]
+            ], 422);
+        }
         Journal::where("invoice", $loan->invoice)->delete();
         LoanMutation::where("invoice", $loan->invoice)->delete();
         $loan->delete();

@@ -10,6 +10,7 @@ class MemberReport extends Component
 {
 
     public $date;
+    public $gender;
     protected $rules = [
         'date'   => 'required|',
     ];
@@ -20,10 +21,15 @@ class MemberReport extends Component
     }
     public function render()
     {
-        $member = MasterMember::where('date', "<=", $this->date)
+        $query = MasterMember::where('date', "<=", $this->date)
+            ->where("date_close", ">=", $this->date)
 
-            ->orderBy('code', 'desc')->paginate(100);
+            ->orderBy('code', 'desc');
+        if (!empty($this->gender)) {
+            $query->where('gender', $this->gender);
+        }
 
+        $member = $query->paginate(100);
         $data['member'] = Member::get($this->date, $member);
 
         return view('livewire.report.member-report', $data);

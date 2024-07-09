@@ -23,7 +23,6 @@ class CoaController extends Controller
         $data = Template::get("datatable");
         $data['jsTambahan'] = "
         $('#coa').addClass('active');
-        $('#master').addClass('open active');
         ";
         return $dataTable->render("master/coa", $data);
     }

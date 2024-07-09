@@ -5,7 +5,7 @@ $account = true;
 
 @section('content')
     <h4 class="py-3 mb-4">
-        <span class="text-muted fw-light">Admin / User /</span> Backdate User
+        <span class="text-muted fw-light">User /</span> Backdate User
     </h4>
 
     <div class="row">

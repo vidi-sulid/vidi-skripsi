@@ -108,7 +108,7 @@
                                 @empty
                                     <tr>
                                         <td colspan="8">
-                                            <span class="text-danger">No Sales Data Available!</span>
+                                            <span class="text-danger">Data tidak ditemukan !</span>
                                         </td>
                                     </tr>
                                 @endforelse

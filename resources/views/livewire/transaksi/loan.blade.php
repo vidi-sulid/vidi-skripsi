@@ -8,7 +8,7 @@
     <form id='form1'>
         @csrf
         <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel1">Tambah Pembelian Aset</h5>
+            <h5 class="modal-title" id="exampleModalLabel1">Tambah Pinjaman</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
@@ -20,7 +20,7 @@
                 </div>
                 <div class="col">
                     <label class="form-label">Golongan Pinjaman</label>
-                    <select wire:change="updateGolongan($event.target.value)" class="select2 form-select"
+                    <select wire:click="updateGolongan($event.target.value)" class="select2 form-select"
                         name="product_loan_id">
                         <option value="">Pilih Golongan Pinjaman</option>
                         @foreach (App\Models\Master\ProductLoan::get() as $data)
@@ -35,7 +35,8 @@
 
                 <div class="col">
                     <label for="member_code" class="form-label">Customer</label>
-                    <select wire:change="generateRekening($event.target.value)" name="member_code" class="form-select">
+                    <select wire:change="generateRekening($event.target.value)" name="member_code"
+                        class="form-select select2">
                         <option value="">Pilih Customer</option>
                         @foreach ($customer as $data)
                             <option value="{{ $data->id }}">
@@ -107,8 +108,8 @@
                 rawValueTrimPrefix: true
             });
         });
-
         /*
+
                 var s, i, e = $(".select2"),
                     e = (e.length && e.each(function() {
                         var e = $(this);

@@ -6,6 +6,7 @@ use App\Models\Business\Business as BusinessBusiness;
 use App\Models\Business\BusinessMutation;
 use App\Models\DepositMutation;
 use App\Models\Master\Member as MasterMember;
+use App\Models\Master\Saving;
 use App\Models\Member as ModelsMember;
 use App\Models\Transaksi\LoanMutation;
 use App\Models\Transaksi\SavingMutation;
@@ -29,13 +30,41 @@ class Member
             ->get();
 
         foreach ($mutation as $key => $value) {
-            $memberBalance[$value->rekening] = $value->balance;
+            $code = getName($value->rekening, "savings", "member_code", "rekening");
+            $saving = Saving::with(["product"])->where('rekening', $value->rekening)->first();
+            if (!isset($memberBalance[$code])) {
+                $memberBalance[$code] = array("W" => 0, "P" => 0, "L" => 0);
+            }
+            $memberBalance[$code][$saving->product->type] += $value->balance;
         }
+
+        $mutation = LoanMutation::select(
+            'rekening',
+            DB::raw("ifnull(SUM(debit-credit),0) as balance"),
+        )
+            ->groupBy("rekening")
+            ->where("date", "<=", $tgl)
+            ->get();
+
+        foreach ($mutation as $key => $value) {
+
+            $code = getName($value->rekening, "savings", "member_code", "rekening");
+            if (!isset($memberBalance[$code])) {
+                $memberBalance[$code] = array("W" => 0, "P" => 0, "L" => 0);
+            }
+            $memberBalance[$code]['L'] += $value->balance;
+        }
+
+
         if ($member != null) {
+
             //$member = $member->toarray();
+
             foreach ($member as $key => $value) {
-                $member[$key]->mandatoryBalance = isset($memberBalance[$value['mandatoryaccount']]) ? $memberBalance[$value['mandatoryaccount']] : 0;
-                $member[$key]->principalBalance = isset($memberBalance[$value['principalaccount']]) ? $memberBalance[$value['principalaccount']] : 0;
+
+                $member[$key]->mandatoryBalance = isset($memberBalance[$value->code]['W']) ? $memberBalance[$value->code]['W'] : 0;
+                $member[$key]->principalBalance = isset($memberBalance[$value->code]['P']) ? $memberBalance[$value->code]['P'] : 0;
+                $member[$key]->loanBalance = isset($memberBalance[$value->code]['L']) ? $memberBalance[$value->code]['L'] : 0;
             }
         } else {
             $member = MasterMember::where("date", "<=", $tgl)->get()->toArray();
@@ -44,7 +73,8 @@ class Member
                 $member[$key]['principalBalance'] = isset($memberBalance[$value['principalaccount']]) ? $memberBalance[$value['principalaccount']] : 0;
             }
         }
-
+        session()->put('member', $member);
+        session()->put('judulMember', $tgl);
         return $member;
     }
 
@@ -66,6 +96,9 @@ class Member
             $loan[$key]->tunggakanPokok = max(0, $loan[$key]->kewajibanPokok - $loan[$key]->pembayaran->pokok);
             $loan[$key]->tunggakanBunga = max(0, $loan[$key]->kewajibanBunga - $loan[$key]->pembayaran->bunga);
         }
+
+        session()->put('loan', $loan);
+        session()->put('judulLoan', $tgl);
         return $loan;
     }
     static function schedule($loan)
@@ -95,5 +128,13 @@ class Member
             ->selectRaw('ifnull(SUM(debit - credit),0) as bakidebet')
             ->first();
         return $mutation->bakidebet;
+    }
+
+    static function saldoSimpanan($rekening, $tgl)
+    {
+        $mutation = SavingMutation::where("rekening", $rekening)->where("date", "<=", $tgl)
+            ->selectRaw('ifnull(SUM(credit - debit),0) as saldo')
+            ->first();
+        return $mutation->saldo;
     }
 }

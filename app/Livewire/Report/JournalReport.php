@@ -35,6 +35,8 @@ class JournalReport extends Component
 
             ->orderBy('id', 'desc')->paginate(100);
         session()->put('journal', $journal);
+        $judul = tanggalIndonesia($this->date_start) . " s/d " . tanggalIndonesia($this->date_end);
+        session()->put('judulJournal', $judul);
         return view('livewire.report.journal-report', [
             'journal' => $journal
         ]);

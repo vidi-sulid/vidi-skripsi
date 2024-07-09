@@ -9,4 +9,12 @@ class Saving extends Model
 {
     use HasFactory;
     protected $guarded = [];
+    public function member()
+    {
+        return $this->belongsTo(Member::class, "member_code", "code");
+    }
+    public function product()
+    {
+        return $this->belongsTo(ProductSaving::class, "product_saving_id", "code");
+    }
 }

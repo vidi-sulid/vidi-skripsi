@@ -29,6 +29,9 @@ class   ProductAsetDataTable extends DataTable
                 $data->type = $data->type ? "Induk" : "Detail";
                 return $data->type;
             })
+            ->addColumn('account_aset', function ($data) {
+                return $data->account_aset . "-" . getName($data->account_aset, "product_asets", "name", "code");
+            })
             ->rawColumns(["name", "action"])
             ->setRowId('id');
     }

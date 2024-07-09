@@ -31,7 +31,20 @@ class   ProductLoanDataTable extends DataTable
                 $data->type = $data->type ? "Induk" : "Detail";
                 return $data->type;
             })
+            ->addColumn('account_loan', function ($data) {
+                return $data->account_loan . "-" . getName($data->account_loan, "coas", "name");
+            })
+            ->addColumn('account_income_administration', function ($data) {
+                return $data->account_income_administration . "-" . getName($data->account_income_administration, "coas", "name");
+            })
+            ->addColumn('account_income_interest', function ($data) {
+                return $data->account_income_interest . "-" . getName($data->account_income_interest, "coas", "name");
+            })
+            ->addColumn('account_dutystamp', function ($data) {
+                return $data->account_dutystamp . "-" . getName($data->account_dutystamp, "coas", "name");
+            })
 
+            
             ->rawColumns(["name", "action"])
             ->setRowId('id');
     }

@@ -59,6 +59,7 @@ if (!function_exists('UpdateJournalLoan')) {
             ];
             Journal::create($mutation);
 
+
             if ($value->cash == "K") {
                 $mutation['rekening'] = $CashAccount;
                 if ($value->debit > 0) {
@@ -69,6 +70,31 @@ if (!function_exists('UpdateJournalLoan')) {
                     $mutation['debit'] = $mutation['credit'];
                     unset($mutation['credit']);
                     Journal::create($mutation);
+                }
+            }
+
+            if ($value->debit_interest > 0 || $value->credit_interest > 0) {
+                $mutationInterest = [
+                    "invoice"        => $value->invoice,
+                    "date"           => $value->date,
+                    "rekening"       => getName($value->loans->product_loan_id, "product_loans", "account_income_interest"),
+                    "description"    => $value->description,
+                    "debit"          => $value->debit_interest,
+                    "credit"         => $value->credit_interest,
+                    "username"       => $value->username
+                ];
+                Journal::create($mutationInterest);
+                if ($value->cash == "K") {
+                    $mutationInterest['rekening'] = $CashAccount;
+                    if ($value->debit > 0) {
+                        $mutationInterest['credit'] = $mutationInterest['debit'];
+                        unset($mutationInterest['debit']);
+                        Journal::create($mutationInterest);
+                    } else {
+                        $mutationInterest['debit'] = $mutationInterest['credit'];
+                        unset($mutationInterest['credit']);
+                        Journal::create($mutationInterest);
+                    }
                 }
             }
         }
