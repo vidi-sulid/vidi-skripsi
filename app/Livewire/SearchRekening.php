@@ -13,12 +13,14 @@ class SearchRekening extends Component
     public $query;
     public $search_results;
     public $rekening;
+    public $tes;
 
     protected $rules = [
         'keterangan' => 'required',
     ];
     public function mount()
     {
+        $this->tes = "sdkfj";
         $this->query = '';
         $this->search_results = array();
     }
@@ -35,21 +37,24 @@ class SearchRekening extends Component
         $data = array();
         $rekening = $this->query;
 
-        $loan = Loan::with(['member' => function ($query) use ($rekening) {
-            $query->where("name", "like", "%$rekening%");
-        }])->get();
-        foreach ($loan as $value) {
-            $data['data'][] = array("rekening" => $value->rekening, "name" => $value->member->name, "type" => "loan");
-        }
+        if ($rekening != "") {
+            $loan = Loan::whereHas('member', function ($query) use ($rekening) {
+                $query->where("name", "like", "%$rekening%");
+            })->get();
+            foreach ($loan as $value) {
 
-        $loan = Saving::with(['member' => function ($query) use ($rekening) {
-            $query->where("name", "like", "%$rekening%");
-        }])->get();
+                $data['data'][] = array("rekening" => $value->rekening, "name" => $value->member->name, "type" => "loan");
+            }
 
-        foreach ($loan as $value) {
-            $data['data'][] = array("rekening" => $value->rekening, "name" => $value->member->name, "type" => "saving");
+            $loan = Saving::whereHas('member', function ($query) use ($rekening) {
+                $query->where("name", "like", "%$rekening%");
+            })->get();
+
+            foreach ($loan as $value) {
+                $data['data'][] = array("rekening" => $value->rekening, "name" => $value->member->name, "type" => "saving");
+            }
+            $this->search_results = $data;
         }
-        $this->search_results = $data;
     }
 
     public function loadMore()

@@ -53,8 +53,6 @@
             <form id="wizard-member-listing-form" onSubmit="return false">
                 <!-- Data Personal -->
                 <div id="personal-details" class="content">
-
-
                     <div class="row g-3">
                         <div class="col-sm-6">
                             <label class="form-label" for="Name">Nama</label>
@@ -240,6 +238,13 @@
     <script src="{{ asset('assets/vendor/libs/@form-validation/umd/plugin-bootstrap5/index.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/libs/@form-validation/umd/plugin-auto-focus/index.min.js') }}"></script>
     <script>
+        // document.addEventListener('livewire:init', () => {
+        //     Livewire.on('rekeningPokok', (newMessage) => {
+        //         console.log(newMessage);
+        //     })
+        // });
+
+
         "use strict";
         ! function() {
             window.Helpers.initCustomOptionCheck();
@@ -372,7 +377,8 @@
                             info("Data Berhasil disimpan !", "bg-success");
                             s.previous();
                             s.previous();
-                            $('form')[0].reset()
+                            $('form')[0].reset();
+                            $('#tombolRefresh').click();
                         },
                         error: function(xhr, status, error) {
                             var errors = xhr.responseJSON.errors;

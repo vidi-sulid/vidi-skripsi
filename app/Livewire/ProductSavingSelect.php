@@ -13,11 +13,18 @@ class ProductSavingSelect extends Component
     public $kodeCif;
     public $product;
     public $nominalPokok;
-    public $nominalWajib = 0;
+    public $nominalWajib;
+    protected $listeners = ['postAdded' => 'incrementPostCount', "resetComponent"];
 
+
+    public function resetComponent()
+    {
+        $this->reset(); // Reset component state here
+    }
     public function mount()
     {
-        $this->nominalPokok = 0;
+
+        $this->dispatch('post-created');
         $this->kodeCif = getLastMemberCode();
     }
 
@@ -33,7 +40,7 @@ class ProductSavingSelect extends Component
         $this->rekeningWajib = "01." . $value . "." . $this->kodeCif . ".001";
         $data = ProductSaving::where("code", $value)->first();
         if ($data) {
-            $this->nominalWajib = 100000; // format_currency($data->mandatory_deposit);
+            $this->nominalWajib =  number_format($data->mandatory_deposit);
         }
     }
     public function handleSelectChangePokok($value)
@@ -41,7 +48,7 @@ class ProductSavingSelect extends Component
         $this->rekeningPokok = "01." . $value . "." . $this->kodeCif . ".001";
         $data = ProductSaving::where("code", $value)->first();
         if ($data) {
-            $this->nominalPokok = 50000; //format_currency($data->principal_deposit);
+            $this->nominalPokok = number_format($data->principal_deposit);
         }
     }
 }

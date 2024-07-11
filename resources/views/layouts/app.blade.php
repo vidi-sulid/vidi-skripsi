@@ -21,11 +21,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Dashboard - Analytics | Sneat - Bootstrap 5 HTML Admin Template - Pro</title>
+    <title>Vidi -Skripsi | Koperasi</title>
 
     
     <meta name="description" content="Most Powerful &amp; Comprehensive Bootstrap 5 HTML Admin Dashboard Template built for developers!" />
     <meta name="keywords" content="dashboard, bootstrap 5 dashboard, bootstrap 5 design, bootstrap 5">
+
+    <!-- Tambahkan tag favicon di sini -->
+    <link rel="icon" href="{{ asset('storage/logo-title.svg') }}" type="image/x-icon">
+    {{-- <link rel="icon" href="{{ asset('storage/logo-title.png') }}" type="image/png"> --}}
    
     @foreach ($pilihCss as $value)
 <?php echo $css[$value] . "\n"; ?>
@@ -42,6 +46,8 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('assets/js/config.js') }}"></script>
     @livewireStyles
+
+    
 </head>
 <body>
 
@@ -137,88 +143,6 @@
   
 
   
-  <!-- Quick links  -->
-  <li class="nav-item dropdown-shortcuts navbar-dropdown dropdown me-2 me-xl-0">
-    <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-      <i class='bx bx-grid-alt bx-sm'></i>
-    </a>
-    <div class="dropdown-menu dropdown-menu-end py-0">
-      <div class="dropdown-menu-header border-bottom">
-        <div class="dropdown-header d-flex align-items-center py-3">
-          <h5 class="text-body mb-0 me-auto">Shortcuts</h5>
-          <a href="javascript:void(0)" class="dropdown-shortcuts-add text-body" data-bs-toggle="tooltip" data-bs-placement="top" title="Add shortcuts"><i class="bx bx-sm bx-plus-circle"></i></a>
-        </div>
-      </div>
-      <div class="dropdown-shortcuts-list scrollable-container">
-        <div class="row row-bordered overflow-visible g-0">
-          <div class="dropdown-shortcuts-item col">
-            <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
-              <i class="bx bx-calendar fs-4"></i>
-            </span>
-            <a href="app-calendar.html" class="stretched-link">Calendar</a>
-            <small class="text-muted mb-0">Appointments</small>
-          </div>
-          <div class="dropdown-shortcuts-item col">
-            <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
-              <i class="bx bx-food-menu fs-4"></i>
-            </span>
-            <a href="app-invoice-list.html" class="stretched-link">Invoice App</a>
-            <small class="text-muted mb-0">Manage Accounts</small>
-          </div>
-        </div>
-        <div class="row row-bordered overflow-visible g-0">
-          <div class="dropdown-shortcuts-item col">
-            <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
-              <i class="bx bx-user fs-4"></i>
-            </span>
-            <a href="app-user-list.html" class="stretched-link">User App</a>
-            <small class="text-muted mb-0">Manage Users</small>
-          </div>
-          <div class="dropdown-shortcuts-item col">
-            <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
-              <i class="bx bx-check-shield fs-4"></i>
-            </span>
-            <a href="app-access-roles.html" class="stretched-link">Role Management</a>
-            <small class="text-muted mb-0">Permission</small>
-          </div>
-        </div>
-        <div class="row row-bordered overflow-visible g-0">
-          <div class="dropdown-shortcuts-item col">
-            <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
-              <i class="bx bx-pie-chart-alt-2 fs-4"></i>
-            </span>
-            <a href="index.html" class="stretched-link">Dashboard</a>
-            <small class="text-muted mb-0">User Profile</small>
-          </div>
-          <div class="dropdown-shortcuts-item col">
-            <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
-              <i class="bx bx-cog fs-4"></i>
-            </span>
-            <a href="pages-account-settings-account.html" class="stretched-link">Setting</a>
-            <small class="text-muted mb-0">Account Settings</small>
-          </div>
-        </div>
-        <div class="row row-bordered overflow-visible g-0">
-          <div class="dropdown-shortcuts-item col">
-            <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
-              <i class="bx bx-help-circle fs-4"></i>
-            </span>
-            <a href="pages-faq.html" class="stretched-link">FAQs</a>
-            <small class="text-muted mb-0">FAQs & Articles</small>
-          </div>
-          <div class="dropdown-shortcuts-item col">
-            <span class="dropdown-shortcuts-icon bg-label-secondary rounded-circle mb-2">
-              <i class="bx bx-window-open fs-4"></i>
-            </span>
-            <a href="modal-examples.html" class="stretched-link">Modals</a>
-            <small class="text-muted mb-0">Useful Popups</small>
-          </div>
-        </div>
-      </div>
-    </div>
-  </li>
-  <!-- Quick links -->
-
   
   <!-- Style Switcher -->
   <li class="nav-item dropdown-style-switcher dropdown me-2 me-xl-0">
@@ -251,7 +175,7 @@
   <li class="nav-item navbar-dropdown dropdown-user dropdown">
     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
       <div class="avatar avatar-online">
-        <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle">
+        <img src="{{ asset('assets/img/user.png') }}" alt class="w-px-40 h-auto rounded-circle">
       </div>
     </a>
     <ul class="dropdown-menu dropdown-menu-end">
@@ -260,12 +184,12 @@
           <div class="d-flex">
             <div class="flex-shrink-0 me-3">
               <div class="avatar avatar-online">
-                <img src="../../assets/img/avatars/1.png" alt class="w-px-40 h-auto rounded-circle">
+                <img src="{{ asset('assets/img/user.png') }}" alt class="w-px-40 h-auto rounded-circle">
               </div>
             </div>
             <div class="flex-grow-1">
-              <span class="fw-medium d-block">John Doe</span>
-              <small class="text-muted">Admin</small>
+              <span class="fw-medium d-block">{{ Auth::user()->name }}</span>
+              <small class="text-muted">{{ Auth::user()->getRoleNames() }}</small>
             </div>
           </div>
         </a>
@@ -274,21 +198,25 @@
         <div class="dropdown-divider"></div>
       </li>
       <li>
-        <a class="dropdown-item" href="pages-profile-user.html">
+        <a class="dropdown-item" href="{{ route('profile-user.index') }}">
           <i class="bx bx-user me-2"></i>
           <span class="align-middle">My Profile</span>
         </a>
       </li>
+      @can('setting_read')
+    <li>
+            <a class="dropdown-item" href="{{ route('setting.index') }}">
+                <i class="bx bx-cog me-2"></i>
+                <span class="align-middle">Settings</span>
+            </a>
+          </li>
+@endcan
       <li>
-        <a class="dropdown-item"  target="_blank" onclick="event.preventDefault(); document.getElementById('logoutForm').submit();">
-          <form id="logoutForm" method="POST" action="{{ route('logout') }}">
-            @csrf
-            <!-- other form fields if any -->
-           
+        <a class="dropdown-item"  target="_blank"  onclick="logout(event)">
         
           <i class="bx bx-power-off me-2"></i>
           <span class="align-middle">Log Out</span>
-        </form>
+        
         </a>
       </li>
     </ul>
@@ -368,20 +296,11 @@ data-bs-delay="2000" id="toastId">
 @livewireScripts
 @yield('addon_js')
 @stack('custom_js')
+@include('sweetalert::alert', ['cdn' => 'https://cdn.jsdelivr.net/npm/sweetalert2@9'])
 
 </body>
 
 <script>
-    document.addEventListener('livewire:load', function() {
-        console.log('okee');
-        Livewire.hook('updated', () => {
-            // Manipulasi input di sini menggunakan JavaScript
-            // Contoh: mengubah nilai, menambah event listener, dll
-            let input = document.getElementById('dynamic-input');
-            // Manipulasi sesuai kebutuhan
-        });
-    });
-
     <?php echo @$jsTambahan; ?>
 </script>
 

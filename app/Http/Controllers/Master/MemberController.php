@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Master;
 
 use App\Http\Controllers\Controller;
+use App\Library\Member as LibraryMember;
 use App\Library\Template;
 use App\Models\Master\Member;
 use App\Models\Master\Saving;
@@ -53,7 +54,7 @@ class MemberController extends Controller
         $golonganWajib            = $data['saving_mandatory'];
         $golonganPokok            = $data['saving_principal'];
         $data['Code']             = getLastMemberCode();
-        $data['username']       = Auth::user()->name;
+        $data['username']         = Auth::user()->name;
         $data['PrincipalAmount']  = filter_var($data['PrincipalAmount'], FILTER_SANITIZE_NUMBER_INT);
         $data['MandatoryAmount']  = filter_var($data['MandatoryAmount'], FILTER_SANITIZE_NUMBER_INT);
         $data['PrincipalAccount'] = implode('.', ["01", $golonganPokok, $data['Code']]);
@@ -125,8 +126,39 @@ class MemberController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Member $member)
     {
+        abort_if(Gate::denies('member_delete'), 403);
+
+        $tgl = getTgl();
+        $saving = Saving::where("member_code", $member->code)->get();
+        $faktur = invoice("TTA", true);
+        $vaUpdate = array("date_close" => $tgl);
+        foreach ($saving as $value) {
+            $saldo = LibraryMember::saldoSimpanan($value->rekening, $tgl);
+
+            if ($saldo > 0) {
+                $mutation = [
+                    "invoice"         => $faktur,
+                    "date"            => $tgl,
+                    "rekening"        => $value->rekening,
+                    "codetransaction" => '01',
+                    "description"     => "Penutupan anggota " . $member->name,
+                    "debit"           => $saldo,
+                    "credit"          => 0,
+                    "username"        => Auth::user()->name,
+                    "cash"            => 'K'
+                ];
+                SavingMutation::create($mutation);
+                Saving::where("rekening", $value->rekening)->update($vaUpdate);
+            }
+        }
+        UpdateJournalSaving($faktur);
+        log_custom("Penutupan Anggota");
+        // $member->date_close = $tgl;
+        $member->update($vaUpdate);
+        return response()->json("ok");
+        // $productLoan->delete();
         //
     }
 }

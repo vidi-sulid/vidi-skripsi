@@ -99,7 +99,7 @@ if (!function_exists('UpdateJournalLoan')) {
             }
         }
         if ($lcair) {
-            $loan = Loan::where("invoice", $invoice)->first();
+            $loan = Loan::with(['member'])->where("invoice", $invoice)->first();
             if ($loan) {
                 $mutation = array();
                 $totalKas = $loan->stamp_duty + $loan->provision_fee + $loan->administration_fee;
@@ -109,7 +109,7 @@ if (!function_exists('UpdateJournalLoan')) {
                             "invoice"     => $loan->invoice,
                             "date"        => $loan->date_open,
                             "rekening"    => getName($loan->product_loan_id, "product_loans", "account_dutystamp"),
-                            "description" => "Materai " . $loan->description,
+                            "description" => "Materai pencairan an  " . $loan->member->name,
                             "debit"       => 0,
                             "credit"      => $loan->stamp_duty,
                             "username"  => $loan->username
@@ -120,7 +120,7 @@ if (!function_exists('UpdateJournalLoan')) {
                         "invoice"     => $loan->invoice,
                         "date"        => $loan->date_open,
                         "rekening"    => getName($loan->product_loan_id, "product_loans", "account_income_interest"),
-                        "description" => "Administrasi " . $loan->description,
+                        "description" => "Administrasi pencairan an " . $loan->member->name,
                         "debit"       => 0,
                         "credit"      => $loan->administration_fee,
                         "username"  => $loan->username
@@ -131,7 +131,7 @@ if (!function_exists('UpdateJournalLoan')) {
                         "invoice"     => $loan->invoice,
                         "date"        => $loan->date_open,
                         "rekening"    => getName($loan->product_loan_id, "product_loans", "account_income_interest"),
-                        "description" => "Provisi " . $loan->description,
+                        "description" => "Provisi pencairan an " . $loan->member->name,
                         "debit"       => 0,
                         "credit"      => $loan->provision_fee,
                         "username"  => $loan->username
@@ -143,7 +143,7 @@ if (!function_exists('UpdateJournalLoan')) {
                         "invoice"     => $loan->invoice,
                         "date"        => $loan->date_open,
                         "rekening"    => $CashAccount,
-                        "description" => "Provisi " . $loan->description,
+                        "description" => "Biaya pencairan" . $loan->member->name,
                         "debit"       => $totalKas,
                         "credit"      => 0,
                         "username"  => $loan->username

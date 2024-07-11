@@ -45,12 +45,21 @@ class CoaSeeder extends Seeder
             ['code' => '3.500', 'name' => 'SHU', 'type' => 1],
             ['code' => '3.500.01', 'name' => 'SHU', 'type' => 0],
 
-            ["code" => '4.500', "name" => "Pendapatan Simpanan ", "type" => 1],
-            ["code" => '4.500.10', "name" => "Pendapatan Administrasi", "type" => 0],
+            ["code" => '4.100', "name" => "Pendapatan Simpanan ", "type" => 1],
+            ["code" => '4.100.10', "name" => "Pendapatan Administrasi", "type" => 0],
 
-            ["code" => '4.510', "name" => "Pendapatan Pinjaman ", "type" => 1],
-            ["code" => '4.510.10', "name" => "Pendapatan Administrasi", "type" => 0],
-            ["code" => '4.510.20', "name" => "Pendapatan Bunga", "type" => 0],
+            ["code" => '4.200', "name" => "Pendapatan Pinjaman ", "type" => 1],
+            ["code" => '4.200.10', "name" => "Pendapatan Administrasi", "type" => 0],
+            ["code" => '4.200.20', "name" => "Pendapatan Provisi", "type" => 0],
+            ["code" => '4.200.30', "name" => "Pendapatan Bunga", "type" => 0],
+
+            ["code" => '4.490', "name" => "Pendapatan Lainnya ", "type" => 1],
+            ["code" => '4.490.10', "name" => "Pendapatan Lainnya ", "type" => 0],
+
+
+            ["code" => '4.500', "name" => "Pendapatan Non Operasional ", "type" => 1],
+            ["code" => '4.500', "name" => "Pendapatan Non Operasional ", "type" => 0],
+
 
             ["code" => '5.500', "name" => "Beban Simpanan ", "type" => 1],
             ["code" => '5.500.10', "name" => "Beban Simpanan", "type" => 0],
@@ -65,18 +74,18 @@ class CoaSeeder extends Seeder
         $vaProduct = [
             [
                 "code" => 'AS_01', "name" => "Aset Inventaris", "account_aset" => "1.150.10", "account_depreciation" => "1.151.10", "account_cost" => "5.500.10",
-                "account_income" => "4.500.10"
+                "account_income" => "4.100.10"
             ]
         ];
         ProductAset::insert($vaProduct);
 
         $vaProduct = [
             [
-                "code" => 'SP_01', "name" => "Simpanan Pokok", "account_saving" => "3.100.10", "account_income_administration" => "4.500.10", "account_cost" => "5.500.10",
+                "code" => 'SP_01', "name" => "Simpanan Pokok", "account_saving" => "3.100.10", "account_income_administration" => "4.100.10", "account_cost" => "5.500.10",
                 "principal_deposit" => 10000, "mandatory_deposit" => 5000, "type" => "P"
             ],
             [
-                "code" => 'SP_02', "name" => "Simpanan Wajib", "account_saving" => "3.100.20", "account_income_administration" => "4.500.10", "account_cost" => "5.500.10",
+                "code" => 'SP_02', "name" => "Simpanan Wajib", "account_saving" => "3.100.20", "account_income_administration" => "4.100.10", "account_cost" => "5.500.10",
                 "principal_deposit" => 10000, "mandatory_deposit" => 5000, "type" => "W"
             ]
         ];
@@ -84,12 +93,12 @@ class CoaSeeder extends Seeder
         ProductSaving::insert($vaProduct);
         $vaProduct = [
             [
-                "code" => 'PJ_01', "name" => "Modal Kerja", "account_loan" => "1.120.10", "account_income_administration" => "4.510.10", "account_income_interest" => "4.510.20",
-                "account_dutystamp" => "1.160.10",
+                "code" => 'PJ_01', "name" => "Modal Kerja", "account_loan" => "1.120.10", "account_income_administration" => "4.200.10", "account_income_interest" => "4.510.20",
+                "account_dutystamp" => "1.160.120",
             ],
             [
-                "code" => 'PJ_02', "name" => "Umum", "account_loan" => "1.120.10", "account_income_administration" => "4.510.10", "account_income_interest" => "4.510.20",
-                "account_dutystamp" => "1.160.10",
+                "code" => 'PJ_02', "name" => "Umum", "account_loan" => "1.120.10", "account_income_administration" => "4.200.10", "account_income_interest" => "4.510.20",
+                "account_dutystamp" => "1.160.120",
             ]
         ];
         ProductLoan::insert($vaProduct);

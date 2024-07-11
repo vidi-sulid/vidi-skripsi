@@ -59,6 +59,7 @@
                             </div>
                             <thead>
                                 <tr>
+                                    <th>Action </th>
                                     <th>Kode</th>
                                     <th>Tanggal</th>
                                     <th>Nama</th>
@@ -83,6 +84,21 @@
                                         $pinjaman += $value['loanBalance'];
                                     @endphp
                                     <tr>
+                                        <td>
+                                            <span class="text-nowrap">
+                                                @can('productaset_update')
+                                                    <button class="btn btn-sm btn-icon me-2"
+                                                        onclick="openModal('{{ route('product-aset.edit', $value['id']) }}')"><i
+                                                            class="bx bx-edit"></i></button>
+                                                @endcan
+                                                @can('productaset_delete')
+                                                    <button class="btn btn-sm btn-icon delete-record"
+                                                        onclick=" hapus('{{ route('member.destroy', $value['id']) }}')"><i
+                                                            class="bx bx-trash"></i></button>
+                                                @endcan
+                                            </span>
+
+                                        </td>
                                         <td> {{ $value['code'] }} </td>
                                         <td class="text-nowrap">
                                             {{ tanggalIndonesia($value['date']) }} </td>

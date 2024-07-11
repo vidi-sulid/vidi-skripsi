@@ -34,10 +34,10 @@
             <div class="row">
 
                 <div class="col">
-                    <label for="member_code" class="form-label">Customer</label>
+                    <label for="member_code" class="form-label">Anggota</label>
                     <select wire:change="generateRekening($event.target.value)" name="member_code"
                         class="form-select select2">
-                        <option value="">Pilih Customer</option>
+                        <option value="">Pilih Anggota</option>
                         @foreach ($customer as $data)
                             <option value="{{ $data->id }}">
                                 {{ $data->code . '-' . $data->name }}
@@ -54,25 +54,38 @@
             <div class="row">
                 <div class="col">
                     <label for="loan_amount" class="form-label">Jumlah Pinjaman</label>
-                    <input type="text" id="loan_amount" name="loan_amount" class="form-control numeral-mask"
-                        wire:change="generateRekening(1)" placeholder="Jumlah Pinjaman" value="0" />
+                    <div class="input-group input-group-merge">
+                        <input type="text" class="form-control numeral-mask" id="loan_amount" name="loan_amount"
+                            aria-describedby="loan_amount" value="0" wire:blur="generateRekening">
+                        <span class="input-group-text" id="loan_amount">Rp.</span>
+                    </div>
+
                 </div>
                 <div class="col">
                     <label for="provision_fee" class="form-label">Provisi</label>
-                    <input type="text" id="provision_fee" name="provision_fee" class="form-control numeral-mask"
-                        placeholder="Jumlah Pinjaman" value="0" />
+                    <div class="input-group input-group-merge">
+                        <input type="text" class="form-control numeral-mask" id="provision_fee" name="provision_fee"
+                            aria-describedby="provision_fee" value="0">
+                        <span class="input-group-text" id="provision_fee">Rp.</span>
+                    </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col">
                     <label for="administration_fee" class="form-label">Administrasi</label>
-                    <input type="text" id="administration_fee" name="administration_fee"
-                        class="form-control numeral-mask" placeholder="Administrasi" value="0" />
+                    <div class="input-group input-group-merge">
+                        <input type="text" class="form-control numeral-mask" id="administration_fee"
+                            name="administration_fee" aria-describedby="administration_fee" value="0">
+                        <span class="input-group-text" id="administration_fee">Rp.</span>
+                    </div>
                 </div>
                 <div class="col">
                     <label for="stamp_duty" class="form-label">Materai</label>
-                    <input type="text" id="stamp_duty" name="stamp_duty" class="form-control numeral-mask"
-                        value="0" />
+                    <div class="input-group input-group-merge">
+                        <input type="text" class="form-control numeral-mask" id="stamp_duty" name="stamp_duty"
+                            aria-describedby="stamp_duty" value="0">
+                        <span class="input-group-text" id="stamp_duty">Rp.</span>
+                    </div>
                 </div>
             </div>
             <div class="row">
@@ -83,7 +96,7 @@
                 <div class="col-6">
                     <label for="interest_rate" class="form-label">Suku Bunga</label>
                     <input type="text" id="interest_rate" name="interest_rate" class="form-control sukubunga"
-                        value="0" />
+                        value="0.00" />
                 </div>
             </div>
         </div>
@@ -100,46 +113,44 @@
 
     <script>
         $('.numeral-mask').toArray().forEach(function(field) {
-            var cleave = new Cleave(field, {
+            new Cleave(field, {
                 numeral: true,
-                numeralThousandsGroupStyle: 'thousand',
-                prefix: 'Rp ',
-                noImmediatePrefix: true,
-                rawValueTrimPrefix: true
-            });
+                numeralDecimalMark: ',',
+                delimiter: '.'
+            })
         });
-        /*
 
-                var s, i, e = $(".select2"),
-                    e = (e.length && e.each(function() {
-                        var e = $(this);
-                        e.wrap('<div class="position-relative"></div>').select2({
-                            dropdownParent: e.parent(),
-                            placeholder: e.data("placeholder")
-                        })
-                    }), $(".form-repeater"));
-                e.length && (s = 2, i = 1, e.on("submit", function(e) {
-                    e.preventDefault()
-                }), e.repeater({
-                    show: function() {
-                        var a = $(this).find(".form-control, .form-select"),
-                            t = $(this).find(".form-label");
-                        a.each(function(e) {
-                            var r = "form-repeater-" + s + "-" + i;
-                            $(a[e]).attr("id", r), $(t[e]).attr("for", r), i++
-                        }), s++, $(this).slideDown(), $(".select2-container").remove(), $(
-                            ".select2.form-select").select2({
-                            placeholder: "Placeholder text"
-                        }), $(".select2-container").css("width", "100%"), $(
-                            ".form-repeater:first .form-select").select2({
-                            dropdownParent: $(this).parent(),
-                            placeholder: "Placeholder text"
-                        }), $(".position-relative .select2").each(function() {
-                            $(this).select2({
-                                dropdownParent: $(this).closest(".position-relative")
-                            })
-                        })
-                    }
-                }))*/
+
+        // var s, i, e = $(".select2"),
+        //     e = (e.length && e.each(function() {
+        //         var e = $(this);
+        //         e.wrap('<div class="position-relative"></div>').select2({
+        //             dropdownParent: e.parent(),
+        //             placeholder: e.data("placeholder")
+        //         })
+        //     }), $(".form-repeater"));
+        // e.length && (s = 2, i = 1, e.on("submit", function(e) {
+        //     e.preventDefault()
+        // }), e.repeater({
+        //     show: function() {
+        //         var a = $(this).find(".form-control, .form-select"),
+        //             t = $(this).find(".form-label");
+        //         a.each(function(e) {
+        //             var r = "form-repeater-" + s + "-" + i;
+        //             $(a[e]).attr("id", r), $(t[e]).attr("for", r), i++
+        //         }), s++, $(this).slideDown(), $(".select2-container").remove(), $(
+        //             ".select2.form-select").select2({
+        //             placeholder: "Placeholder text"
+        //         }), $(".select2-container").css("width", "100%"), $(
+        //             ".form-repeater:first .form-select").select2({
+        //             dropdownParent: $(this).parent(),
+        //             placeholder: "Placeholder text"
+        //         }), $(".position-relative .select2").each(function() {
+        //             $(this).select2({
+        //                 dropdownParent: $(this).closest(".position-relative")
+        //             })
+        //         })
+        //     }
+        // }))
     </script>
 </div>

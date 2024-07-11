@@ -16,12 +16,15 @@ return new class extends Migration
             $table->string('company_name');
             $table->string('company_email');
             $table->string('company_phone');
+            $table->string('company_chairman');
+            $table->string('company_treasurer');
+            $table->string('company_secretary');
+            $table->text('company_address');
             $table->string('site_logo')->nullable();
             $table->integer('default_currency_id');
             $table->string('default_currency_position');
             $table->string('notification_email');
             $table->text('footer_text');
-            $table->text('company_address');
             $table->timestamps();
         });
     }

@@ -34,7 +34,7 @@ class JournalController extends Controller
         $('#pembukuan').addClass('active');
         $('#transaksi').addClass('open active');
         ";
-        Session::forget('cart_items');
+        Session::forget('data_jurnal');
 
         return view('transaksi.journal_create', $data);
     }
@@ -50,18 +50,14 @@ class JournalController extends Controller
         $data = session()->get('cart_items', []);
         foreach ($data as $key => $value) {
             $kredit = $debit = 0;
-            if ($value['jenis'] == "pemasukan") {
-                $kredit = convertRupiahToNumber($value['nominal']);
-            } else {
-                $debit = convertRupiahToNumber($value['nominal']);
-            }
+
             $mutation = [
                 "invoice"     => $invoice,
                 "date"        => date("Y-m-d"),
                 "rekening"    => $value['id'],
                 "description" => $value['keterangan'],
-                "debit"       => $debit,
-                "credit"      => $kredit,
+                "debit"       => $value['debit'],
+                "credit"      => $value['kredit'],
                 "username"  => Auth::user()->name
             ];
             Journal::create($mutation);

@@ -167,12 +167,18 @@
                 <tr>
                     <td style="height:50px;"></td>
                 </tr>
-
                 <tr>
+                    <td align="center"><b>Bendaharan</b></td>
+                    <td align="center"><b>Ketua </td>
+                    <td align="center"><b>Seketaris</b> </td>
                 </tr>
 
                 <tr>
+                    <td align="center"><b>{{ settings()->company_chairman }}</b></td>
+                    <td align="center"><b>{{ settings()->company_treasurer }}</td>
+                    <td align="center"><b>{{ settings()->company_secretary }}</b> </td>
                 </tr>
+
             </table>
         </div>
     </main>

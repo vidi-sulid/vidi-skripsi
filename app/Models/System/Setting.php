@@ -11,6 +11,8 @@ class Setting extends Model
     use HasFactory;
     protected $with = ['currency'];
 
+    protected $guarded = [];
+
     public function currency()
     {
         return $this->belongsTo(Currency::class, 'default_currency_id', 'id');

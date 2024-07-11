@@ -12,7 +12,6 @@ function save(url,type) {
             $('form')[0].reset();
             $(':button').prop('disabled', false);
             info("Data Berhasil disimpan !",'bg-success');
-            $('#formdatatable').DataTable().ajax.reload();
             $("#modalForm").modal('hide');
             $("#detail-rekening").html("");
             $("#detail-mutasi").html("");
@@ -21,6 +20,15 @@ function save(url,type) {
                 console.log('Received event from Livewire:', data);
                 // Lakukan tindakan berdasarkan data yang diterima
             });
+            var element = document.getElementById('formdatatable');
+
+            if (element) {
+                // Reload the DataTable using AJAX
+                $('#formdatatable').DataTable().ajax.reload();
+            }
+            if(data == "reload"){
+                location.reload();
+            }
 
             
         },
@@ -69,8 +77,13 @@ function hapus(url){
                 url: url,
                 type: "delete",
                 success: function(data) {
-                    $('#formdatatable').DataTable().ajax.reload();
-                    toastr.success("Data Berhasil dihapus !","info") ;
+                    var element = document.getElementById('formdatatable');
+
+                    if (element) {
+                        // Reload the DataTable using AJAX
+                        $('#formdatatable').DataTable().ajax.reload();
+                    }
+                    info("data berhasil dihapus") ;
                 }
             })
         }
@@ -128,3 +141,27 @@ document.addEventListener('livewire:load', function () {
         console.log('Livewire component has been reset');
     });
 });
+
+function logout(event) {
+    event.preventDefault();
+
+    fetch('http://localhost:8000/logout', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        // body: JSON.stringify({}) // Add any data if needed
+    }).then(response => {
+        if (response.ok) {
+            // Optional: Perform any additional actions after successful logout
+            console.log('Logged out successfully');
+            // Example: Redirect to login page
+            window.location.href = '/login';
+        } else {
+            console.error('Logout failed');
+        }
+    }).catch(error => {
+        console.error('Error during logout:', error);
+    });
+}

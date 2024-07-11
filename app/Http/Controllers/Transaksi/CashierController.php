@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Transaksi;
 
 use App\Http\Controllers\Controller;
+use App\Library\Member;
 use App\Library\Template;
 use App\Models\Transaksi\LoanMutation;
 use App\Models\Transaksi\SavingMutation;
@@ -62,6 +63,15 @@ class CashierController extends Controller
         }
 
         if ($data['type'] == "loan") {
+            $bakidebet = Member::bakidebet($data['rekening'], getTgl());
+            if ($data['credit'] >= $bakidebet) {
+                return response()->json([
+                    'info' => 'The code field is required.',
+                    'errors' => [
+                        'error' => ['Pembayaran pokok tidak boleh melebihi sisa pinjaman']
+                    ]
+                ], 422);
+            }
             if ($data['credit'] <= 0 && $data['credit_interest'] <= 0) {
                 return response()->json([
                     'info' => 'The code field is required.',

@@ -6,9 +6,10 @@ use App\Http\Controllers\Master\MemberController;
 use App\Http\Controllers\Master\ProductAsetController;
 use App\Http\Controllers\Master\ProductLoanController;
 use App\Http\Controllers\Master\ProductSavingController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Report\ReportController;
 use App\Http\Controllers\System\PermissionController;
+use App\Http\Controllers\System\ProfileController;
+use App\Http\Controllers\System\SettingController;
 use App\Http\Controllers\System\UserController;
 use App\Http\Controllers\System\UserDateController;
 use App\Http\Controllers\Transaksi\AsetController;
@@ -40,6 +41,8 @@ Route::middleware('auth')->group(function () {
     Route::resource('loan', LoanController::class);
     Route::resource('user-date', UserDateController::class);
     Route::resource('cashier', CashierController::class);
+    Route::resource('profile-user', ProfileController::class);
+    Route::resource('setting', SettingController::class);
 
     Route::get('aset-report', [ReportController::class, 'asetReport'])
         ->name('aset-report.index');

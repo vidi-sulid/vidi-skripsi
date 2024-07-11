@@ -5,7 +5,8 @@
     <div class="row g-3">
         <div class="col-sm-6">
             <label class="form-label d-block" for="Code">Kode CIF</label>
-            <input type="text" id="Code" name="Code" class="form-control" wire:model="kodeCif" readonly />
+            <input type="text" id="Code" name="Code" class="form-control" wire:model="kodeCif" readonly
+                disabled />
         </div>
         <div class="mb-3 col-lg-4">
             <label class="form-label" for="Date">Tanggal</label>
@@ -34,31 +35,32 @@
             </select>
         </div>
         <div class="col-sm-6">
-            <label class="form-label d-block" for="PrincipalAccount">Rekening Pokok</label>
-            <input type="text" id="PrincipalAccount" wire:model="rekeningPokok" name="PrincipalAccount"
-                class="form-control" readonly />
-        </div>
-        <div class="col-sm-6">
-            <label class="form-label d-block" for="PrincipalAmount">Nominal Mutasi</label>
-            <div class="input-group input-group-merge">
-                <input type="number" class="form-control numeral-mask" id="PrincipalAmount" name="PrincipalAmount"
-                    wire:model="nominalPokok" aria-describedby="PrincipalAmount" readonly>
-                <span class="input-group-text" id="PrincipalAmount">Rp.</span>
-            </div>
-        </div>
-        <div class="col-sm-6">
             <label class="form-label d-block" for="MandatoryAccount">Rekening Wajib</label>
             <input type="text" id="MandatoryAccount" wire:model="rekeningWajib" name="MandatoryAccount"
-                class="form-control" readonly />
+                class="form-control" readonly disabled />
         </div>
         <div class="col-sm-6">
             <label class="form-label d-block" for="MandatoryAmount">Nominal Mutasi</label>
             <div class="input-group input-group-merge">
-                <input type="number" class="form-control numeral-mask" id="MandatoryAmounts" name="MandatoryAmount"
-                    wire:model="nominalWajib" aria-describedby="MandatoryAmount" readonly>
+                <input type="text" class="form-control numeral-mask" id="MandatoryAmounts" name="MandatoryAmount"
+                    value="{{ $nominalWajib }}" aria-describedby="MandatoryAmount" readonly>
                 <span class="input-group-text" id="MandatoryAmount">Rp.</span>
             </div>
         </div>
+        <div class="col-sm-6">
+            <label class="form-label d-block" for="PrincipalAccount">Rekening Pokok</label>
+            <input type="text" id="PrincipalAccount" wire:model="rekeningPokok" name="PrincipalAccount"
+                class="form-control" readonly disabled />
+        </div>
+        <div class="col-sm-6">
+            <label class="form-label d-block" for="PrincipalAmount">Nominal Mutasi</label>
+            <div class="input-group input-group-merge">
+                <input type="text" class="form-control numeral-mask" id="PrincipalAmount" name="PrincipalAmount"
+                    wire:model="nominalPokok" aria-describedby="PrincipalAmount" readonly>
+                <span class="input-group-text" id="PrincipalAmount">Rp.</span>
+            </div>
+        </div>
+
         <div class="col-12 d-flex justify-content-between">
             <button class="btn btn-primary btn-prev"> <i class="bx bx-chevron-left bx-sm ms-sm-n2"></i>
                 <span class="align-middle d-sm-inline-block d-none">Sebelumnya</span> </button>
@@ -66,4 +68,5 @@
         </div>
     </div>
 
+    <button wire:click="$refresh" class="d-none" id="tombolRefresh">Refresh component</button>
 </div>

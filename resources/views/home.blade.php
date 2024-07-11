@@ -1,231 +1,214 @@
 @extends('layouts.app')
 @section('content')
     <div class="row">
-        <div class="col-lg-8 mb-4 order-0">
+        <div class="col-md-3 col-lg-3 mb-4">
             <div class="card">
                 <div class="d-flex align-items-end row">
-                    <div class="col-sm-7">
+                    <div class="col-8">
                         <div class="card-body">
-                            <h5 class="card-title text-primary">Selamat {{ Auth::user()->name }} 🎉</h5>
-                            <p class="mb-4">Anda telah melakukan peningkatan penjualan <span
-                                    class="fw-medium">72%</span>hari ini. Periksa lencana baru Anda di profil Anda.</p>
+                            <h6 class="card-title mb-1 text-nowrap">Selamat Datang {{ auth()->user()->name }} !</h6>
+                            <small class="d-block mb-3 text-nowrap">Anda Login Sebagai Admin</small>
 
-                            <a href="javascript:;" class="btn btn-sm btn-outline-primary">View Badges</a>
+
+                            <a href="{{ route('profile-user.index') }}" class="btn btn-sm btn-primary">Lihat Profile</a>
                         </div>
                     </div>
-                    <div class="col-sm-5 text-center text-sm-left">
-                        <div class="card-body pb-0 px-0 px-md-4">
-                            <img src="../assets/img/illustrations/man-with-laptop-light.png" height="140"
-                                alt="View Badge User" data-app-dark-img="illustrations/man-with-laptop-dark.png"
-                                data-app-light-img="illustrations/man-with-laptop-light.png">
-                        </div>
+                    <div class="col-4 pt-3 ps-0">
+
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-lg-4 col-md-4 order-1">
+        <div class="col-lg-3 col-md-3  mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="card-title d-flex align-items-start justify-content-between">
+                        <div class="avatar flex-shrink-0">
+                            <img src="{{ asset('assets/img/icons/unicons/wallet-info.png') }}" alt="Credit Card"
+                                class="rounded">
+                        </div>
+                        <div class="dropdown">
+                            <button class="btn p-0" type="button" id="cardOpt6" data-bs-toggle="dropdown"
+                                aria-haspopup="true" aria-expanded="false">
+                                <i class="bx bx-dots-vertical-rounded"></i>
+                            </button>
+                            <div class="dropdown-menu" aria-labelledby="cardOpt6">
+                                <a class="dropdown-item" href="javascript:void(0);">Lebih Lanjut</a>
+                            </div>
+                        </div>
+                    </div>
+                    <span class="d-block">Saldo Kas</span>
+                    <h4 class="card-title mb-1">Rp.
+                        {{ number_format($cashBalance) }}
+                    </h4>
+                    <small class="{{ $cashText }} fw-medium"><i
+                            class="bx {{ $cashIcon }}"></i>+{{ number_format($cashDaily) }}</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-6">
             <div class="row">
-                <div class="col-lg-6 col-md-12 col-6 mb-4">
+
+                <div class="col-lg-6 col-md-3 col-6 mb-4">
                     <div class="card">
-                        <div class="card-body">
-                            <div class="card-title d-flex align-items-start justify-content-between">
-                                <div class="avatar flex-shrink-0">
-                                    <img src="../assets/img/icons/unicons/chart-success.png" alt="chart success"
-                                        class="rounded">
-                                </div>
-                                <div class="dropdown">
-                                    <button class="btn p-0" type="button" id="cardOpt3" data-bs-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                        <i class="bx bx-dots-vertical-rounded"></i>
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt3">
-                                        <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                                        <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <span class="fw-medium d-block mb-1">Profit</span>
-                            <h3 class="card-title mb-2">$12,628</h3>
-                            <small class="text-success fw-medium"><i class='bx bx-up-arrow-alt'></i> +72.80%</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-12 col-6 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-title d-flex align-items-start justify-content-between">
-                                <div class="avatar flex-shrink-0">
-                                    <img src="../assets/img/icons/unicons/wallet-info.png" alt="Credit Card"
-                                        class="rounded">
-                                </div>
-                                <div class="dropdown">
-                                    <button class="btn p-0" type="button" id="cardOpt6" data-bs-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                        <i class="bx bx-dots-vertical-rounded"></i>
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt6">
-                                        <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                                        <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <span>Sales</span>
-                            <h3 class="card-title text-nowrap mb-1">$4,679</h3>
-                            <small class="text-success fw-medium"><i class='bx bx-up-arrow-alt'></i> +28.42%</small>
+                        <div class="card-body pb-2" style="position: relative;">
+                            <span class="d-block fw-medium">Total Aset</span>
+                            <h3 class="card-title mb-0">{{ number_format($assetBalance) }}</h3>
+                            <div id="assetChart" style="min-height: 95px;"></div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-12 col-lg-8 order-2 order-md-3 order-lg-2 mb-4">
+
+        <div class="col-lg-12 mb-4">
+            <div class="card">
+                <div class="card-body row g-4">
+                    <div class="col-md-6 pe-md-4 card-separator">
+                        <div class="card-title d-flex align-items-start justify-content-between">
+                            <h5 class="mb-0">Anggota</h5>
+                            <small>Minggu Terakhir</small>
+                        </div>
+                        <div class="d-flex justify-content-between" style="position: relative;">
+                            <div class="mt-auto">
+                                <h2 class="mb-2">{{ $members }}
+                                </h2>
+                                <small class="{{ $memberText }} text-nowrap fw-medium"><i
+                                        class="bx {{ $memberIcon }}"></i>
+                                    {{ $memberGrowth }} %</small>
+                            </div>
+                            <div id="membersChart" style="min-height: 120px;"></div>
+                            <div class="resize-triggers">
+                                <div class="expand-trigger">
+                                    <div style="width: 410px; height: 121px;"></div>
+                                </div>
+                                <div class="contract-trigger"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 ps-md-4">
+                        <div class="card-title d-flex align-items-start justify-content-between">
+                            <h5 class="mb-0">Aktivitas</h5>
+                            <small>10 Hari Terakhir</small>
+                        </div>
+                        <div class="d-flex justify-content-between" style="position: relative;">
+                            <div class="mt-auto">
+                                <h2 class="mb-2">{{ number_format($mutationDeposit) }}</h2>
+                                <small class="text-success text-nowrap fw-medium"><i class="bx bx-up-arrow-alt"></i>
+                                    {{ number_format($mutationDepositDaily) }}</small>
+                            </div>
+                            <div id="MutationDepositChart" style="min-height: 120px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Total Income -->
+        <div class="col-md-12 col-lg-12 mb-4">
             <div class="card">
                 <div class="row row-bordered g-0">
                     <div class="col-md-8">
-                        <h5 class="card-header m-0 me-2 pb-3">Total Revenue</h5>
-                        <div id="totalRevenueChart" class="px-2"></div>
+                        <div class="card-header">
+                            <h5 class="card-title mb-0">Statistik Laba Rugi</h5>
+                            <small class="card-subtitle">Ringkasan Tahunan</small>
+                        </div>
+                        <div class="card-body" style="position: relative;">
+                            <div id="totalIncomeChart" style="min-height: 265px;"></div>
+                        </div>
                     </div>
                     <div class="col-md-4">
-                        <div class="card-body">
-                            <div class="text-center">
-                                <div class="dropdown">
-                                    <button class="btn btn-sm btn-outline-primary dropdown-toggle" type="button"
-                                        id="growthReportId" data-bs-toggle="dropdown" aria-haspopup="true"
-                                        aria-expanded="false">
-                                        2022
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="growthReportId">
-                                        <a class="dropdown-item" href="javascript:void(0);">2021</a>
-                                        <a class="dropdown-item" href="javascript:void(0);">2020</a>
-                                        <a class="dropdown-item" href="javascript:void(0);">2019</a>
-                                    </div>
+                        <div class="card-header d-flex justify-content-between">
+                            <div>
+                                <h5 class="card-title mb-0">Laporan</h5>
+                                <small class="card-subtitle">Rata Rata Bulanan. Rp.
+                                    {{ number_format($averageProfit) }}</small>
+                            </div>
+                            <div class="dropdown">
+                                <button class="btn p-0" type="button" id="totalIncome" data-bs-toggle="dropdown"
+                                    aria-haspopup="true" aria-expanded="false">
+                                    <i class="bx bx-dots-vertical-rounded"></i>
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="totalIncome">
+                                    <a class="dropdown-item" href="javascript:void(0);">Lebih Lanjut</a>
                                 </div>
                             </div>
                         </div>
-                        <div id="growthChart"></div>
-                        <div class="text-center fw-medium pt-3 mb-2">62% Company Growth</div>
-
-                        <div class="d-flex px-xxl-4 px-lg-2 p-4 gap-xxl-3 gap-lg-1 gap-3 justify-content-between">
-                            <div class="d-flex">
-                                <div class="me-2">
-                                    <span class="badge bg-label-primary p-2"><i
-                                            class="bx bx-dollar text-primary"></i></span>
+                        <div class="card-body">
+                            <div class="report-list">
+                                <div class="report-list-item rounded-2 mb-3">
+                                    <div class="d-flex align-items-start">
+                                        <div class="report-list-icon shadow-sm me-2">
+                                            <img src="{{ asset('assets/img/icons/unicons/wallet-info.png') }}"
+                                                width="22" height="22" alt="Paypal">
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-end w-100 flex-wrap gap-2">
+                                            <div class="d-flex flex-column">
+                                                <span>Pendapatan</span>
+                                                <h5 class="mb-0">Rp. {{ number_format($incomeBalance) }}</h5>
+                                            </div>
+                                            <small class="text-success">+{{ number_format($incomeDaily) }}</small>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="d-flex flex-column">
-                                    <small>2022</small>
-                                    <h6 class="mb-0">$32.5k</h6>
+                                <div class="report-list-item rounded-2 mb-3">
+                                    <div class="d-flex align-items-start">
+                                        <div class="report-list-icon shadow-sm me-2">
+                                            <img src="{{ asset('assets/img/icons/unicons/wallet-info.png') }}"
+                                                width="22" height="22" alt="Shopping Bag">
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-end w-100 flex-wrap gap-2">
+                                            <div class="d-flex flex-column">
+                                                <span>Biaya</span>
+                                                <h5 class="mb-0">Rp. {{ number_format($costBalance) }}</h5>
+                                            </div>
+                                            <small class="text-danger">+{{ number_format($costDaily) }}</small>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="d-flex">
-                                <div class="me-2">
-                                    <span class="badge bg-label-info p-2"><i class="bx bx-wallet text-info"></i></span>
-                                </div>
-                                <div class="d-flex flex-column">
-                                    <small>2021</small>
-                                    <h6 class="mb-0">$41.2k</h6>
+                                <div class="report-list-item rounded-2">
+                                    <div class="d-flex align-items-start">
+                                        <div class="report-list-icon shadow-sm me-2">
+                                            <img src="{{ asset('assets/img/icons/unicons/wallet-info.png') }}"
+                                                width="22" height="22" alt="Wallet">
+                                        </div>
+                                        <div class="d-flex justify-content-between align-items-end w-100 flex-wrap gap-2">
+                                            <div class="d-flex flex-column">
+                                                <span>Laba Berjalan</span>
+                                                <h5 class="mb-0">Rp. {{ number_format($profitBalance) }}</h5>
+                                            </div>
+                                            <small class="text-success">+{{ number_format($profitDaily) }}</small>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <!--/ Total Income -->
         </div>
-        <div class="col-12 col-md-8 col-lg-4 order-3 order-md-2">
-            <div class="row">
-                <div class="col-6 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-title d-flex align-items-start justify-content-between">
-                                <div class="avatar flex-shrink-0">
-                                    <img src="../assets/img/icons/unicons/paypal.png" alt="Credit Card" class="rounded">
-                                </div>
-                                <div class="dropdown">
-                                    <button class="btn p-0" type="button" id="cardOpt4" data-bs-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                        <i class="bx bx-dots-vertical-rounded"></i>
-                                    </button>
-                                    <div class="dropdown-menu dropdown-menu-end" aria-labelledby="cardOpt4">
-                                        <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                                        <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <span class="d-block mb-1">Payments</span>
-                            <h3 class="card-title text-nowrap mb-2">$2,456</h3>
-                            <small class="text-danger fw-medium"><i class='bx bx-down-arrow-alt'></i> -14.82%</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="card-title d-flex align-items-start justify-content-between">
-                                <div class="avatar flex-shrink-0">
-                                    <img src="../assets/img/icons/unicons/cc-primary.png" alt="Credit Card"
-                                        class="rounded">
-                                </div>
-                                <div class="dropdown">
-                                    <button class="btn p-0" type="button" id="cardOpt1" data-bs-toggle="dropdown"
-                                        aria-haspopup="true" aria-expanded="false">
-                                        <i class="bx bx-dots-vertical-rounded"></i>
-                                    </button>
-                                    <div class="dropdown-menu" aria-labelledby="cardOpt1">
-                                        <a class="dropdown-item" href="javascript:void(0);">View More</a>
-                                        <a class="dropdown-item" href="javascript:void(0);">Delete</a>
-                                    </div>
-                                </div>
-                            </div>
-                            <span class="fw-medium d-block mb-1">Transactions</span>
-                            <h3 class="card-title mb-2">$14,857</h3>
-                            <small class="text-success fw-medium"><i class='bx bx-up-arrow-alt'></i> +28.14%</small>
-                        </div>
-                    </div>
-                </div>
-                <!-- </div>
-                                <div class="row"> -->
-                <div class="col-12 mb-4">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-between flex-sm-row flex-column gap-3">
-                                <div class="d-flex flex-sm-column flex-row align-items-start justify-content-between">
-                                    <div class="card-title">
-                                        <h5 class="text-nowrap mb-2">Profile Report</h5>
-                                        <span class="badge bg-label-warning rounded-pill">Year 2021</span>
-                                    </div>
-                                    <div class="mt-sm-auto">
-                                        <small class="text-success text-nowrap fw-medium"><i class='bx bx-chevron-up'></i>
-                                            68.2%</small>
-                                        <h3 class="mb-0">$84,686k</h3>
-                                    </div>
-                                </div>
-                                <div id="profileReportChart"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        <!--/ Total Income -->
     </div>
 @endsection
 @section('addon_js')
+    <script src="{{ asset('assets/vendor/libs/apex-charts/apexcharts.js') }}"></script>
+@endsection
+@push('custom_js')
     <script>
         "use strict";
         ! function() {
-            var o = config.colors.cardColor,
-                t = config.colors.headingColor,
-                e = config.colors.axisColor,
-                r = config.colors.borderColor,
-                i = document.querySelector("#totalRevenueChart"),
-                s = {
-                    series: [{
-                        name: "2021",
-                        data: [18, 7, 15, 29, 18, 12, 9]
-                    }, {
-                        name: "2020",
-                        data: [-13, -18, -9, -14, -5, -17, -15]
-                    }],
+            let o, e, r, t, s, a, i, n, l;
+            l = isDarkStyle ? (o = config.colors_dark.cardColor, e = config.colors_dark.headingColor, r = config.colors_dark
+                .textMuted, s = config.colors_dark.borderColor, t = "dark", a = "#4f51c0", i = "#595cd9", n = "#8789ff",
+                "#c3c4ff") : (o = config.colors.cardColor, e = config.colors.headingColor, r = config.colors.textMuted,
+                s = config.colors.borderColor, t = "", a = "#e1e2ff", i = "#c3c4ff", n = "#a5a7ff", "#696cff");
+            var d = document.querySelector("#membersChart"),
+                c = {
                     chart: {
-                        height: 300,
-                        stacked: !0,
+                        height: 120,
+                        width: 200,
+                        parentHeightOffset: 0,
                         type: "bar",
                         toolbar: {
                             show: !1
@@ -233,99 +216,42 @@
                     },
                     plotOptions: {
                         bar: {
-                            horizontal: !1,
-                            columnWidth: "33%",
-                            borderRadius: 12,
+                            barHeight: "75%",
+                            columnWidth: "60%",
                             startingShape: "rounded",
-                            endingShape: "rounded"
-                        }
-                    },
-                    colors: [config.colors.primary, config.colors.info],
-                    dataLabels: {
-                        enabled: !1
-                    },
-                    stroke: {
-                        curve: "smooth",
-                        width: 6,
-                        lineCap: "round",
-                        colors: [o]
-                    },
-                    legend: {
-                        show: !0,
-                        horizontalAlign: "left",
-                        position: "top",
-                        markers: {
-                            height: 8,
-                            width: 8,
-                            radius: 12,
-                            offsetX: -3
-                        },
-                        labels: {
-                            colors: e
-                        },
-                        itemMargin: {
-                            horizontal: 10
+                            endingShape: "rounded",
+                            borderRadius: 9,
+                            distributed: !0
                         }
                     },
                     grid: {
-                        borderColor: r,
+                        show: !1,
                         padding: {
-                            top: 0,
-                            bottom: -8,
-                            left: 20,
-                            right: 20
+                            top: -25,
+                            bottom: -12
                         }
                     },
-                    xaxis: {
-                        categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
-                        labels: {
-                            style: {
-                                fontSize: "13px",
-                                colors: e
-                            }
-                        },
-                        axisTicks: {
-                            show: !1
-                        },
-                        axisBorder: {
-                            show: !1
-                        }
+                    colors: [config.colors_label.primary, config.colors_label.primary, config.colors_label.primary, config
+                        .colors_label.primary, config.colors_label.primary, config.colors_label.primary, config.colors
+                        .primary
+                    ],
+                    dataLabels: {
+                        enabled: !1
                     },
-                    yaxis: {
-                        labels: {
-                            style: {
-                                fontSize: "13px",
-                                colors: e
-                            }
-                        }
+                    series: [{
+                        name: 'Anggota',
+                        data: {!! $memberDaily !!}
+                    }],
+                    legend: {
+                        show: !1
                     },
                     responsive: [{
-                        breakpoint: 1700,
-                        options: {
-                            plotOptions: {
-                                bar: {
-                                    borderRadius: 10,
-                                    columnWidth: "32%"
-                                }
-                            }
-                        }
-                    }, {
-                        breakpoint: 1580,
-                        options: {
-                            plotOptions: {
-                                bar: {
-                                    borderRadius: 10,
-                                    columnWidth: "35%"
-                                }
-                            }
-                        }
-                    }, {
                         breakpoint: 1440,
                         options: {
                             plotOptions: {
                                 bar: {
-                                    borderRadius: 10,
-                                    columnWidth: "42%"
+                                    borderRadius: 9,
+                                    columnWidth: "60%"
                                 }
                             }
                         }
@@ -334,8 +260,8 @@
                         options: {
                             plotOptions: {
                                 bar: {
-                                    borderRadius: 10,
-                                    columnWidth: "48%"
+                                    borderRadius: 9,
+                                    columnWidth: "60%"
                                 }
                             }
                         }
@@ -344,8 +270,8 @@
                         options: {
                             plotOptions: {
                                 bar: {
-                                    borderRadius: 10,
-                                    columnWidth: "40%"
+                                    borderRadius: 8,
+                                    columnWidth: "50%"
                                 }
                             }
                         }
@@ -354,8 +280,8 @@
                         options: {
                             plotOptions: {
                                 bar: {
-                                    borderRadius: 11,
-                                    columnWidth: "48%"
+                                    borderRadius: 8,
+                                    columnWidth: "50%"
                                 }
                             }
                         }
@@ -364,58 +290,8 @@
                         options: {
                             plotOptions: {
                                 bar: {
-                                    borderRadius: 10,
-                                    columnWidth: "30%"
-                                }
-                            }
-                        }
-                    }, {
-                        breakpoint: 840,
-                        options: {
-                            plotOptions: {
-                                bar: {
-                                    borderRadius: 10,
-                                    columnWidth: "35%"
-                                }
-                            }
-                        }
-                    }, {
-                        breakpoint: 768,
-                        options: {
-                            plotOptions: {
-                                bar: {
-                                    borderRadius: 10,
-                                    columnWidth: "28%"
-                                }
-                            }
-                        }
-                    }, {
-                        breakpoint: 640,
-                        options: {
-                            plotOptions: {
-                                bar: {
-                                    borderRadius: 10,
-                                    columnWidth: "32%"
-                                }
-                            }
-                        }
-                    }, {
-                        breakpoint: 576,
-                        options: {
-                            plotOptions: {
-                                bar: {
-                                    borderRadius: 10,
-                                    columnWidth: "37%"
-                                }
-                            }
-                        }
-                    }, {
-                        breakpoint: 480,
-                        options: {
-                            plotOptions: {
-                                bar: {
-                                    borderRadius: 10,
-                                    columnWidth: "45%"
+                                    borderRadius: 8,
+                                    columnWidth: "50%"
                                 }
                             }
                         }
@@ -424,246 +300,39 @@
                         options: {
                             plotOptions: {
                                 bar: {
-                                    borderRadius: 10,
-                                    columnWidth: "52%"
+                                    borderRadius: 8,
+                                    columnWidth: "50%"
                                 }
                             }
                         }
-                    }, {
-                        breakpoint: 380,
-                        options: {
-                            plotOptions: {
-                                bar: {
-                                    borderRadius: 10,
-                                    columnWidth: "60%"
-                                }
-                            }
-                        }
-                    }],
-                    states: {
-                        hover: {
-                            filter: {
-                                type: "none"
-                            }
-                        },
-                        active: {
-                            filter: {
-                                type: "none"
-                            }
-                        }
-                    }
-                },
-                i = (null !== i && new ApexCharts(i, s).render(), document.querySelector("#growthChart")),
-                s = {
-                    series: [78],
-                    labels: ["Growth"],
-                    chart: {
-                        height: 240,
-                        type: "radialBar"
-                    },
-                    plotOptions: {
-                        radialBar: {
-                            size: 150,
-                            offsetY: 10,
-                            startAngle: -150,
-                            endAngle: 150,
-                            hollow: {
-                                size: "55%"
-                            },
-                            track: {
-                                background: o,
-                                strokeWidth: "100%"
-                            },
-                            dataLabels: {
-                                name: {
-                                    offsetY: 15,
-                                    color: t,
-                                    fontSize: "15px",
-                                    fontWeight: "500",
-                                    fontFamily: "Public Sans"
-                                },
-                                value: {
-                                    offsetY: -25,
-                                    color: t,
-                                    fontSize: "22px",
-                                    fontWeight: "500",
-                                    fontFamily: "Public Sans"
-                                }
-                            }
-                        }
-                    },
-                    colors: [config.colors.primary],
-                    fill: {
-                        type: "gradient",
-                        gradient: {
-                            shade: "dark",
-                            shadeIntensity: .5,
-                            gradientToColors: [config.colors.primary],
-                            inverseColors: !0,
-                            opacityFrom: 1,
-                            opacityTo: .6,
-                            stops: [30, 70, 100]
-                        }
-                    },
-                    stroke: {
-                        dashArray: 5
-                    },
-                    grid: {
-                        padding: {
-                            top: -35,
-                            bottom: -10
-                        }
-                    },
-                    states: {
-                        hover: {
-                            filter: {
-                                type: "none"
-                            }
-                        },
-                        active: {
-                            filter: {
-                                type: "none"
-                            }
-                        }
-                    }
-                },
-                i = (null !== i && new ApexCharts(i, s).render(), document.querySelector("#profileReportChart")),
-                s = {
-                    chart: {
-                        height: 80,
-                        type: "line",
-                        toolbar: {
-                            show: !1
-                        },
-                        dropShadow: {
-                            enabled: !0,
-                            top: 10,
-                            left: 5,
-                            blur: 3,
-                            color: config.colors.warning,
-                            opacity: .15
-                        },
-                        sparkline: {
-                            enabled: !0
-                        }
-                    },
-                    grid: {
-                        show: !1,
-                        padding: {
-                            right: 8
-                        }
-                    },
-                    colors: [config.colors.warning],
-                    dataLabels: {
-                        enabled: !1
-                    },
-                    stroke: {
-                        width: 5,
-                        curve: "smooth"
-                    },
-                    series: [{
-                        data: [110, 270, 145, 245, 205, 285]
                     }],
                     xaxis: {
-                        show: !1,
-                        lines: {
+                        categories: {!! $daily !!},
+                        axisBorder: {
+                            show: !1
+                        },
+                        axisTicks: {
                             show: !1
                         },
                         labels: {
-                            show: !1
-                        },
-                        axisBorder: {
-                            show: !1
+                            style: {
+                                colors: r,
+                                fontSize: "13px"
+                            }
                         }
                     },
                     yaxis: {
-                        show: !1
-                    }
-                },
-                i = (null !== i && new ApexCharts(i, s).render(), document.querySelector("#orderStatisticsChart")),
-                s = {
-                    chart: {
-                        height: 165,
-                        width: 130,
-                        type: "donut"
-                    },
-                    labels: ["Electronic", "Sports", "Decor", "Fashion"],
-                    series: [85, 15, 50, 50],
-                    colors: [config.colors.primary, config.colors.secondary, config.colors.info, config.colors.success],
-                    stroke: {
-                        width: 5,
-                        colors: [o]
-                    },
-                    dataLabels: {
-                        enabled: !1,
-                        formatter: function(o, t) {
-                            return parseInt(o) + "%"
-                        }
-                    },
-                    legend: {
-                        show: !1
-                    },
-                    grid: {
-                        padding: {
-                            top: 0,
-                            bottom: 0,
-                            right: 15
-                        }
-                    },
-                    states: {
-                        hover: {
-                            filter: {
-                                type: "none"
-                            }
-                        },
-                        active: {
-                            filter: {
-                                type: "none"
-                            }
-                        }
-                    },
-                    plotOptions: {
-                        pie: {
-                            donut: {
-                                size: "75%",
-                                labels: {
-                                    show: !0,
-                                    value: {
-                                        fontSize: "1.5rem",
-                                        fontFamily: "Public Sans",
-                                        color: t,
-                                        offsetY: -15,
-                                        formatter: function(o) {
-                                            return parseInt(o) + "%"
-                                        }
-                                    },
-                                    name: {
-                                        offsetY: 20,
-                                        fontFamily: "Public Sans"
-                                    },
-                                    total: {
-                                        show: !0,
-                                        fontSize: "0.8125rem",
-                                        color: e,
-                                        label: "Weekly",
-                                        formatter: function(o) {
-                                            return "38%"
-                                        }
-                                    }
-                                }
-                            }
+                        labels: {
+                            show: !1
                         }
                     }
                 },
-                o = (null !== i && new ApexCharts(i, s).render(), document.querySelector("#incomeChart")),
-                t = {
-                    series: [{
-                        data: [24, 21, 30, 22, 42, 26, 35, 29]
-                    }],
+                d = (null !== d && new ApexCharts(d, c).render(), document.querySelector("#MutationDepositChart")),
+                c = {
                     chart: {
-                        height: 215,
+                        height: 120,
+                        width: 340,
                         parentHeightOffset: 0,
-                        parentWidthOffset: 0,
                         toolbar: {
                             show: !1
                         },
@@ -676,50 +345,33 @@
                         width: 2,
                         curve: "smooth"
                     },
-                    legend: {
-                        show: !1
-                    },
-                    markers: {
-                        size: 6,
-                        colors: "transparent",
-                        strokeColors: "transparent",
-                        strokeWidth: 4,
-                        discrete: [{
-                            fillColor: config.colors.white,
-                            seriesIndex: 0,
-                            dataPointIndex: 7,
-                            strokeColor: config.colors.primary,
-                            strokeWidth: 2,
-                            size: 6,
-                            radius: 8
-                        }],
-                        hover: {
-                            size: 7
-                        }
-                    },
-                    colors: [config.colors.primary],
+                    series: [{
+                        name: "Mutasi Simpanan",
+                        data: {!! $mutationDaily !!}
+                    }],
+                    colors: [config.colors.success],
                     fill: {
                         type: "gradient",
                         gradient: {
-                            shade: void 0,
-                            shadeIntensity: .6,
-                            opacityFrom: .5,
+                            shade: t,
+                            shadeIntensity: .8,
+                            opacityFrom: .8,
                             opacityTo: .25,
-                            stops: [0, 95, 100]
+                            stops: [0, 85, 100]
                         }
                     },
                     grid: {
-                        borderColor: r,
-                        strokeDashArray: 3,
+                        show: !1,
                         padding: {
                             top: -20,
-                            bottom: -8,
-                            left: -10,
-                            right: 8
+                            bottom: -8
                         }
                     },
+                    legend: {
+                        show: !1
+                    },
                     xaxis: {
-                        categories: ["", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul"],
+                        categories: {!! $dateMutation !!},
                         axisBorder: {
                             show: !1
                         },
@@ -727,89 +379,214 @@
                             show: !1
                         },
                         labels: {
-                            show: !0,
                             style: {
                                 fontSize: "13px",
-                                colors: e
+                                colors: r
                             }
                         }
                     },
                     yaxis: {
                         labels: {
                             show: !1
-                        },
-                        min: 10,
-                        max: 50,
-                        tickAmount: 4
+                        }
                     }
                 },
-                i = (null !== o && new ApexCharts(o, t).render(), document.querySelector("#expensesOfWeek")),
-                s = {
-                    series: [65],
+                d = (null !== d && new ApexCharts(d, c).render(), document.querySelector("#assetChart")),
+                c = {
+                    series: [{
+                        name: "Bulan Lalu",
+                        data: {!! $assetMonthlyStart !!}
+                    }, {
+                        name: "Bulan Ini",
+                        data: {!! $assetMonthlyEnd !!}
+                    }],
                     chart: {
-                        width: 60,
-                        height: 60,
-                        type: "radialBar"
+                        type: "bar",
+                        height: 80,
+                        toolbar: {
+                            tools: {
+                                download: !1
+                            }
+                        }
                     },
                     plotOptions: {
+                        bar: {
+                            columnWidth: "65%",
+                            startingShape: "rounded",
+                            endingShape: "rounded",
+                            borderRadius: 3,
+                            dataLabels: {
+                                show: !1
+                            }
+                        }
+                    },
+                    grid: {
+                        show: !1,
+                        padding: {
+                            top: -30,
+                            bottom: -12,
+                            left: -10,
+                            right: 0
+                        }
+                    },
+                    colors: [config.colors_label.success, config.colors.success],
+                    dataLabels: {
+                        enabled: !1
+                    },
+                    stroke: {
+                        show: !0,
+                        width: 5,
+                        colors: r
+                    },
+                    legend: {
+                        show: !1
+                    },
+                    xaxis: {
+                        categories: {!! $dateAsset !!},
+                        axisBorder: {
+                            show: !1
+                        },
+                        axisTicks: {
+                            show: !1
+                        },
+                        labels: {
+                            style: {
+                                colors: r,
+                                fontSize: "13px"
+                            }
+                        }
+                    },
+                    yaxis: {
+                        labels: {
+                            show: !1
+                        }
+                    }
+                },
+                d = (null !== d && new ApexCharts(d, c).render(), document.querySelector("#expensesChart")),
+                c = {
+                    chart: {
+                        height: 130,
+                        sparkline: {
+                            enabled: !0
+                        },
+                        parentHeightOffset: 0,
+                        type: "radialBar"
+                    },
+                    colors: [config.colors.primary],
+                    series: [78],
+                    plotOptions: {
                         radialBar: {
-                            startAngle: 0,
-                            endAngle: 360,
-                            strokeWidth: "8",
+                            startAngle: -90,
+                            endAngle: 90,
                             hollow: {
-                                margin: 2,
-                                size: "45%"
+                                size: "55%"
                             },
                             track: {
-                                strokeWidth: "50%",
-                                background: r
+                                background: config.colors_label.secondary
                             },
                             dataLabels: {
-                                show: !0,
                                 name: {
                                     show: !1
                                 },
                                 value: {
-                                    formatter: function(o) {
-                                        return "$" + parseInt(o)
-                                    },
-                                    offsetY: 5,
-                                    color: "#697a8d",
-                                    fontSize: "13px",
-                                    show: !0
+                                    fontSize: "22px",
+                                    color: e,
+                                    fontWeight: 500,
+                                    offsetY: 0
                                 }
                             }
                         }
                     },
-                    fill: {
-                        type: "solid",
-                        colors: config.colors.primary
+                    grid: {
+                        show: !1,
+                        padding: {
+                            left: -10,
+                            right: -10,
+                            top: -10
+                        }
                     },
                     stroke: {
                         lineCap: "round"
                     },
-                    grid: {
-                        padding: {
-                            top: -10,
-                            bottom: -15,
-                            left: -10,
-                            right: -10
+                    labels: ["Progress"]
+                },
+                d = (null !== d && new ApexCharts(d, c).render(), document.querySelector("#totalIncomeChart")),
+                c = {
+                    chart: {
+                        height: 250,
+                        type: "area",
+                        toolbar: !1,
+                        dropShadow: {
+                            enabled: !0,
+                            top: 14,
+                            left: 2,
+                            blur: 3,
+                            color: config.colors.primary,
+                            opacity: .15
                         }
                     },
-                    states: {
-                        hover: {
-                            filter: {
-                                type: "none"
+                    series: [{
+                        name: 'Laba Rugi',
+                        data: {!! $profitMonthly !!}
+                    }],
+                    dataLabels: {
+                        enabled: !1
+                    },
+                    stroke: {
+                        width: 3,
+                        curve: "straight"
+                    },
+                    colors: [config.colors.primary],
+                    fill: {
+                        type: "gradient",
+                        gradient: {
+                            shade: t,
+                            shadeIntensity: .8,
+                            opacityFrom: .7,
+                            opacityTo: .25,
+                            stops: [0, 95, 100]
+                        }
+                    },
+                    grid: {
+                        show: !0,
+                        borderColor: s,
+                        padding: {
+                            top: -15,
+                            bottom: -10,
+                            left: 0,
+                            right: 0
+                        }
+                    },
+                    xaxis: {
+                        categories: {!! $dateProfit !!},
+                        labels: {
+                            offsetX: 0,
+                            style: {
+                                colors: r,
+                                fontSize: "13px"
                             }
                         },
-                        active: {
-                            filter: {
-                                type: "none"
+                        axisBorder: {
+                            show: !1
+                        },
+                        axisTicks: {
+                            show: !1
+                        },
+                        lines: {
+                            show: !1
+                        }
+                    },
+                    yaxis: {
+                        labels: {
+                            offsetX: -15,
+                            style: {
+                                fontSize: "13px",
+                                colors: r
                             }
                         }
                     }
                 };
-            null !== i && new ApexCharts(i, s).render()
+            null !== d && new ApexCharts(d, c).render()
         }();
     </script>
-@endsection
+@endpush

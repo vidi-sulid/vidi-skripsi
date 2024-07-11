@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Transaksi;
 use App\DataTables\LoanDataTable;
 use App\Http\Controllers\Controller;
 use App\Library\Template;
+use App\Models\Master\Member;
 use App\Models\Transaksi\Journal;
 use App\Models\Transaksi\Loan;
 use App\Models\Transaksi\LoanMutation;
@@ -67,12 +68,14 @@ class LoanController extends Controller
         $data['rekening'] = getRekeningLoan($data['member_code'], $data['product_loan_id']);
         Loan::create($data);
 
+        $member = Member::where("code", $data['member_code'])->first();
+
         $mutation = [
             "status"  => 0,
             "invoice"         => $data['invoice'],
             "date"            => date("Y-m-d"),
             "rekening"        => $data['rekening'],
-            "description"     => "Pencairan Pinjaman Anggota an. ",
+            "description"     => "Pencairan Pinjaman Anggota an. " . $member->name,
             "credit"           => 0,
             "debit"          => $data['loan_amount'],
             "username"        => Auth::user()->name,
@@ -132,6 +135,7 @@ class LoanController extends Controller
 
         log_custom("Update data  pinjaman " . $loan->id, $loan->toArray());
         $loan->update($request->all());
+
 
         UpdateJournalLoan($loan->invoice, true);
         return response()->json($loan, 200);

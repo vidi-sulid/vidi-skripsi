@@ -1,7 +1,7 @@
-<div id="myDiv">
+<div>
 
     <div class="row">
-        <div class="col-xl">
+        <div class="col-7">
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">Form Mutasi
@@ -44,37 +44,61 @@
                             <div class="row ">
                                 <div class="col-lg">
                                     <label class="form-label" for="basic-default-keterangan">Jumlah Pinjaman</label>
-                                    <input type="text" class="form-control"
-                                        value="{{ format_currency($data[0]->loan_amount) }}" readonly disabled>
+                                    <div class="input-group input-group-merge">
+                                        <input type="text" class="form-control numeral-mask" id="jumlah_pinjaman"
+                                            name="jumlah_pinjaman" aria-describedby="jumlah_pinjaman"
+                                            wire:model ="loan_amount" readonly disabled>
+                                        <span class="input-group-text" id="jumlah_pinjaman">Rp.</span>
+                                    </div>
                                 </div>
                                 <div class="col-lg">
                                     <label class="form-label" for="basic-default-keterangan">Sisa Pinjaman</label>
-                                    <input type="text" class="form-control"
-                                        value="{{ format_currency($data[0]->bakidebet) }}" readonly disabled>
+                                    <div class="input-group input-group-merge">
+                                        <input type="text" class="form-control numeral-mask" id="sisa_pinjaman"
+                                            name="sisa_pinjaman" aria-describedby="sisa_pinjaman" wire:model="bakidebet"
+                                            readonly disabled>
+                                        <span class="input-group-text" id="sisa_pinjaman">Rp.</span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row ">
                                 <div class="col-lg">
                                     <label class="form-label" for="basic-default-keterangan">Tunggakan Pokok</label>
-                                    <input type="text" class="form-control"
-                                        value="{{ format_currency($data[0]->tunggakanPokok) }}" readonly disabled>
+                                    <div class="input-group input-group-merge">
+                                        <input type="text" class="form-control numeral-mask" id="tunggakan_pokok"
+                                            name="tunggakan_pokok" aria-describedby="tunggakan_pokok"
+                                            wire:model="tunggakanPokok" readonly disabled>
+                                        <span class="input-group-text" id="tunggakan_pokok">Rp.</span>
+                                    </div>
                                 </div>
                                 <div class="col-lg">
                                     <label class="form-label" for="basic-default-keterangan">Tunggakan Bunga</label>
-                                    <input type="text" class="form-control"
-                                        value="{{ format_currency($data[0]->tunggakanBunga) }}" readonly disabled>
+                                    <div class="input-group input-group-merge">
+                                        <input type="text" class="form-control numeral-mask" id="tunggakan_bunga"
+                                            name="tunggakan_bunga" aria-describedby="tunggakan_bunga"
+                                            wire:model="tunggakanBunga" readonly disabled>
+                                        <span class="input-group-text" id="tunggakan_bunga">Rp.</span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row ">
                                 <div class="col-lg">
                                     <label class="form-label" for="pokok">Pokok</label>
-                                    <input type="text" class="form-control numeral-mask" value="0"
-                                        id="pokok" name="credit">
+                                    <div class="input-group input-group-merge">
+                                        <input type="text" class="form-control numeral-mask" id="credit"
+                                            name="credit" aria-describedby="credit" onblur="rupiah(this)"
+                                            value="0">
+                                        <span class="input-group-text" id="credit">Rp.</span>
+                                    </div>
                                 </div>
                                 <div class="col-lg">
                                     <label class="form-label" for="bunga">Bunga</label>
-                                    <input type="text" class="form-control numeral-mask" value="0"
-                                        id="bunga" name="credit_interest">
+                                    <div class="input-group input-group-merge">
+                                        <input type="text" class="form-control numeral-mask" id="credit_interest"
+                                            name="credit_interest" aria-describedby="credit_interest"
+                                            onblur="rupiah(this)" value="0">
+                                        <span class="input-group-text" id="credit_interest">Rp.</span>
+                                    </div>
                                 </div>
                             </div>
                         @elseif ($type == 'saving')
@@ -82,35 +106,55 @@
                                 @if ($data->product->type == 'W')
                                     <div class="col-lg">
                                         <label class="form-label" for="setoran-wajib">Setoran Wajib</label>
-                                        <input type="text" class="form-control"
-                                            value="{{ format_currency($data->product->mandatory_deposit) }}" readonly
-                                            disabled>
+                                        <div class="input-group input-group-merge">
+                                            <input type="text" class="form-control numeral-mask"
+                                                id="setoran_wajib" name="setoran_wajib"
+                                                aria-describedby="setoran_wajib" wire:model="setoranWajib" disabled
+                                                readonly>
+                                            <span class="input-group-text" id="setoran_wajib">Rp.</span>
+                                        </div>
                                     </div>
                                 @else
                                     <div class="col-lg">
                                         <label class="form-label" for="setoran-wajib">Setoran Pokok</label>
-                                        <input type="text" class="form-control"
-                                            value="{{ format_currency($data->product->principal_deposit) }}" readonly
-                                            disabled>
+                                        <div class="input-group input-group-merge">
+                                            <input type="text" class="form-control numeral-mask"
+                                                id="setoran_pokok" name="setoran_pokok"
+                                                aria-describedby="setoran_pokok" wire:model="setoranPokok" disabled
+                                                readonly>
+                                            <span class="input-group-text" id="setoran_pokok">Rp.</span>
+                                        </div>
                                     </div>
                                 @endif
 
                                 <div class="col-lg">
                                     <label class="form-label" for="basic-default-keterangan">Saldo</label>
-                                    <input type="text" class="form-control"
-                                        value="{{ format_currency($data->saldo) }}" readonly disabled>
+                                    <div class="input-group input-group-merge">
+                                        <input type="text" class="form-control numeral-mask" id="saldo"
+                                            name="saldo" aria-describedby="saldo" wire:model="saldo" disabled
+                                            readonly>
+                                        <span class="input-group-text" id="saldo">Rp.</span>
+                                    </div>
                                 </div>
                             </div>
                             <div class="row ">
                                 <div class="col-lg">
                                     <label class="form-label" for="credit">Setoran</label>
-                                    <input type="text" class="form-control numeral-mask" value="0"
-                                        id="credit" name="credit">
+                                    <div class="input-group input-group-merge">
+                                        <input type="text" class="form-control numeral-mask" id="credit"
+                                            name="credit" aria-describedby="credit" value="0"
+                                            onblur="rupiah(this)">
+                                        <span class="input-group-text" id="credit">Rp.</span>
+                                    </div>
                                 </div>
                                 <div class="col-lg">
                                     <label class="form-label" for="debit">Penarikan</label>
-                                    <input type="text" class="form-control numeral-mask" value="0"
-                                        id="debit" name="debit">
+                                    <div class="input-group input-group-merge">
+                                        <input type="text" class="form-control numeral-mask" id="debit"
+                                            name="debit" aria-describedby="debit" value="0"
+                                            onblur="rupiah(this)">
+                                        <span class="input-group-text" id="debit">Rp.</span>
+                                    </div>
                                 </div>
                             </div>
                         @endif
@@ -118,8 +162,8 @@
                         <div class="row ">
                             <div class="col-lg">
                                 <label class="form-label" for="description">Keterangan</label>
-                                <input type="text" class="form-control" value="{{ $keterangan }}"
-                                    id="description" name="description">
+                                <input type="text" class="form-control" wire:model="keterangan" id="description"
+                                    name="description">
                             </div>
                         </div>
                         <button type="button" onclick="save('{{ route('cashier.store') }}','post')"
@@ -128,7 +172,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-7">
+        <div class="col-12">
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">Data Mutasi</h5>
@@ -168,4 +212,28 @@
             </div>
         </div>
     </div>
+
+    {{-- @push('custom_js') --}}
+    <script>
+        function rupiah(a) {
+
+            var cleave = new Cleave(a, {
+                numeral: true,
+                numeralDecimalMark: ',',
+                delimiter: '.'
+            });
+            // cleave.setRawValue(a.value);
+        }
+        document.addEventListener("DOMContentLoaded", () => {
+            console.log("okee");
+            Livewire.hook('component.initialized', (component) => {
+                console.log('component initialized');
+            });
+            Livewire.hook('element.initialized', (el, component) => {
+                console.log('element initialized');
+            });
+        });
+    </script>
+    {{-- @endpush --}}
+
 </div>

@@ -44,6 +44,9 @@ class Template
         $css['chart'] = ["src" => "assets/vendor/libs/apex-charts/apex-charts.css"];
         $css['stepper'] = ["src" => "assets/vendor/libs/bs-stepper/bs-stepper.css"];
         $css['form-validation'] = ["src" => "assets/vendor/libs/@form-validation/umd/styles/index.min.css"];
+        $css['apex-charts'] = ["src" => "assets/vendor/libs/apex-charts/apex-charts.css"];
+        $css['card-analytics'] = ["src" => "assets/vendor/css/pages/card-analytics.css"];
+
 
         /*
             SELECT CSS 
