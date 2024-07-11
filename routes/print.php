@@ -54,3 +54,13 @@ Route::get('profitloss-pdf', function (Request $request) {
     ])->setPaper('a4');
     return $pdf->stream('profitloss.pdf', ['Content-Disposition' => 'inline']);
 })->name('profitloss-pdf.index');
+
+Route::get('aset-pdf', function (Request $request) {
+
+    $data = $request->session()->get('aset');
+    // return view('print.aset', ["data" => $data]);
+    $pdf = Pdf::loadView('print.aset', [
+        'data' => $data,
+    ])->setPaper('a4', 'landscape');
+    return $pdf->stream('aset.pdf', ['Content-Disposition' => 'inline']);
+})->name('aset-pdf.index');

@@ -30,7 +30,16 @@ class   ProductAsetDataTable extends DataTable
                 return $data->type;
             })
             ->addColumn('account_aset', function ($data) {
-                return $data->account_aset . "-" . getName($data->account_aset, "product_asets", "name", "code");
+                return $data->account_aset . "-" . getName($data->account_aset, "coas", "name", "code");
+            })
+            ->addColumn('account_depreciation', function ($data) {
+                return $data->account_depreciation . "-" . getName($data->account_depreciation, "coas", "name", "code");
+            })
+            ->addColumn('account_income', function ($data) {
+                return $data->account_income . "-" . getName($data->account_income, "coas", "name", "code");
+            })
+            ->addColumn('account_cost', function ($data) {
+                return $data->account_cost . "-" . getName($data->account_cost, "coas", "name", "code");
             })
             ->rawColumns(["name", "action"])
             ->setRowId('id');

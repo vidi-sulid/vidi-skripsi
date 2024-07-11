@@ -294,9 +294,9 @@ function getDataTable($field, $table, $join = '', $where = '', $group = '', $ord
     $data = DB::select("select $field from $table $join $where $group $order $limit");
     return $data;
 }
-function tanggalIndonesia($tgl)
+function tanggalIndonesia($tgl, $format = "d M, Y")
 {
-    return Carbon::parse($tgl)->format('d M, Y');
+    return Carbon::parse($tgl)->format($format);
 }
 
 function nextMonth($dateStart, $interval_bulan)

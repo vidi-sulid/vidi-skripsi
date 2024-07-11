@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('asets', function (Blueprint $table) {
             $table->id();
+            $table->string("invoice")->nullable();
             $table->string("code")->nullable();
             $table->string("name")->nullable();
             $table->string("inventory_number")->nullable();

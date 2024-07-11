@@ -23,7 +23,7 @@ class  AsetDataTable extends DataTable
     {
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($data) {
-                return view('master.aset_product_action', compact('data'));
+                return view('transaksi.aset_action', compact('data'));
             })
             ->addColumn('price', function ($data) {
                 $data->price = format_currency($data->price);

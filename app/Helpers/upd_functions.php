@@ -182,3 +182,31 @@ if (!function_exists('UpdAset')) {
         }
     }
 }
+
+if (!function_exists('UpdAsetPenyusutan')) {
+    function UpdAsetPenyusutan($invoice)
+    {
+        $vaMutasi = AsetMutation::with(['asets'])->where("invoice", $invoice)->get();
+        foreach ($vaMutasi as $key => $value) {
+            $mutation = [
+                "invoice"           => $value->invoice,
+                "date"              => $value->date,
+                "rekening"          => getName($value->asets->product_asset_id, "product_asets", "account_depreciation", "id"),
+                "description"       => $value->description,
+                "debit"             => $value->debit_book_value,
+                "credit"            => $value->credit_book_value,
+                "username"          => $value->username
+            ];
+            Journal::create($mutation);
+            if ($mutation['debit'] > 0) {
+                $mutation['credit'] = $mutation['debit'];
+                unset($mutation['debit']);
+            } else {
+                $mutation['debit'] = $mutation['credit'];
+                unset($mutation['credit']);
+            }
+            $mutation['rekening'] = getName($value->asets->product_asset_id, "product_asets", "account_cost", "id");
+            Journal::create($mutation);
+        }
+    }
+}

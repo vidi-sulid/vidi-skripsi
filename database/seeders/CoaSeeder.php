@@ -58,13 +58,13 @@ class CoaSeeder extends Seeder
 
 
             ["code" => '4.500', "name" => "Pendapatan Non Operasional ", "type" => 1],
-            ["code" => '4.500', "name" => "Pendapatan Non Operasional ", "type" => 0],
+            ["code" => '4.500.10', "name" => "Pendapatan Non Operasional ", "type" => 0],
 
 
-            ["code" => '5.500', "name" => "Beban Simpanan ", "type" => 1],
-            ["code" => '5.500.10', "name" => "Beban Simpanan", "type" => 0],
-            ["code" => '5.510', "name" => "Beban Administrasi Umum ", "type" => 1],
-            ["code" => '5.510.20', "name" => "Beban Penyususutan", "type" => 0],
+            ["code" => '5.100', "name" => "Beban Penyusutan ", "type" => 1],
+            ["code" => '5.100.10', "name" => "Beban Penyususutan Aset Iventaris", "type" => 0],
+            ["code" => '5.110', "name" => "Beban Simpanan ", "type" => 1],
+            ["code" => '5.110.20', "name" => "Beban Simpanan", "type" => 0],
 
 
         ];
@@ -73,7 +73,7 @@ class CoaSeeder extends Seeder
 
         $vaProduct = [
             [
-                "code" => 'AS_01', "name" => "Aset Inventaris", "account_aset" => "1.150.10", "account_depreciation" => "1.151.10", "account_cost" => "5.500.10",
+                "code" => 'AS_01', "name" => "Aset Inventaris", "account_aset" => "1.150.10", "account_depreciation" => "1.151.10", "account_cost" => "5.100.10",
                 "account_income" => "4.100.10"
             ]
         ];
@@ -81,11 +81,11 @@ class CoaSeeder extends Seeder
 
         $vaProduct = [
             [
-                "code" => 'SP_01', "name" => "Simpanan Pokok", "account_saving" => "3.100.10", "account_income_administration" => "4.100.10", "account_cost" => "5.500.10",
+                "code" => 'SP_01', "name" => "Simpanan Pokok", "account_saving" => "3.100.10", "account_income_administration" => "4.100.10", "account_cost" => "5.110.20",
                 "principal_deposit" => 10000, "mandatory_deposit" => 5000, "type" => "P"
             ],
             [
-                "code" => 'SP_02', "name" => "Simpanan Wajib", "account_saving" => "3.100.20", "account_income_administration" => "4.100.10", "account_cost" => "5.500.10",
+                "code" => 'SP_02', "name" => "Simpanan Wajib", "account_saving" => "3.100.20", "account_income_administration" => "4.100.10", "account_cost" => "5.110.20",
                 "principal_deposit" => 10000, "mandatory_deposit" => 5000, "type" => "W"
             ]
         ];
@@ -93,11 +93,11 @@ class CoaSeeder extends Seeder
         ProductSaving::insert($vaProduct);
         $vaProduct = [
             [
-                "code" => 'PJ_01', "name" => "Modal Kerja", "account_loan" => "1.120.10", "account_income_administration" => "4.200.10", "account_income_interest" => "4.510.20",
+                "code" => 'PJ_01', "name" => "Modal Kerja", "account_loan" => "1.120.10", "account_income_administration" => "4.200.10", "account_income_interest" => "4.200.30",
                 "account_dutystamp" => "1.160.120",
             ],
             [
-                "code" => 'PJ_02', "name" => "Umum", "account_loan" => "1.120.10", "account_income_administration" => "4.200.10", "account_income_interest" => "4.510.20",
+                "code" => 'PJ_02', "name" => "Umum", "account_loan" => "1.120.10", "account_income_administration" => "4.200.10", "account_income_interest" => "4.200.30",
                 "account_dutystamp" => "1.160.120",
             ]
         ];

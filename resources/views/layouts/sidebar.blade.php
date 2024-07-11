@@ -3,7 +3,7 @@
     <li class="menu-item" id="dashboards">
         <a href="{{ route('dashboard') }}" class="menu-link">
             <i class="menu-icon tf-icons bx bx-home-circle"></i>
-            <div data-i18n="Dashboards">Dashboards</div>
+            <div data-i18n="Dashboards">Dashboard</div>
         </a>
     </li>
     @can('cashier_write')
@@ -139,7 +139,7 @@
     @endcan
 
     @can('journal_write')
-        <li class="menu-item">
+        <li class="menu-item" id="journal-create">
             <a href="{{ route('journal.create') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-money"></i>
                 <div class="text-truncate" data-i18n="Transaksi Kas">Transaksi Kas</div>
@@ -182,7 +182,7 @@
         <span class="menu-header-text" data-i18n="Aset dan Inventaris">Aset dan Inventaris</span>
     </li>
     @can('productaset_read')
-        <li class="menu-item">
+        <li class="menu-item" id="product-aset">
             <a href="{{ route('product-aset.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-folder"></i>
                 <div class="text-truncate" data-i18n=" Golongan Aset"> Golongan Aset</div>

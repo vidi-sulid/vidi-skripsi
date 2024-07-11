@@ -20,8 +20,7 @@ class ProductAsetController extends Controller
         log_custom("Buka menu master golongan aset");
         $data = Template::get("datatable");
         $data['jsTambahan'] = "
-        $('#aset-master').addClass('active');
-        $('#master').addClass('open active');
+        $('#product-aset').addClass('active');
         ";
         return $dataTable->render("master/aset_product", $data);
     }
@@ -69,17 +68,35 @@ class ProductAsetController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(ProductAset $productAset)
     {
-        //
+        abort_if(Gate::denies('productaset_update'), 403);
+        log_custom("Buka menu edit master golongan aset " . $productAset->id);
+        $data['data'] = $productAset;
+        return view('master.aset_product_edit', $data);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, ProductAset $productAset)
     {
-        //
+        abort_if(Gate::denies('productaset_update'), 403);
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'account_cost' => 'required|',
+            'account_income' => 'required|',
+            'account_depreciation' => 'required|',
+            'account_aset' => 'required|',
+        ]);
+        $data = $request->all();
+
+        $productAset->update($data);
+        log_custom("Update data golongan aset " . $productAset->id, $productAset->toArray());
+
+
+        return response()->json($productAset, 200);
     }
 
     /**

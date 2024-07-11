@@ -31,8 +31,7 @@ class JournalController extends Controller
 
         $data = Template::get("datatable");
         $data['jsTambahan'] = "
-        $('#pembukuan').addClass('active');
-        $('#transaksi').addClass('open active');
+        $('#journal-create').addClass('active');
         ";
         Session::forget('data_jurnal');
 
