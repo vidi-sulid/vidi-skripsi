@@ -7,6 +7,7 @@
     "require": {
         "php": "^8.2",
         "anayarojo/shoppingcart": "^4.2",
+        "arcanedev/log-viewer": "^11.0",
         "barryvdh/laravel-dompdf": "^2.2",
         "barryvdh/laravel-snappy": "^1.0",
         "inertiajs/inertia-laravel": "^1.0",
@@ -14,7 +15,6 @@
         "laravel/sanctum": "^4.0",
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.4",
-        "opcodesio/log-viewer": "^3.8",
         "realrashid/sweet-alert": "^7.2",
         "spatie/laravel-permission": "^6.7",
         "tightenco/ziggy": "^2.0",

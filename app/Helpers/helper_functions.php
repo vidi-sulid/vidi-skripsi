@@ -101,6 +101,7 @@ if (!function_exists('log_custom')) {
     function log_custom($info, $data = [])
     {
         $userName = Auth::user()->name;
+
         Log::info("$userName $info", $data);
     }
 }

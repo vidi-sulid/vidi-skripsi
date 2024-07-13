@@ -66,8 +66,9 @@
         <div class="col-12">
             <div class="card border-0 shadow-sm">
                 <div class="card-body">
-                    <div class='table-responsive'>
-                        <table class="table table-bordered table-striped text-center mb-0" style="font-size: 12px;">
+                    <div class='table-responsivse'>
+                        <table class="table table-bordered table-striped text-center mb-0" style="font-size: 12px;"
+                            id="exampleReport">
                             <div wire:loading.flex
                                 class="col-12 position-absolute justify-content-center align-items-center"
                                 style="top:0;right:0;left:0;bottom:0;background-color: rgba(255,255,255,0.5);z-index: 99;">
@@ -92,11 +93,18 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php
+                                    $harga = $penyusutanAwal = $penyusutan = $penyusutanAkhir = 0;
+                                @endphp
                                 @forelse($aset as $data)
-                                    <?php
-                                    $tanggal = date('Y-m-01', strtotime($periode));
-                                    $vaAset = App\Library\AsetCalculation::get($data, $periode);
-                                    ?>
+                                    @php
+                                        $tanggal = date('Y-m-01', strtotime($periode));
+                                        $vaAset = App\Library\AsetCalculation::get($data, $periode);
+                                        $harga += $data->price;
+                                        $penyusutanAwal += $vaAset['penyusutanAwal'];
+                                        $penyusutan += $vaAset['penyusutan'];
+                                        $penyusutanAkhir += $vaAset['penyusutanAkhir'];
+                                    @endphp
                                     <tr>
                                         <td>{{ $data->code }}</td>
                                         <td>{{ \Carbon\Carbon::parse($data->purchase_date)->format('d M, Y') }}</td>
@@ -116,13 +124,27 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="8">
+                                        <td colspan="11">
                                             <span class="text-danger">Data tidak ditemukan !</span>
                                         </td>
                                     </tr>
                                 @endforelse
 
                             </tbody>
+                            <tfoot>
+                                @if ($aset->isNotEmpty())
+                                    <tr>
+                                        <td colspan="4" align="right"><strong>Total</strong></td>
+                                        <td align="right"><strong>{{ format_currency($harga) }}</strong></td>
+                                        <td colspan="3"></td>
+                                        <td align="right"><strong>{{ format_currency($penyusutanAwal) }}</strong></td>
+                                        <td align="right"><strong>{{ format_currency($penyusutan) }}</strong></td>
+                                        <td align="right"><strong>{{ format_currency($penyusutanAkhir) }}</strong>
+                                        </td>
+
+                                    </tr>
+                                @endif
+                            </tfoot>
                         </table>
                     </div>
                     <div @class(['mt-3' => $aset->hasPages()])>
@@ -132,6 +154,14 @@
             </div>
         </div>
     </div>
+    @push('custom_js')
+        <script>
+            $("#exampleReport").DataTable({
+                responsive: true,
+                paging: false
+            });
+        </script>
+    @endpush
 </div>
 @push('custom_js')
     <script>

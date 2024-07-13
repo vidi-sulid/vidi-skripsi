@@ -8,9 +8,9 @@
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label>Tanggal Awal <span class="text-danger">*</span></label>
-                                    <input wire:model="start_date" type="date" class="form-control" name="start_date"
+                                    <input wire:model="date_start" type="date" class="form-control" name="date_start"
                                         value="{{ $date_start }}">
-                                    @error('start_date')
+                                    @error('date_start')
                                         <span class="text-danger mt-1">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -18,9 +18,9 @@
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label>Tanggal Akhir <span class="text-danger">*</span></label>
-                                    <input wire:model="end_date" type="date" class="form-control" name="end_date"
+                                    <input wire:model="date_end" type="date" class="form-control" name="date_end"
                                         value="{{ $date_end }}">
-                                    @error('end_date')
+                                    @error('date_end')
                                         <span class="text-danger mt-1">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -28,8 +28,7 @@
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label>Username</label>
-                                    <select wire:model="product_asets" class="form-control select2"
-                                        name="product_aset_id">
+                                    <select class="form-control select2" name="product_aset_id">
                                         <option value="">Pilih User</option>
                                         @foreach ($username as $data)
                                             <option value="{{ $data->name }}">{{ $data->name }}</option>
@@ -64,8 +63,9 @@
         <div class="col-12">
             <div class="card border-0 shadow-sm">
                 <div class="card-body">
-                    <div class='table-responsive'>
-                        <table class="table table-bordered table-striped text-center  mb-0" style="font-size: 12px;">
+                    <div class='table-respon3sive'>
+                        <table class="table table-bordered table-striped text-center  mb-0" style="font-size: 12px;"
+                            id ="exampleReport">
                             <div wire:loading.flex
                                 class="col-12 position-absolute justify-content-center align-items-center"
                                 style="top:0;right:0;left:0;bottom:0;background-color: rgba(255,255,255,0.5);z-index: 99;">
@@ -129,6 +129,10 @@
                                         </td>
                                     </tr>
                                 @endforelse
+
+
+                            </tbody>
+                            <tfoot>
                                 @if ($journal->isNotEmpty())
                                     <tr>
                                         <td colspan="4" align="right"><strong>Total</strong></td>
@@ -137,8 +141,7 @@
                                         <td colspan="2"></td>
                                     </tr>
                                 @endif
-
-                            </tbody>
+                            </tfoot>
                         </table>
                     </div>
                     <div @class(['mt-3' => $journal->hasPages()])>
@@ -148,6 +151,14 @@
             </div>
         </div>
     </div>
+    @push('custom_js')
+        <script>
+            $("#exampleReport").DataTable({
+                responsive: true,
+                paging: false
+            });
+        </script>
+    @endpush
 </div>
 @section('addon_js')
     <script>

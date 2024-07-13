@@ -43,7 +43,7 @@
     </li>
     @can('member_write')
         <li class="menu-item ">
-            <a href="{{ route('log-viewer.index') }}" class="menu-link" target="_blank">
+            <a href="{{ url('log-viewer') }}" class="menu-link" target="_blank">
                 <i class="menu-icon tf-icons bx bx-history"></i>
                 <div class="text-truncate" data-i18n="Log User">Log User</div>
             </a>

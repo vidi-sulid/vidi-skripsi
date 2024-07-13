@@ -37,8 +37,9 @@
         <div class="col-12">
             <div class="card border-0 shadow-sm">
                 <div class="card-body">
-                    <div class='table-responsive'>
-                        <table class="table table-bordered table-striped mb-0" style="font-size: 12px;">
+                    <div class='table-responsives'>
+                        <table class="table table-bordered table-striped mb-0" style="font-size: 12px;"
+                            id="exampleReport">
                             <div wire:loading.flex
                                 class="col-12 position-absolute justify-content-center align-items-center"
                                 style="top:0;right:0;left:0;bottom:0;background-color: rgba(255,255,255,0.5);z-index: 99;">
@@ -92,6 +93,10 @@
                                         </td>
                                     </tr>
                                 @endforelse
+
+
+                            </tbody>
+                            <tfoot>
                                 @if ($loan->isNotEmpty())
                                     <tr>
                                         <td colspan="4" align="right"><strong>Total</strong></td>
@@ -102,8 +107,7 @@
 
                                     </tr>
                                 @endif
-
-                            </tbody>
+                            </tfoot>
                         </table>
                     </div>
                     <div @class(['mt-3' => $loan->hasPages()])>
@@ -113,4 +117,12 @@
             </div>
         </div>
     </div>
+    @push('custom_js')
+        <script>
+            $("#exampleReport").DataTable({
+                responsive: true,
+                paging: false
+            });
+        </script>
+    @endpush
 </div>
