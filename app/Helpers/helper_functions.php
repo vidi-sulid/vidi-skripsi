@@ -304,7 +304,7 @@ function nextMonth($dateStart, $interval_bulan)
 {
     // Tanggal awal
     $dateStart = Carbon::parse($dateStart);
-    $dateEnd = $dateStart->copy()->addMonthsNoOverflow($interval_bulan);
+    $dateEnd = $dateStart->copy()->addMonthsNoOverflow(intval($interval_bulan));
 
     // Format tanggal ke dalam format yang diinginkan
     $dateEnd = $dateEnd->toDateString();
