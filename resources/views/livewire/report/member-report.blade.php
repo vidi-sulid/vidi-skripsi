@@ -87,9 +87,9 @@
                                         <td>
                                             <span class="text-nowrap">
                                                 @can('productaset_update')
-                                                    <button class="btn btn-sm btn-icon me-2"
-                                                        onclick="openModal('{{ route('product-aset.edit', $value['id']) }}')"><i
-                                                            class="bx bx-edit"></i></button>
+                                                    <a class="btn btn-sm btn-icon me-2"
+                                                        href="{{ route('member.edit', $value['id']) }}"><i
+                                                            class="bx bx-edit"></i></a>
                                                 @endcan
                                                 @can('productaset_delete')
                                                     <button class="btn btn-sm btn-icon delete-record"

@@ -31,7 +31,7 @@ class PermissionSeeder extends Seeder
             }
         }
         $role3 = Role::create(['name' => 'Super-Admin']);
-        $user =  User::create(['name' => 'Administrator', 'email' => 'admin@test.com', 'password' => Hash::make('111'), "rekening_kas" => "1.100.20"]);
+        $user =  User::create(['name' => 'Administrator', 'email' => 'atmajayasudirman123@gmail.com', 'password' => Hash::make('111'), "rekening_kas" => "1.100.20"]);
         $user->assignRole($role3);
     }
 }

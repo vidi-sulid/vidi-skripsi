@@ -11,6 +11,7 @@ use App\Models\Transaksi\SavingMutation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Validation\Rule;
 
 class MemberController extends Controller
 {
@@ -28,8 +29,7 @@ class MemberController extends Controller
     {
         abort_if(Gate::denies('productloan_write'), 403);
         log_custom("Buka menu tambah master pinjaman");
-        $data = Template::get("datatable");
-
+        $data = Template::get();
 
         array_push($data['pilihCss'],  "stepper", "form-validation");
         array_push($data['pilihJs'],   "stepper", "form-validation", "form-validation1", "form-validation2");
@@ -112,17 +112,35 @@ class MemberController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Member $member)
     {
-        //
+        abort_if(Gate::denies('member_update'), 403);
+        log_custom("Buka menu edit master anggota " . $member->id);
+        $data = Template::get();
+
+        array_push($data['pilihCss'],  "stepper", "form-validation");
+        array_push($data['pilihJs'],   "stepper", "form-validation", "form-validation1", "form-validation2");
+
+
+        $data['member'] = $member;
+        return view('master.member_edit', $data);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Member $member)
     {
-        //
+        abort_if(Gate::denies('member_update'), 403);
+
+        $request->validate([
+            'Name'     => 'required',
+            'BornDate' => 'required',
+            'IdentityCardNumber' => ['required',  Rule::unique('members', 'IdentityCardNumber')->ignore($member->id)],
+        ]);
+
+        log_custom("Update data member" . $member->id, $member->toArray());
+        $member->update($request->all());
     }
 
     /**
