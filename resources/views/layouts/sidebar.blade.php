@@ -57,6 +57,14 @@
             </a>
         </li>
     @endcan
+    @can('backdate_read')
+        <li class="menu-item" id="backup">
+            <a href="{{ route('backup.index') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-data"></i>
+                <div class="text-truncate" data-i18n="Backup Database">Backup Database</div>
+            </a>
+        </li>
+    @endcan
     <!-- Anggota -->
     <li class="menu-header small text-uppercase">
         <span class="menu-header-text" data-i18n="Anggota">Anggota</span>

@@ -8,6 +8,8 @@ use App\Models\Transaksi\Journal;
 use App\Models\Transaksi\SavingMutation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -120,5 +122,30 @@ class HomeController extends Controller
         $data['dateProfit'] = json_encode($dateProfit);
         $data['profitMonthly'] = json_encode($profitMonthly);
         return view("home", $data);
+    }
+
+    function backup()
+    {
+
+        abort_if(Gate::denies('backup_update'), 403);
+
+        $files = Storage::files('public/Koperasi');
+        $data = Template::get();
+        $data['pathBackup'] = array();
+        foreach ($files as $file) {
+            $fileName = basename($file);
+            // Generate the URL to download the file
+            $url = Storage::url($file);
+
+            $data['pathBackup'] = [
+                'text' => $fileName,
+                'type' => 'database',
+                'a_attr' => array("href" => asset("storage/Koperasi/" . $fileName))
+            ];
+        }
+        $data['jsTambahan'] = "
+        $('#backup').addClass('open active');
+        ";
+        return view("user.backup", $data);
     }
 }

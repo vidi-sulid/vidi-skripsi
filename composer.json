@@ -16,6 +16,7 @@
         "laravel/tinker": "^2.9",
         "livewire/livewire": "^3.4",
         "realrashid/sweet-alert": "^7.2",
+        "spatie/laravel-backup": "^9.0",
         "spatie/laravel-permission": "^6.7",
         "tightenco/ziggy": "^2.0",
         "yajra/laravel-datatables": "^11.0"

@@ -27,6 +27,7 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', [HomeController::class, 'show'])->name('dashboard');
+    Route::get('backup', [HomeController::class, 'backup'])->name('backup.index');
 
     Route::resource('user', UserController::class);
     Route::resource('coa', CoaController::class);
