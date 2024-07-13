@@ -49,6 +49,8 @@ class MemberController extends Controller
             'Name'     => 'required',
             'BornDate' => 'required',
             'IdentityCardNumber' => 'required|unique:members,IdentityCardNumber',
+            'saving_mandatory' => 'required',
+            'saving_principal' => 'required',
         ]);
         $data                     = $request->all();
         $golonganWajib            = $data['saving_mandatory'];

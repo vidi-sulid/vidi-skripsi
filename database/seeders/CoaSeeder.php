@@ -7,6 +7,7 @@ use App\Models\Master\Member;
 use App\Models\Master\ProductAset;
 use App\Models\Master\ProductLoan;
 use App\Models\Master\ProductSaving;
+use App\Models\Master\Saving;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -111,10 +112,27 @@ class CoaSeeder extends Seeder
                 "JL IR RAIS RT/RW 013/006",
                 "date" => "2021-11-01",
                 "code" => "0000001",
-                "principalaccount" => "001.01.000001",
-                "mandatoryaccount" => "001.02.0000001",
+                // "principalaccount" => "001.01.000001",
+                // "mandatoryaccount" => "001.02.0000001",
             ]
         ];
         Member::insert($arrayVar);
+
+        $vaRekening = [
+            "rekening" => "01.SP_01.0000001.001",
+            "date_open" => date("Y-m-d"),
+            "product_saving_id" => "SP_01",
+            "member_code" => "0000001",
+            "username" => "system"
+        ];
+        Saving::create($vaRekening);
+        $vaRekening = [
+            "rekening" => "01.SP_02.0000001.001",
+            "date_open" => date("Y-m-d"),
+            "product_saving_id" => "SP_02",
+            "member_code" => "0000001",
+            "username" => "system"
+        ];
+        Saving::create($vaRekening);
     }
 }

@@ -82,6 +82,7 @@
                                     <th>Debet</th>
                                     <th>Kredit</th>
                                     <th>Username</th>
+                                    <th></th>
 
                                 </tr>
                             </thead>
@@ -96,6 +97,7 @@
                                         $totalCredit += $data->credit;
                                     @endphp
                                     <tr>
+
                                         <td class="text-nowrap">
                                             {{ \Carbon\Carbon::parse($data->date)->format('d M, Y') }}</td>
 
@@ -107,6 +109,17 @@
                                         <td align="right">{{ format_currency($data->debit) }}</td>
                                         <td align="right">{{ format_currency($data->credit) }}</td>
                                         <td>{{ $data->username }}</td>
+                                        <td>
+                                            <span class="text-nowrap">
+                                                @can('journal_delete')
+                                                    <button class="btn btn-sm btn-icon me-2"
+                                                        onclick="openModal('{{ route('journal.edit', $data->invoice) }}')"><i
+                                                            class="bx bx-edit"></i></button>
+                                                @endcan
+
+                                            </span>
+
+                                        </td>
 
                                     </tr>
                                 @empty
@@ -121,7 +134,7 @@
                                         <td colspan="4" align="right"><strong>Total</strong></td>
                                         <td align="right"><strong>{{ format_currency($totalDebit) }}</strong></td>
                                         <td align="right"><strong>{{ format_currency($totalCredit) }}</strong></td>
-                                        <td></td>
+                                        <td colspan="2"></td>
                                     </tr>
                                 @endif
 
