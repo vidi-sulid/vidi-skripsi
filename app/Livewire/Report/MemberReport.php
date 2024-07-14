@@ -29,7 +29,7 @@ class MemberReport extends Component
             $query->where('gender', $this->gender);
         }
 
-        $member = $query->paginate(2);
+        $member = $query->paginate(100);
         $data['member'] = Member::get($this->date, $member);
 
         return view('livewire.report.member-report', $data);
