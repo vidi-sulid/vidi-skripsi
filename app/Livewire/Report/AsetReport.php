@@ -51,7 +51,7 @@ class AsetReport extends Component
         $tanggalFilter = date("Y-m-t", strtotime($this->periode));
         $aset = Aset::with(['product'])->whereDate('purchase_date', '<=', $tanggalFilter)
 
-            ->orderBy('purchase_date', 'desc')->paginate(2);
+            ->orderBy('purchase_date', 'desc')->paginate(20);
         session()->put('aset', $aset);
         session()->put('periode', $this->periode);
         $exists = AsetMutation::where('description', 'like', 'Penyusutan aset ' . $this->periode . "%")->exists();

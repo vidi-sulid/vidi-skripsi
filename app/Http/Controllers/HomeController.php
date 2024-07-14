@@ -137,7 +137,7 @@ class HomeController extends Controller
             // Generate the URL to download the file
             $url = Storage::url($file);
 
-            $data['pathBackup'] = [
+            $data['pathBackup'][] = [
                 'text' => $fileName,
                 'type' => 'database',
                 'a_attr' => array("href" => asset("storage/Koperasi/" . $fileName))
@@ -147,5 +147,51 @@ class HomeController extends Controller
         $('#backup').addClass('open active');
         ";
         return view("user.backup", $data);
+    }
+
+    public function versi()
+    {
+        $output = shell_exec('git log --pretty=medium');
+
+        $commits = [];
+
+        $lines = explode("\n", $output);
+        foreach ($lines as $line) {
+            if (empty($line)) {
+                continue;
+            }
+
+            if (strpos($line, 'commit') === 0) {
+                $commitHash = trim(substr($line, 6));
+                $commitMessage = '';
+                $author = ''; // Initialize author variable
+            } else if (strpos($line, 'Author:') === 0) {
+                $author = trim(substr($line, 7)); // Extract author name (excluding "Author: ")
+            } else if (strpos($line, 'Date:') === 0) {
+                $commitDate = trim(substr($line, 5));
+            } else {
+                $commitMessage .= $line . "\n";
+            }
+
+            if (!empty($commitHash) && !empty($commitMessage) && !empty($commitDate) && !empty($author)) {
+                $commits[] = [
+                    'hash' => $commitHash,
+                    'message' => trim($commitMessage),
+                    'date' => $commitDate,
+                    'author' => $author, // Add author to the array
+                ];
+
+                $commitHash = '';
+                $commitMessage = '';
+                $commitDate = '';
+                $author = ''; // Reset author for next commit
+            }
+        }
+        $data = Template::get();
+        $data['update'] = $commits;
+        $data['jsTambahan'] = "
+        $('#versi').addClass('open active');
+        ";
+        return view("user.versi", $data);
     }
 }

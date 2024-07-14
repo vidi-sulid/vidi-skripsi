@@ -7,7 +7,7 @@
     <div class="row">
         <div class="col-md-6 col-12">
             <div class="card mb-6">
-                <h5 class="card-header">Download file dibawah</h5>
+                <h5 class="card-header">Download file di bawah</h5>
                 <div class="card-body">
                     <div id="jstree-context-menu" class="overflow-auto"></div>
                 </div>

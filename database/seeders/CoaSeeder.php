@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Master\Coa;
 use App\Models\Master\Member;
-use App\Models\Master\ProductAset;
 use App\Models\Master\ProductLoan;
 use App\Models\Master\ProductSaving;
 use App\Models\Master\Saving;
@@ -72,13 +71,6 @@ class CoaSeeder extends Seeder
         Coa::insert($data);
 
 
-        $vaProduct = [
-            [
-                "code" => 'AS_01', "name" => "Aset Inventaris", "account_aset" => "1.150.10", "account_depreciation" => "1.151.10", "account_cost" => "5.100.10",
-                "account_income" => "4.100.10"
-            ]
-        ];
-        ProductAset::insert($vaProduct);
 
         $vaProduct = [
             [
@@ -95,28 +87,14 @@ class CoaSeeder extends Seeder
         $vaProduct = [
             [
                 "code" => 'PJ_01', "name" => "Modal Kerja", "account_loan" => "1.120.10", "account_income_administration" => "4.200.10", "account_income_interest" => "4.200.30",
-                "account_dutystamp" => "1.160.120",
+                "account_dutystamp" => "1.160.10",
             ],
             [
                 "code" => 'PJ_02', "name" => "Umum", "account_loan" => "1.120.10", "account_income_administration" => "4.200.10", "account_income_interest" => "4.200.30",
-                "account_dutystamp" => "1.160.120",
+                "account_dutystamp" => "1.160.10",
             ]
         ];
         ProductLoan::insert($vaProduct);
-        $arrayVar = [
-            [
-                "name" => "SUPADIN",
-                "identitycardnumber" => "1802230506670003",
-                "gender" => "L",
-                "address" =>
-                "JL IR RAIS RT/RW 013/006",
-                "date" => "2021-11-01",
-                "code" => "0000001",
-                // "principalaccount" => "001.01.000001",
-                // "mandatoryaccount" => "001.02.0000001",
-            ]
-        ];
-        Member::insert($arrayVar);
 
         $vaRekening = [
             "rekening" => "01.SP_01.0000001.001",

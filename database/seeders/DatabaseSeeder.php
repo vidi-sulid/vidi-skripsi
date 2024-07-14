@@ -18,5 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(SettingSeeder::class);
         $this->call(CurrencySeeder::class);
         $this->call(CoaSeeder::class);
+        $this->call(AsetSeeder::class);
+        $this->call(MemberSeeder::class);
     }
 }

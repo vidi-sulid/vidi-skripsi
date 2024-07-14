@@ -25,10 +25,10 @@ class BalancesheetReport extends Component
 
         $tglLalu = Carbon::parse($this->date_start)->subDay()->toDateString();
 
-        $account = Coa::where("code", "<", "4")->get()->toArray();
+        $account = Coa::where("code", "<", "4")->orderBy("code")->get()->toArray();
 
         $dataSaldoAwal = Journal::select(DB::raw("sum(debit) debit, sum(credit) credit, rekening"))
-            ->where("date", "<=", $tglLalu)->groupBy("rekening")->get()->toArray();
+            ->where("date", "<=", $tglLalu)->groupBy("rekening")->orderby("rekening")->get()->toArray();
 
         $dataTransaksi = Journal::select(DB::raw("sum(debit) debit, sum(credit) credit, rekening"))
             ->whereBetween("date", [$this->date_start, $this->date_end])->groupBy("rekening")->get()->toArray();
@@ -78,10 +78,11 @@ class BalancesheetReport extends Component
                     "saldoakhir" => $saldowal - $labaRugi->debit + $labaRugi->credit
                 ];
             }
-
             foreach ($dataSaldoAwal as $value2) {
+
                 if (strpos($value2['rekening'], $value1['code']) === 0) {
                     $key = substr($value2['rekening'], 0, 1);
+
                     $vaNeraca[$value1['code']]['saldoawal'] += ($key == "1") ? $value2['debit'] - $value2['credit'] : $value2['credit'] - $value2['debit'];
                     $vaNeraca[$value1['code']]['saldoakhir'] += ($key == "1") ? $value2['debit'] - $value2['credit'] : $value2['credit'] - $value2['debit'];
                 }
@@ -97,6 +98,7 @@ class BalancesheetReport extends Component
                 }
             }
         }
+
         ksort($vaNeraca);
         foreach ($vaNeraca as $key => $value) {
             $nominal = $value['saldoawal'] + $value['debit'] + $value['credit'];
@@ -110,6 +112,7 @@ class BalancesheetReport extends Component
         session()->put('judulBalancesheet', $judul);
         $data['tanggalAwal'] = $this->date_start;
         $data['tanggalAkhir'] = $this->date_end;
+
 
         return view('livewire.report.balancesheet-report', $data);
     }

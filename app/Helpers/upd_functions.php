@@ -13,7 +13,9 @@ if (!function_exists('UpdateJournalSaving')) {
     function UpdateJournalSaving($invoice)
     {
         $mutations   = SavingMutation::where("invoice", $invoice)->get();
-        $CashAccount = Auth::user()->rekening_kas;
+        $user = Auth::user();
+        $CashAccount =  (empty($user->rekening_kas))  ? "1.100.20" : $user->rekening_kas;
+
         foreach ($mutations as $value) {
             $mutation = [
                 "invoice"     => $value->invoice,
@@ -119,7 +121,7 @@ if (!function_exists('UpdateJournalLoan')) {
                     $mutation[] =  [
                         "invoice"     => $loan->invoice,
                         "date"        => $loan->date_open,
-                        "rekening"    => getName($loan->product_loan_id, "product_loans", "account_income_interest"),
+                        "rekening"    => getName($loan->product_loan_id, "product_loans", "account_income_administration"),
                         "description" => "Administrasi pencairan an " . $loan->member->name,
                         "debit"       => 0,
                         "credit"      => $loan->administration_fee,
@@ -130,7 +132,7 @@ if (!function_exists('UpdateJournalLoan')) {
                     $mutation[] =   [
                         "invoice"     => $loan->invoice,
                         "date"        => $loan->date_open,
-                        "rekening"    => getName($loan->product_loan_id, "product_loans", "account_income_interest"),
+                        "rekening"    => getName($loan->product_loan_id, "product_loans", "account_income_administration"),
                         "description" => "Provisi pencairan an " . $loan->member->name,
                         "debit"       => 0,
                         "credit"      => $loan->provision_fee,
@@ -158,6 +160,8 @@ if (!function_exists('UpdateJournalLoan')) {
 if (!function_exists('UpdAset')) {
     function UpdAset($invoice)
     {
+        $user = Auth::user();
+        $rekeningKas =  (empty($user->rekening_kas))  ? "1.100.20" : $user->rekening_kas;
         $vaMutasi = AsetMutation::with(['asets'])->where("invoice", $invoice)->get();
         foreach ($vaMutasi as $key => $value) {
             $mutation = [
@@ -177,7 +181,7 @@ if (!function_exists('UpdAset')) {
                 $mutation['debit'] = $mutation['credit'];
                 unset($mutation['credit']);
             }
-            $mutation['rekening'] = Auth::user()->rekening_kas;
+            $mutation['rekening'] = $rekeningKas;
             Journal::create($mutation);
         }
     }

@@ -143,25 +143,39 @@ document.addEventListener('livewire:load', function () {
 });
 
 function logout(event) {
-    event.preventDefault();
+    Swal.fire({
+        title: "Apakah Anda Yakin ?",
+        text: "Ingin Keluar Dari Aplikasi!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Ya!"
+    }).then((result) => {
+        if (result.value) {
+            event.preventDefault();
 
-    fetch('http://localhost:8000/logout', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },
-        // body: JSON.stringify({}) // Add any data if needed
-    }).then(response => {
-        if (response.ok) {
-            // Optional: Perform any additional actions after successful logout
-            console.log('Logged out successfully');
-            // Example: Redirect to login page
-            window.location.href = '/login';
-        } else {
-            console.error('Logout failed');
+            fetch('http://localhost:8000/logout', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                // body: JSON.stringify({}) // Add any data if needed
+            }).then(response => {
+                if (response.ok) {
+                    // Optional: Perform any additional actions after successful logout
+                    console.log('Logged out successfully');
+                    // Example: Redirect to login page
+                    window.location.href = '/login';
+                } else {
+                    console.error('Logout failed');
+                }
+            }).catch(error => {
+                console.error('Error during logout:', error);
+            });
         }
-    }).catch(error => {
-        console.error('Error during logout:', error);
-    });
+    })
+    
+    
 }

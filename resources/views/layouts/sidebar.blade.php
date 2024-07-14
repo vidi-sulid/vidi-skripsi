@@ -214,4 +214,14 @@
             </a>
         </li>
     @endcan
+    <!-- Aset -->
+    <li class="menu-header small text-uppercase">
+        <span class="menu-header-text" data-i18n="Aplikasi">Aplikasi</span>
+    </li>
+    <li class="menu-item" id="versi">
+        <a href="{{ route('versi.index') }}" class="menu-link">
+            <i class="menu-icon tf-icons bx bx-time"></i>
+            <div class="text-truncate" data-i18n="Versi Aplikasi">Versi Aplikasi</div>
+        </a>
+    </li>
 </ul>

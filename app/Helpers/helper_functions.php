@@ -53,7 +53,6 @@ if (!function_exists('format_currency')) {
         $symbol = $settings->currency->symbol;
         $decimal_separator = $settings->currency->decimal_separator;
         $thousand_separator = $settings->currency->thousand_separator;
-        $value = String2Number($value);
         if ($position == 'prefix') {
             $formatted_value = $symbol . number_format($value, 2, $decimal_separator, $thousand_separator);
         } else {
