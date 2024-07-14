@@ -27,7 +27,7 @@ class AsetFactory extends Factory
             'inventory_number' => $this->faker->bothify('INVNUM-#####'),
             'purchase_date' => $this->faker->dateTimeBetween('-1 years', 'now'),
             'product_asset_id' => Str::random(10),
-            'price' => $this->faker->randomFloat(2, 100, 10000),  // Harga acak antara 100.00 dan 10000.99
+            'loan_amount' => $this->faker->numberBetween(2, 8) * 200000, // Harga acak antara 100.00 dan 10000.99
             'residual_value' => $this->faker->randomFloat(2, 0, 500),  // Nilai residu acak antara 0.00 dan 500.99
             'depreciation_period' => rand(1, 20) . ' years',
             'username' => 'user' . rand(1, 10),

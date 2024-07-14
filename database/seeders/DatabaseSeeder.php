@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(CoaSeeder::class);
         $this->call(AsetSeeder::class);
         $this->call(MemberSeeder::class);
+        $this->call(LoanSeeder::class);
     }
 }

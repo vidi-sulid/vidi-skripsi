@@ -46,7 +46,7 @@ class MemberSeeder extends Seeder
                 "codetransaction" => '01',
                 "description"     => "Setoran Awal Anggota an. " . $data['name'],
                 "debit"           => 0,
-                "credit"          => 130000000,
+                "credit"          => 100000,
                 "username"        => "system",
                 "cash"            => 'K'
             ];
@@ -54,7 +54,7 @@ class MemberSeeder extends Seeder
 
             // //Update Transaction Mandatory Account
             $mutation['rekening'] = $data['MandatoryAccount1'];
-            $mutation['credit']   = 130000000;
+            $mutation['credit']   = 100000;
             SavingMutation::create($mutation);
 
             UpdateJournalSaving($invoice);

@@ -126,7 +126,6 @@ class HomeController extends Controller
 
     function backup()
     {
-
         abort_if(Gate::denies('backup_update'), 403);
 
         $files = Storage::files('public/Koperasi');
@@ -151,7 +150,9 @@ class HomeController extends Controller
 
     public function versi()
     {
-        $output = shell_exec('git log --pretty=medium');
+        $projectRoot = base_path();
+        chdir($projectRoot);
+        $output = shell_exec('git log');
 
         $commits = [];
 

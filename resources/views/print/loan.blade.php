@@ -44,7 +44,7 @@
                 <td align="right">{{ number_format($value->loan_amount) }}</td>
                 <td align="right">{{ number_format($value->bakidebet) }}</td>
                 <td align="right">{{ number_format($value->tunggakanPokok) }}</td>
-                <td align="right">{{ number_format($value->tunggakanWajib) }}</td>
+                <td align="right">{{ number_format($value->tunggakanBunga) }}</td>
             </tr>
         @endforeach
         <tr>

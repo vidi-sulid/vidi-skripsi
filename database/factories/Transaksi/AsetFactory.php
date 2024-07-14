@@ -2,7 +2,7 @@
 
 namespace Database\Factories\Transaksi;
 
-
+use App\Models\Master\Member;
 use App\Models\Transaksi\Aset;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\Factory;

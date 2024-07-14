@@ -48,7 +48,8 @@ if (!function_exists('UpdateJournalLoan')) {
     function UpdateJournalLoan($invoice, $lcair = false)
     {
         $mutations   = LoanMutation::where("invoice", $invoice)->get();
-        $CashAccount = Auth::user()->rekening_kas;
+        $user = Auth::user();
+        $CashAccount =  (empty($user->rekening_kas))  ? "1.100.20" : $user->rekening_kas;
         foreach ($mutations as $value) {
             $mutation = [
                 "invoice"     => $value->invoice,
