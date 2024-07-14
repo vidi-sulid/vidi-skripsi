@@ -122,11 +122,11 @@
                             <tfoot>
                                 @if ($member->isNotEmpty())
                                     <tr>
-                                        <td colspan="4" align="right"><strong>Total</strong></td>
+                                        <td colspan="5" align="right"><strong>Total</strong></td>
                                         <td align="right"><strong>{{ format_currency($pokok) }}</strong></td>
                                         <td align="right"><strong>{{ format_currency($wajib) }}</strong></td>
                                         <td align="right"><strong>{{ format_currency($pinjaman) }}</strong></td>
-
+                                        <td></td>
                                     </tr>
                                 @endif
                             </tfoot>
