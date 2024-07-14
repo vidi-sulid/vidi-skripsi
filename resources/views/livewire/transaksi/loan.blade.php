@@ -39,7 +39,7 @@
                         class="form-select select2">
                         <option value="">Pilih Anggota</option>
                         @foreach ($customer as $data)
-                            <option value="{{ $data->id }}">
+                            <option value="{{ $data->code }}">
                                 {{ $data->code . '-' . $data->name }}
                             </option>
                         @endforeach

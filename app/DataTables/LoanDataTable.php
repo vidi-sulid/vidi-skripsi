@@ -29,7 +29,6 @@ class   LoanDataTable extends DataTable
                 return view('transaksi.loan_action', compact('data'));
             })
             ->addColumn('member_code', function ($data) {
-                return $data->member_code;
                 return $data->member->name;
             })
             ->addColumn('loan_amount', function ($data) {
@@ -49,7 +48,7 @@ class   LoanDataTable extends DataTable
      */
     public function query(Loan $model): QueryBuilder
     {
-        return $model->newQuery()->with(['member']);
+        return $model->newQuery()->with(['member'])->orderby("id", "desc");
     }
 
     /**

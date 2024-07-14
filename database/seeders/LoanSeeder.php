@@ -14,7 +14,7 @@ class LoanSeeder extends Seeder
      */
     public function run(): void
     {
-        Loan::factory()->count(100)->create();
+        Loan::factory()->count(10)->create();
 
         $loan = Loan::with(['member'])->get()->toArray();
         foreach ($loan as $data) {

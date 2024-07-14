@@ -102,8 +102,8 @@
                                         <td colspan="4" align="right"><strong>Total</strong></td>
                                         <td align="right"><strong>{{ format_currency($totalPinjaman) }}</strong></td>
                                         <td colspan="2"></td>
-                                        <td align="right"><strong>{{ format_currency($totalPinjaman) }}</strong></td>
-                                        <td align="right"><strong>{{ format_currency($totalPinjaman) }}</strong></td>
+                                        <td align="right"><strong>{{ format_currency($tunggakanPokok) }}</strong></td>
+                                        <td align="right"><strong>{{ format_currency($tunggakanBunga) }}</strong></td>
 
                                     </tr>
                                 @endif

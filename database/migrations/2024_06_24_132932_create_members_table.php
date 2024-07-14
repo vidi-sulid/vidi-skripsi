@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('members', function (Blueprint $table) {
             $table->id();
-            $table->string('code', 7);
+            $table->string('code');
             $table->date('date');
             $table->date('date_close')->default("9999-12-31");
             $table->string("name", 50)->nullable();

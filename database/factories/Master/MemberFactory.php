@@ -19,6 +19,7 @@ class MemberFactory extends Factory
     protected $model = Member::class;
     public function definition(): array
     {
+        $code = str_pad($this->faker->unique()->numberBetween(1, 100), 7, '0', STR_PAD_LEFT);
 
         return [
             'name' => $this->faker->name,
@@ -26,7 +27,7 @@ class MemberFactory extends Factory
             'gender' => $this->faker->randomElement(['L', 'P']),
             'address' => $this->faker->address,
             'date' => $this->faker->date('Y-m-d', '2021-11-01'),
-            'code' => $this->faker->numerify('#######'),
+            'code' => $code,
         ];
     }
 }

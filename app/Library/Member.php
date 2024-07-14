@@ -48,13 +48,12 @@ class Member
 
         foreach ($mutation as $key => $value) {
 
-            $code = getName($value->rekening, "savings", "member_code", "rekening");
+            $code = getName($value->rekening, "loans", "member_code", "rekening");
             if (!isset($memberBalance[$code])) {
                 $memberBalance[$code] = array("W" => 0, "P" => 0, "L" => 0);
             }
             $memberBalance[$code]['L'] += $value->balance;
         }
-
 
         if ($member != null) {
 

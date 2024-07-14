@@ -70,6 +70,7 @@ class LoanController extends Controller
 
         $member = Member::where("code", $data['member_code'])->first();
 
+
         $mutation = [
             "status"  => 0,
             "invoice"         => $data['invoice'],
