@@ -8,7 +8,7 @@
         <!-- Timeline Basic-->
         <div class="col-xl-6 mb-6 mb-xl-0">
             <div class="card">
-                <h5 class="card-header">Basic</h5>
+                <h5 class="card-header">History Log</h5>
                 <div class="card-body">
                     <ul class="timeline mb-0">
                         @php
@@ -38,7 +38,6 @@
                                             </div>
                                             <div>
                                                 <p class="mb-0 small fw-medium">{{ $value['author'] }}</p>
-                                                <small>CEO of ThemeSelection</small>
                                             </div>
                                         </div>
                                     </div>
