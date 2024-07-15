@@ -13,7 +13,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-6">
+        <div class="col-lg-6 h-100">
             <div class="card shadow-none bg-label-primary h-100">
                 <div class="card-body d-flex justify-content-between flex-wrap-reverse">
                     <div
