@@ -459,6 +459,9 @@
                     yaxis: {
                         labels: {
                             show: !1
+                        },
+                        formatter: function(val) {
+                            return val.toFixed(2); // Mengatur agar hanya dua angka desimal ditampilkan
                         }
                     }
                 },
@@ -582,6 +585,9 @@
                             style: {
                                 fontSize: "13px",
                                 colors: r
+                            },
+                            formatter: function(val) {
+                                return val.toFixed(2); // Mengatur agar hanya dua angka desimal ditampilkan
                             }
                         }
                     }

@@ -7,9 +7,30 @@
     <div class="row">
         <div class="col-md-6 col-12">
             <div class="card mb-6">
-                <h5 class="card-header">Download file di bawah</h5>
+                <h5 class="card-header">List data backup 30 hari terakhir</h5>
                 <div class="card-body">
                     <div id="jstree-context-menu" class="overflow-auto"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card shadow-none bg-label-primary h-100">
+                <div class="card-body d-flex justify-content-between flex-wrap-reverse">
+                    <div
+                        class="mb-0 w-100 app-academy-sm-60 d-flex flex-column justify-content-between text-center text-sm-start">
+                        <div class="card-title">
+                            <h5 class="text-primary mb-2">Informasi backup database</h5>
+                            <p class="text-body w-sm-80 app-academy-xl-100">
+                                Database akan secara otomatis melakukan backup setiap jam 00:00 WIB oleh server. Backup ini
+                                akan menyimpan data dari 30 hari terakhir. Sistem akan melakukan backup secara berkala.
+                            </p>
+                        </div>
+                    </div>
+                    <div
+                        class="w-100 app-academy-sm-40 d-flex justify-content-center justify-content-sm-end h-px-150 mb-4 mb-sm-0">
+                        <img class="img-fluid scaleX-n1-rtl"
+                            src="{{ asset('assets/img/illustrations/boy-app-academy.png') }}" alt="boy illustration" />
+                    </div>
                 </div>
             </div>
         </div>

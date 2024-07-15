@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 
+use Illuminate\Validation\Rule;
+
 class UserController extends Controller
 {
     /**
@@ -48,8 +50,8 @@ class UserController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|email|max:255|unique:users',
             'role' => 'required',
-            'rekening_cash' => 'required',
-            'rekening_volt' => 'required',
+            'rekening_kas' => 'required',
+            'rekening_volt_id' => 'required',
         ]);
         $data = $request->all();
         $data['password'] = Hash::make('123456789');
@@ -83,6 +85,32 @@ class UserController extends Controller
     public function update(Request $request, string $id)
     {
         abort_if(Gate::denies('user_update'), 403);
+        $request->validate([
+            'name' => 'required|string|max:255|unique:roles',
+            'email' => [
+                'required',
+                'email',
+                Rule::unique('users')->ignore($id),
+            ],
+
+            'rekening_kas' => 'required',
+            'rekening_volt_id' => 'required',
+            'role' => 'required'
+        ]);
+        $data = $request->all();
+        // $reset = $data['reset'];
+        // if ($reset == "1") {
+        //     $data['password'] = Hash::make('111');
+        // }
+        unset($data['_token'], $data['role']); //, $data['reset']
+        User::whereId($id)->update($data);
+
+        $role = Role::whereId($request->role)->first();
+        $user = User::find($id);
+        $user->assignRole($role);
+
+        log_custom("Simpan User", $data);
+        return response()->json("ok");
     }
 
     /**

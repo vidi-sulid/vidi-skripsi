@@ -48,7 +48,7 @@ class   LoanDataTable extends DataTable
      */
     public function query(Loan $model): QueryBuilder
     {
-        return $model->newQuery()->with(['member'])->orderby("id", "desc");
+        return $model->newQuery()->with(['member'])->orderby("date_open", "desc");
     }
 
     /**
@@ -61,7 +61,7 @@ class   LoanDataTable extends DataTable
             ->columns($this->getColumns())
             ->minifiedAjax()
             //->dom('Bfrtip')
-            ->orderBy([1, 'asc'])
+            ->orderBy([2, 'desc'])
             ->parameters([
                 'responsive' => true,
 

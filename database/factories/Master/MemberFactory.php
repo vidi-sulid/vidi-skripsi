@@ -26,7 +26,7 @@ class MemberFactory extends Factory
             'identitycardnumber' => $this->faker->numerify('###############'),
             'gender' => $this->faker->randomElement(['L', 'P']),
             'address' => $this->faker->address,
-            'date' => $this->faker->date('Y-m-d', '2021-11-01'),
+            'date' => $this->faker->dateTimeBetween('-3 months', 'now'),
             'code' => $code,
         ];
     }

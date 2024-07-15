@@ -59,7 +59,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row mt-3">
         <div class="col-12">
             <div class="card border-0 shadow-sm">
                 <div class="card-body">
@@ -91,7 +91,7 @@
                                     $totalDebit = 0;
                                     $totalCredit = 0;
                                 @endphp
-                                @forelse($journal as $data)
+                                @foreach ($journal as $data)
                                     @php
                                         $totalDebit += $data->debit;
                                         $totalCredit += $data->credit;
@@ -122,13 +122,7 @@
                                         </td>
 
                                     </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="8">
-                                            <span class="text-danger">Data tidak ditemukan !</span>
-                                        </td>
-                                    </tr>
-                                @endforelse
+                                @endforeach
 
 
                             </tbody>

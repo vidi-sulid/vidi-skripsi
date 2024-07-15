@@ -6,6 +6,7 @@ use App\Library\Template;
 use App\Models\Master\Member;
 use App\Models\Transaksi\Journal;
 use App\Models\Transaksi\SavingMutation;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
@@ -121,6 +122,7 @@ class HomeController extends Controller
         $data['averageProfit'] = array_sum($profitMonthly) / count($profitMonthly);
         $data['dateProfit'] = json_encode($dateProfit);
         $data['profitMonthly'] = json_encode($profitMonthly);
+
         return view("home", $data);
     }
 
@@ -131,16 +133,22 @@ class HomeController extends Controller
         $files = Storage::files('public/Koperasi');
         $data = Template::get();
         $data['pathBackup'] = array();
-        foreach ($files as $file) {
-            $fileName = basename($file);
-            // Generate the URL to download the file
-            $url = Storage::url($file);
 
-            $data['pathBackup'][] = [
-                'text' => $fileName,
-                'type' => 'database',
-                'a_attr' => array("href" => asset("storage/Koperasi/" . $fileName))
-            ];
+        $thirtyDaysAgo = Carbon::now()->subDays(30);
+        foreach ($files as $file) {
+            $lastModified = Storage::lastModified($file);
+            $modifiedDate = Carbon::createFromTimestamp($lastModified);
+
+            if ($modifiedDate->lessThan($thirtyDaysAgo)) {
+                Storage::delete($file);
+            } else {
+                $fileName = basename($file);
+                $data['pathBackup'][] = [
+                    'text' => $fileName,
+                    'type' => 'database',
+                    'a_attr' => array("href" => asset("storage/Koperasi/" . $fileName))
+                ];
+            }
         }
         $data['jsTambahan'] = "
         $('#backup').addClass('open active');
@@ -187,6 +195,12 @@ class HomeController extends Controller
                 $commitDate = '';
                 $author = ''; // Reset author for next commit
             }
+        }
+        $reversedCommits = array_reverse($commits, true);
+        $version = "1.0.0";
+        foreach ($reversedCommits as $key => $value) {
+            $version = incrementVersion($version);
+            $commits[$key]['version'] = $version;
         }
         $data = Template::get();
         $data['update'] = $commits;

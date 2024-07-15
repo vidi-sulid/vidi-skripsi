@@ -21,7 +21,7 @@ class LoanSeeder extends Seeder
             $mutation = [
                 "status"  => 0,
                 "invoice"         => $data['invoice'],
-                "date"            => date("Y-m-d"),
+                "date"            => $data['date_open'],
                 "rekening"        => $data['rekening'],
                 "description"     => "Pencairan Pinjaman Anggota an. " . $data['member']['name'],
                 "credit"           => 0,

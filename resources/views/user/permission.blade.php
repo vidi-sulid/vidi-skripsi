@@ -57,7 +57,7 @@
 
                                 <button class="btn btn-primary mb-3 text-nowrap "
                                     onclick="openModal('{{ route('permission.create') }}')">
-                                    Tambahkan peran baru</button>
+                                    Tambahkan peran</button>
                                 <p class="mb-0">
                                     Tambahkan peran jika belum ada.</p>
                             </div>

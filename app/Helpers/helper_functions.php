@@ -322,3 +322,27 @@ function getKe($date_start, $n, $date)
     }
     return $ke;
 }
+
+function incrementVersion($version)
+{
+    // Pisahkan versi ke dalam array
+    $parts = explode('.', $version);
+
+    // Lakukan increment untuk setiap bagian versi
+    foreach ($parts as $key => $part) {
+        // Convert bagian versi menjadi integer
+        $parts[$key] = (int)$part;
+
+        // Tingkatkan versi terakhir dan keluar dari loop
+        if ($key === count($parts) - 1) {
+            $parts[$key]++;
+            break;
+        }
+    }
+
+    // Gabungkan kembali versi ke dalam string
+    $newVersion = implode('.', $parts);
+
+    // Kembalikan versi yang baru
+    return $newVersion;
+}

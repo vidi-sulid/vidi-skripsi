@@ -67,7 +67,7 @@ class   ProductSavingDataTable extends DataTable
             ->columns($this->getColumns())
             ->minifiedAjax()
             //->dom('Bfrtip')
-            ->orderBy([1, 'asc'])
+            ->orderBy([1, 'desc'])
             ->parameters([
                 'responsive' => true,
 

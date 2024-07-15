@@ -22,7 +22,7 @@ class MemberSeeder extends Seeder
             $data['MandatoryAccount'] = implode('.', ["01", "SP_01", $data['code']]);
             $vaRekening = [
                 "rekening" => $data['MandatoryAccount'],
-                "date_open" => date("Y-m-d"),
+                "date_open" => $data['date'],
                 "product_saving_id" => "SP_01",
                 "member_code" => $data['code'],
                 "username" => "system"
@@ -31,7 +31,7 @@ class MemberSeeder extends Seeder
             $data['MandatoryAccount1'] = implode('.', ["01", "SP_02", $data['code']]);
             $vaRekening = [
                 "rekening" => $data['MandatoryAccount1'],
-                "date_open" => date("Y-m-d"),
+                "date_open" => $data['date'],
                 "product_saving_id" => "SP_02",
                 "member_code" => $data['code'],
                 "username" => "system"

@@ -62,7 +62,7 @@
         </div>
     </div>
 
-    <div class="row">
+    <div class="row mt-3">
         <div class="col-12">
             <div class="card border-0 shadow-sm">
                 <div class="card-body">
@@ -96,7 +96,7 @@
                                 @php
                                     $harga = $penyusutanAwal = $penyusutan = $penyusutanAkhir = 0;
                                 @endphp
-                                @forelse($aset as $data)
+                                @foreach ($aset as $data)
                                     @php
                                         $tanggal = date('Y-m-01', strtotime($periode));
                                         $vaAset = App\Library\AsetCalculation::get($data, $periode);
@@ -122,13 +122,7 @@
                                         <td>{{ format_currency($vaAset['penyusutanAkhir']) }}</td>
 
                                     </tr>
-                                @empty
-                                    <tr>
-                                        <td colspan="11">
-                                            <span class="text-danger">Data tidak ditemukan !</span>
-                                        </td>
-                                    </tr>
-                                @endforelse
+                                @endforeach
 
                             </tbody>
                             <tfoot>

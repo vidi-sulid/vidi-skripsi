@@ -13,7 +13,7 @@
                 </div>
                 <div class="col-6 mb-3">
                     <label for="nameBasic" class="form-label">Role Permission</label>
-                    <select class="form-control" name="role" id="role" required>
+                    <select class="form-control select2" name="role" id="role" required>
                         <option value=""> Pilih Role</option>
                         @foreach (Spatie\Permission\Models\Role::where('name', '!=', 'Super-Admin')->get() as $account)
                             <option value="{{ $account->id }}">{{ $account->id . '-' . $account->name }}
@@ -26,9 +26,9 @@
             <div class="row">
                 <div class="col">
                     <label for="rekening_cash" class="form-label">Rekening Kas</label>
-                    <select id="rekening_cash" name="rekening_cash" class="select2 form-select"
+                    <select id="rekening_cash" name="rekening_kas" class="select2 form-select"
                         data-placeholder="Pilih Rekening">
-                        @foreach (App\Models\Master\Coa::get() as $rekening)
+                        @foreach (App\Models\Master\Coa::where('type', 0)->get() as $rekening)
                             <option value="{{ $rekening->code }}">
                                 {{ $rekening->code . '-' . $rekening->name }}
                             </option>
@@ -37,9 +37,9 @@
                 </div>
                 <div class="col-6">
                     <label for="rekening_volt" class="form-label">Rekening Volt</label>
-                    <select id="rekening_volt" name="rekening_volt" class="select2 form-select"
+                    <select id="rekening_volt" name="rekening_volt_id" class="select2 form-select"
                         data-placeholder="Pilih Rekening">
-                        @foreach (App\Models\Master\Coa::get() as $rekening)
+                        @foreach (App\Models\Master\Coa::where('type', 0)->get() as $rekening)
                             <option value="{{ $rekening->code }}">
                                 {{ $rekening->code . '-' . $rekening->name }}
                             </option>

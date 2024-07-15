@@ -3,7 +3,7 @@
     <li class="menu-item" id="dashboards">
         <a href="{{ route('dashboard') }}" class="menu-link">
             <i class="menu-icon tf-icons bx bx-home-circle"></i>
-            <div data-i18n="Dashboards">Dashboard</div>
+            <div data-i18n="Dashboard">Dashboard</div>
         </a>
     </li>
     @can('cashier_write')

@@ -14,11 +14,38 @@
                 </div>
                 <div class="col-6 mb-3">
                     <label for="nameBasic" class="form-label">Role</label>
-                    <select class="form-control" name="role" id="role" required>
+                    <select class="form-control select2" name="role" id="role" required>
                         <option value=""> Pilih Role</option>
                         @foreach (Spatie\Permission\Models\Role::where('name', '!=', 'Super-Admin')->get() as $account)
                             <option value="{{ $account->id }}" {{ $user->hasRole($account->name) ? 'selected' : '' }}>
                                 {{ $account->id . '-' . $account->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col">
+                    <label for="rekening_cash" class="form-label">Rekening Kas</label>
+                    <select id="rekening_cash" name="rekening_kas" class="select2 form-select"
+                        data-placeholder="Pilih Rekening">
+                        @foreach (App\Models\Master\Coa::where('type', 0)->get() as $rekening)
+                            <option value="{{ $rekening->code }}"
+                                @if ($user->rekening_kas == $rekening->code) {{ 'selected' }} @endif>
+                                {{ $rekening->code . '-' . $rekening->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="col-6">
+                    <label for="rekening_volt" class="form-label">Rekening Volt</label>
+                    <select id="rekening_volt" name="rekening_volt_id" class="select2 form-select"
+                        data-placeholder="Pilih Rekening">
+                        @foreach (App\Models\Master\Coa::where('type', 0)->get() as $rekening)
+                            <option value="{{ $rekening->code }}"
+                                @if ($user->rekening_volt_id == $rekening->code) {{ 'selected' }} @endif>
+                                {{ $rekening->code . '-' . $rekening->name . $account->rekening_volt_id }}
                             </option>
                         @endforeach
                     </select>
@@ -31,15 +58,73 @@
                     <input type="email" id="email" name="email" class="form-control" placeholder="Email"
                         required value={{ $user->email }} />
                 </div>
+
             </div>
+            {{-- <div class="row">
+                <div class="col mb-3">
+                    <label class="form-check-label">Password Reset</label>
+                    <div class="col mt-2">
+                        <div class="form-check form-check-inline">
+                            <input name="reset" class="form-check-input" type="radio" value="1"
+                                id="induk" />
+                            <label class="form-check-label" for="induk">Iya</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input name="reset" class="form-check-input" type="radio" value="0" id="detail"
+                                checked />
+                            <label class="form-check-label" for="detail"> Tidak</label>
+                        </div>
+                    </div>
+                </div>
+            </div> --}}
+
         </div>
         <div class="modal-footer">
             <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">
                 Close
             </button>
-            <button type="button" p class="btn btn-primary"
+            <button type="button" class="btn btn-primary"
                 onclick="save('{{ route('user.update', $user->id) }}','put')"><i class="bx bx-save"></i> Save
                 changes</button>
         </div>
     </form>
 </div>
+<script>
+    "use strict";
+    $(function() {
+        var o = document.querySelector(".numeral-mask");
+
+        e && autosize(e);
+        var s, i, e = $(".select2"),
+            e = (e.length && e.each(function() {
+                var e = $(this);
+                e.wrap('<div class="position-relative"></div>').select2({
+                    dropdownParent: e.parent(),
+                    placeholder: e.data("placeholder")
+                })
+            }), $(".form-repeater"));
+        e.length && (s = 2, i = 1, e.on("submit", function(e) {
+            e.preventDefault()
+        }), e.repeater({
+            show: function() {
+                var a = $(this).find(".form-control, .form-select"),
+                    t = $(this).find(".form-label");
+                a.each(function(e) {
+                    var r = "form-repeater-" + s + "-" + i;
+                    $(a[e]).attr("id", r), $(t[e]).attr("for", r), i++
+                }), s++, $(this).slideDown(), $(".select2-container").remove(), $(
+                    ".select2.form-select").select2({
+                    placeholder: "Placeholder text"
+                }), $(".select2-container").css("width", "100%"), $(
+                    ".form-repeater:first .form-select").select2({
+                    dropdownParent: $(this).parent(),
+                    placeholder: "Placeholder text"
+                }), $(".position-relative .select2").each(function() {
+                    $(this).select2({
+                        dropdownParent: $(this).closest(".position-relative")
+                    })
+                })
+            }
+        }))
+    });
+</script>

@@ -66,7 +66,7 @@
 
   
   <div class="app-brand demo ">
-    <a href="index.html" class="app-brand-link">
+    <a href="{{ route('dashboard') }}" class="app-brand-link">
 <span class="app-brand-logo demo">
 
 <svg width="25" viewBox="0 0 25 42" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
@@ -140,7 +140,8 @@
 </div>
 <!-- /Search -->
 <ul class="navbar-nav flex-row align-items-center ms-auto">
-  
+  <li><span class="badge px-2 bg-label-primary">{{ tanggalIndonesia(getTgl()) }}</span>
+  </li>
 
   
   
@@ -205,11 +206,11 @@
       </li>
       @can('setting_read')
     <li>
-            <a class="dropdown-item" href="{{ route('setting.index') }}">
-                <i class="bx bx-cog me-2"></i>
-                <span class="align-middle">Settings</span>
-            </a>
-          </li>
+                        <a class="dropdown-item" href="{{ route('setting.index') }}">
+                            <i class="bx bx-cog me-2"></i>
+                            <span class="align-middle">Settings</span>
+                        </a>
+                      </li>
 @endcan
       <li>
         <a class="dropdown-item"  target="_blank"  onclick="logout(event)">

@@ -22,6 +22,7 @@ class MemberReport extends Component
     public function render()
     {
         $query = MasterMember::where('date', "<=", $this->date)
+            ->orderBy('date', 'desc')
             ->where("date_close", ">", $this->date)
 
             ->orderBy('code', 'desc');

@@ -24,7 +24,8 @@ class LoanFactory extends Factory
             'invoice' => $invoice,
             'rekening' => function () use ($member) {
                 return getRekeningLoan($member->code, "PJ_01");
-            }, 'date_open' => $this->faker->date(),
+            },
+            'date_open' => $this->faker->dateTimeBetween('-3 months', 'now'),
             'date_close' => '9999-12-31',
             'loan_amount' => $this->faker->numberBetween(2, 10) * 500000,
             'loan_term' => $this->faker->numberBetween(12, 36),

@@ -44,7 +44,7 @@ class   ProductLoanDataTable extends DataTable
                 return $data->account_dutystamp . "-" . getName($data->account_dutystamp, "coas", "name");
             })
 
-            
+
             ->rawColumns(["name", "action"])
             ->setRowId('id');
     }
@@ -67,7 +67,7 @@ class   ProductLoanDataTable extends DataTable
             ->columns($this->getColumns())
             ->minifiedAjax()
             //->dom('Bfrtip')
-            ->orderBy([1, 'asc'])
+            ->orderBy([1, 'desc'])
             ->parameters([
                 'responsive' => true,
 

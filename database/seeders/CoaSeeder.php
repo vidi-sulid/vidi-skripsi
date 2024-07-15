@@ -7,6 +7,7 @@ use App\Models\Master\Member;
 use App\Models\Master\ProductLoan;
 use App\Models\Master\ProductSaving;
 use App\Models\Master\Saving;
+use App\Models\Transaksi\Journal;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -42,6 +43,9 @@ class CoaSeeder extends Seeder
             ['kode' => "3.100.10", 'name' => 'Simpanan Pokok', "type" => 0],
             ['kode' => "3.100.20", 'name' => 'Simpanan Wajib', "type" => 0],
 
+            ['kode' => "3.200", 'name' => 'Dana Cadangan', "type" => 1],
+            ['kode' => "3.200.10", 'name' => 'Dana Cadangan', "type" => 0],
+
             ['code' => '3.500', 'name' => 'SHU', 'type' => 1],
             ['code' => '3.500.01', 'name' => 'SHU', 'type' => 0],
 
@@ -70,7 +74,27 @@ class CoaSeeder extends Seeder
         ];
         Coa::insert($data);
 
-
+        $invoice = invoice("SAW", true);
+        $vaJournal =  [
+            [
+                "invoice"     => $invoice,
+                "date"        => "2000-01-01",
+                "rekening"    => "3.200.10",
+                "description" => "Dana Cadangan",
+                "debit"       => 0,
+                "credit"      => 4000000000,
+                "username"  => 'system'
+            ], [
+                "invoice"     => $invoice,
+                "date"        => "2000-01-01",
+                "rekening"    => "1.100.20",
+                "description" => "Dana Cadangan",
+                "debit"       => 4000000000,
+                "credit"      => 0,
+                "username"  => 'system'
+            ]
+        ];
+        Journal::insert($vaJournal);
 
         $vaProduct = [
             [

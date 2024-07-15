@@ -9,7 +9,10 @@ function save(url,type) {
         type: type,
         data: data,
         success: function(data) {
-            $('form')[0].reset();
+            var form = $('form')[0];
+            if (form) {
+                form.reset();
+            }
             $(':button').prop('disabled', false);
             info("Data Berhasil disimpan !",'bg-success');
             $("#modalForm").modal('hide');
@@ -155,7 +158,7 @@ function logout(event) {
         if (result.value) {
             event.preventDefault();
 
-            fetch('http://localhost:8000/logout', {
+            fetch('https://vidi.my.id/logout', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
