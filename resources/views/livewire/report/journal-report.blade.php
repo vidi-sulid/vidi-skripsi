@@ -28,12 +28,14 @@
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label>Username</label>
-                                    <select class="form-control select2" name="product_aset_id">
-                                        <option value="">Pilih User</option>
-                                        @foreach ($username as $data)
-                                            <option value="{{ $data->name }}">{{ $data->name }}</option>
-                                        @endforeach
-                                    </select>
+                                    <div wire:ignore>
+                                        <select class="form-control select2" name="product_aset_id">
+                                            <option value="">Pilih User</option>
+                                            @foreach ($username as $data)
+                                                <option value="{{ $data->name }}">{{ $data->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -64,8 +66,12 @@
             <div class="card border-0 shadow-sm">
                 <div class="card-body">
                     <div class='table-respon3sive'>
+
+                        @php
+                            $idTable = uniqid();
+                        @endphp
                         <table class="table table-bordered table-striped text-center  mb-0" style="font-size: 12px;"
-                            id ="exampleReport">
+                            id="testTable">
                             <div wire:loading.flex
                                 class="col-12 position-absolute justify-content-center align-items-center"
                                 style="top:0;right:0;left:0;bottom:0;background-color: rgba(255,255,255,0.5);z-index: 99;">
@@ -86,6 +92,7 @@
 
                                 </tr>
                             </thead>
+
                             <tbody>
                                 @php
                                     $totalDebit = 0;
@@ -131,11 +138,13 @@
                                     <tr>
                                         <td colspan="4" align="right"><strong>Total</strong></td>
                                         <td align="right"><strong>{{ format_currency($totalDebit) }}</strong></td>
-                                        <td align="right"><strong>{{ format_currency($totalCredit) }}</strong></td>
+                                        <td align="right"><strong>{{ format_currency($totalCredit) }}</strong>
+                                        </td>
                                         <td colspan="2"></td>
                                     </tr>
                                 @endif
                             </tfoot>
+
                         </table>
                     </div>
                     <div @class(['mt-3' => $journal->hasPages()])>
@@ -147,13 +156,30 @@
     </div>
     @push('custom_js')
         <script>
-            $("#exampleReport").DataTable({
+            $("#testTable").dataTable().fnDestroy()
+            $('#testTable').DataTable({
+                "deferRender": true,
+                stateSave: true,
                 responsive: true,
-                paging: false
+                paging: false,
+                retrieve: true,
+            });
+            Livewire.on('refresh', () => {
+                // table.destroy();
+                // $('#example').DataTable({
+
+                //     retrieve: true,
+                //     responsive: true,
+                //     paging: false,
+                // });
+
             });
         </script>
     @endpush
+
 </div>
+
+
 @section('addon_js')
     <script>
         var s, i, e = $(".select2"),

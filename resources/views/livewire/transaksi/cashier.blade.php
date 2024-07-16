@@ -176,6 +176,10 @@
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">Data Mutasi</h5>
+                    @if (count($mutation) > 0)
+                        <a class="btn  btn-primary" href="{{ route('card-pdf.index') }}"><i
+                                class="bx bx-file"></i>Cetak</a>
+                    @endif
                 </div>
                 <div class="card-body" id="detail-mutasi">
                     <div class="table-responsive">
@@ -194,7 +198,7 @@
                             <tbody>
                                 @foreach ($mutation as $value)
                                     <tr>
-                                        <td class="text-nowrap">{{ tanggalIndonesia($value->date) }}</td>
+                                        <td alig class="text-nowrap">{{ tanggalIndonesia($value->date) }}</td>
                                         <td class="text-nowrap">{{ $value->invoice }}</td>
                                         <td>{{ $value->description }}</td>
                                         <td>{{ format_currency($value->debit) }}</td>

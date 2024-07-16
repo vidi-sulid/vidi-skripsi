@@ -20,7 +20,7 @@ class SettingSeeder extends Seeder
             "company_chairman" => "Achmat Vidianto",
             "company_treasurer" => "Achmat Vidianto",
             "company_secretary" => "Achmat Vidianto",
-            'site_logo' => 'storate/logo.png',
+            'site_logo' => 'storage/logo.png',
             'notification_email' => 'notification@test.com',
             'default_currency_id' => 1,
             'default_currency_position' => 'prefix',

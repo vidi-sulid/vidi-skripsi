@@ -44,6 +44,8 @@ class JournalReport extends Component
 
     public function generateReport()
     {
+        $this->dispatch('refresh', 1);
+
         $this->validate();
         $this->render();
     }

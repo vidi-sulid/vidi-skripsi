@@ -6,7 +6,7 @@
 
     <div class="row">
         <!-- Timeline Basic-->
-        <div class="col-lg-6">
+        <div class="col-lg-6 col-sm-6">
             <div class="card">
                 <h5 class="card-header">List history update</h5>
                 <div class="card-body">
@@ -55,7 +55,8 @@
             </div>
         </div>
 
-        <div class="col-lg-6 h-100">
+
+        <div class="col-lg-6 col-sm-6 h-100">
             <div class="card shadow-none bg-label-primary h-100">
                 <div class="card-body d-flex justify-content-between flex-wrap-reverse">
                     <div
@@ -63,7 +64,7 @@
                         <div class="card-title">
                             <h5 class="text-primary mb-2">Catatan update informasi</h5>
                             <p class="text-body w-sm-80 app-academy-xl-100">
-                                Halamain ini merupakan informasi dari update / perbaikan sistem, yang berisi Informasi
+                                Halaman ini merupakan informasi dari update / perbaikan sistem, yang berisi Informasi
                                 Penting
                             </p>
                         </div>

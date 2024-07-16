@@ -64,3 +64,22 @@ Route::get('aset-pdf', function (Request $request) {
     ])->setPaper('a4', 'landscape');
     return $pdf->stream('aset.pdf', ['Content-Disposition' => 'inline']);
 })->name('aset-pdf.index');
+
+Route::get('card-pdf', function (Request $request) {
+
+    $mutasi = $request->session()->get('card_mutation');
+    $type = $request->session()->get('card_type');
+    $dataMember = $request->session()->get('card_data');
+    $landscpae = "";
+    $view = "card_saving";
+    if ($type == "loan") {
+        $landscpae = "landscape";
+        $view = "card_loan";
+    }
+
+    $data['mutation'] = $mutasi;
+    $data['data'] = $dataMember;
+    // return view('print.' . $view, $data);
+    $pdf = Pdf::loadView('print.' . $view, $data)->setPaper('a4', $landscpae);
+    return $pdf->stream('card.pdf', ['Content-Disposition' => 'inline']);
+})->name('card-pdf.index');

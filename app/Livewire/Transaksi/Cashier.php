@@ -65,6 +65,9 @@ class Cashier extends Component
             $this->setoranPokok = number_format($this->data->product->principial_deposit);
             $this->keterangan = " an " . $this->nama;
         }
+        session()->put('card_mutation', $this->mutation);
+        session()->put('card_type', $this->type);
+        session()->put('card_data', $this->data);
     }
 
     public function resetComponent()

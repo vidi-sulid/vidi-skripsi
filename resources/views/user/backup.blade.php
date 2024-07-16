@@ -5,7 +5,7 @@
     </h4>
 
     <div class="row">
-        <div class="col-md-6 col-12">
+        <div class="col-sm-6 col-lg-6">
             <div class="card mb-6">
                 <h5 class="card-header">List data backup 30 hari terakhir</h5>
                 <div class="card-body">
@@ -13,7 +13,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-6 h-100">
+        <div class="col-lg-6 col-sm-6 h-100">
             <div class="card shadow-none bg-label-primary h-100">
                 <div class="card-body d-flex justify-content-between flex-wrap-reverse">
                     <div

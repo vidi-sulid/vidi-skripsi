@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-md-3 col-lg-3 mb-4">
             <div class="card">
-                <div class="d-flex align-items-end row">
+                <div class="d-flex align-items-start align-items-end row">
                     <div class="col-8">
                         <div class="card-body">
                             <h6 class="card-title mb-1 text-nowrap">Selamat Datang {{ auth()->user()->name }} !</h6>
@@ -12,9 +12,6 @@
 
                             <a href="{{ route('profile-user.index') }}" class="btn btn-sm btn-primary">Lihat Profile</a>
                         </div>
-                    </div>
-                    <div class="col-4 pt-3 ps-0">
-
                     </div>
                 </div>
             </div>
@@ -47,18 +44,14 @@
             </div>
         </div>
         <div class="col-md-6 col-lg-6">
-            <div class="row">
-
-                <div class="col-lg-6 col-md-3 col-6 mb-4">
-                    <div class="card">
-                        <div class="card-body pb-2" style="position: relative;">
-                            <span class="d-block fw-medium">Total Aset</span>
-                            <h3 class="card-title mb-0">{{ number_format($assetBalance) }}</h3>
-                            <div id="assetChart" style="min-height: 95px;"></div>
-                        </div>
-                    </div>
+            <div class="card">
+                <div class="card-body pb-2" style="position: relative;">
+                    <span class="d-block fw-medium">Total Aset</span>
+                    <h3 class="card-title mb-0">{{ number_format($assetBalance) }}</h3>
+                    <div id="assetChart" style="min-height: 95px;"></div>
                 </div>
             </div>
+
         </div>
 
         <div class="col-lg-12 mb-4">
