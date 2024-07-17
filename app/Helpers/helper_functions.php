@@ -247,7 +247,8 @@ function getWorks()
 function getConfig($code, $default = '')
 {
     $data = Config::where('code', $code)->first();
-    $value = $data ? $data->value : $default;
+    $value = $data ? $data->name : $default;
+
     return $value;
 }
 

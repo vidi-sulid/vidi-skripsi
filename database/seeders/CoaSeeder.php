@@ -82,14 +82,14 @@ class CoaSeeder extends Seeder
                 "rekening"    => "3.200.10",
                 "description" => "Dana Cadangan",
                 "debit"       => 0,
-                "credit"      => 4000000000,
+                "credit"      => 500000000,
                 "username"  => 'system'
             ], [
                 "invoice"     => $invoice,
                 "date"        => "2000-01-01",
-                "rekening"    => "1.100.20",
+                "rekening"    => "1.100.20",    
                 "description" => "Dana Cadangan",
-                "debit"       => 4000000000,
+                "debit"       => 500000000,
                 "credit"      => 0,
                 "username"  => 'system'
             ]

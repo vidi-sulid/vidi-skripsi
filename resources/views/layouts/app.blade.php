@@ -140,7 +140,9 @@
 </div>
 <!-- /Search -->
 <ul class="navbar-nav flex-row align-items-center ms-auto">
-  <li><span class="badge px-2 bg-label-primary">{{ tanggalIndonesia(getTgl()) }}</span>
+<li class="nav-item"><a href="{{ route('versi.index') }}"><span class="badge px-2 bg-info m-1">Versi {{ getConfig('version', '100') }}</span></a>
+  </li>
+  <li class="nav-item"><span class="badge px-2 bg-label-primary m-1">{{ tanggalIndonesia(getTgl()) }}</span>
   </li>
 
   
@@ -206,11 +208,11 @@
       </li>
       @can('setting_read')
     <li>
-                        <a class="dropdown-item" href="{{ route('setting.index') }}">
-                            <i class="bx bx-cog me-2"></i>
-                            <span class="align-middle">Settings</span>
-                        </a>
-                      </li>
+                                                                                                                                                    <a class="dropdown-item" href="{{ route('setting.index') }}">
+                                                                                                                                                        <i class="bx bx-cog me-2"></i>
+                                                                                                                                                        <span class="align-middle">Settings</span>
+                                                                                                                                                    </a>
+                                                                                                                                                  </li>
 @endcan
       <li>
         <a class="dropdown-item"  target="_blank"  onclick="logout(event)">

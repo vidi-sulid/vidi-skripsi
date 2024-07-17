@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Library\Template;
 use App\Models\Master\Member;
+use App\Models\System\Config;
 use App\Models\Transaksi\Journal;
 use App\Models\Transaksi\SavingMutation;
 use Carbon\Carbon;
@@ -150,6 +151,7 @@ class HomeController extends Controller
                 ];
             }
         }
+        $data['pathBackup'] = array_reverse($data['pathBackup']);
         $data['jsTambahan'] = "
         $('#backup').addClass('open active');
         ";
@@ -202,6 +204,7 @@ class HomeController extends Controller
             $version = incrementVersion($version);
             $commits[$key]['version'] = $version;
         }
+        Config::where("code", "version")->updateOrCreate(array("code" => "version", "name" => $version));
         $data = Template::get();
         $data['update'] = $commits;
         $data['jsTambahan'] = "

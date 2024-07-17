@@ -1,14 +1,115 @@
 {
     "pages": [
         {
-            "name": "Home",
+            "name": "Dashboard",
             "icon": "bx-home-circle",
-            "url": "home"
+            "url": "/home"
         },
         {
-            "name": "Hapus Transaksi",
-            "icon": "bx-trash",
-            "url": "journal/delete"
+            "name": "Kasir",
+            "icon": "bx-money",
+            "url": "/cashier"
+        },
+        {
+            "name": "User",
+            "icon": "bx-user",
+            "url": "/user"
+        },
+        {
+            "name": "Permission",
+            "icon": "bx-check-shield",
+            "url": "/permission"
+        },
+        {
+            "name": "Log History",
+            "icon": "bx-history",
+            "url": "/log-viewer"
+        },
+        {
+            "name": "User Date",
+            "icon": "bx-calendar",
+            "url": "/user-date"
+        },
+        {
+            "name": "Backup Database",
+            "icon": "bx-data",
+            "url": "/backup"
+        },
+        {
+            "name": "Tambah Anggota",
+            "icon": "bx-user-plus",
+            "url": "/member/create"
+        },
+        {
+            "name": "Daftar Anggota",
+            "icon": "bx-user",
+            "url": "/member-report"
+        },
+
+        {
+            "name": "Pinjaman",
+            "icon": "bx-credit-card ",
+            "url": "/loan"
+        },
+        {
+            "name": "Laporan Pinjaman",
+            "icon": "bx-book ",
+            "url": "/loan-report"
+        },
+        {
+            "name": "Golongan Simpanan",
+            "icon": "bx-folder",
+            "url": "/product-saving"
+        },
+        {
+            "name": "Golongan Pinjaman",
+            "icon": "bx-folder ",
+            "url": "/product-loan"
+        },
+        {
+            "name": "Bagan Akun",
+            "icon": "bx-folder ",
+            "url": "/coa"
+        },
+        {
+            "name": "Transaksi Kas",
+            "icon": "bx-money",
+            "url": "/journal/create"
+        },
+        {
+            "name": "Jurnal Umum",
+            "icon": "bx-book ",
+            "url": "/journal-report"
+        },
+        {
+            "name": "Neraca",
+            "icon": "bx-book ",
+            "url": "/balancesheet-report"
+        },
+        {
+            "name": "Labarugi",
+            "icon": "bx-book ",
+            "url": "/profitloss-report"
+        },
+        {
+            "name": "Golongan Aset",
+            "icon": "bx-folder ",
+            "url": "/product-aset"
+        },
+        {
+            "name": "Pembelian Aset",
+            "icon": "bx-money ",
+            "url": "/aset"
+        },
+        {
+            "name": "Penyusutan Aset",
+            "icon": "bx-money",
+            "url": "/aset-report"
+        },
+        {
+            "name": "Versi",
+            "icon": "bx-time",
+            "url": "/versi"
         }
     ]
 }
