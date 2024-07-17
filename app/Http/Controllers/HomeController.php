@@ -207,7 +207,10 @@ class HomeController extends Controller
             $version = incrementVersion($version);
             $commits[$key]['version'] = $version;
         }
-        Config::where("code", "version")->updateOrCreate(array("code" => "version", "name" => $version));
+        Config::updateOrCreate(
+            ['code' => 'version'], // Kriteria pencarian
+            ['name' => $version]   // Nilai yang akan diupdate atau disisipkan
+        );
         $data = Template::get();
         $data['server'] = Larinfo::getInfo();
         $data['update'] = $commits;
