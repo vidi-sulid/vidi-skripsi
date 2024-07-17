@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
+use Larinfo;
 
 class HomeController extends Controller
 {
@@ -160,6 +161,8 @@ class HomeController extends Controller
 
     public function versi()
     {
+
+        // dd($larinfo);
         $projectRoot = base_path();
         chdir($projectRoot);
         $output = shell_exec('git log');
@@ -206,6 +209,7 @@ class HomeController extends Controller
         }
         Config::where("code", "version")->updateOrCreate(array("code" => "version", "name" => $version));
         $data = Template::get();
+        $data['server'] = Larinfo::getInfo();
         $data['update'] = $commits;
         $data['jsTambahan'] = "
         $('#versi').addClass('open active');

@@ -347,3 +347,29 @@ function incrementVersion($version)
     // Kembalikan versi yang baru
     return $newVersion;
 }
+
+function getServerInfo()
+{
+    // Mendapatkan penggunaan CPU (contoh sederhana)
+
+    // Mendapatkan penggunaan RAM
+    $memInfo = file_get_contents("/proc/meminfo");
+    preg_match("/MemTotal:\s+(\d+) kB/", $memInfo, $matches);
+    $memTotal = $matches[1];
+    preg_match("/MemAvailable:\s+(\d+) kB/", $memInfo, $matches);
+    $memAvailable = $matches[1];
+    $memUsed = $memTotal - $memAvailable;
+    $memUsage = ($memUsed / $memTotal) * 100;
+
+    // Mendapatkan penggunaan disk
+    $diskTotal = disk_total_space("/");
+    $diskFree = disk_free_space("/");
+    $diskUsed = $diskTotal - $diskFree;
+    $diskUsage = ($diskUsed / $diskTotal) * 100;
+
+    return [
+        'cpu' => $cpuUsage,
+        'memory' => $memUsage,
+        'disk' => $diskUsage
+    ];
+}
