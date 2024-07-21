@@ -57,8 +57,9 @@ class MemberController extends Controller
         $golonganPokok            = $data['saving_principal'];
         $data['Code']             = getLastMemberCode();
         $data['username']         = Auth::user()->name;
-        $data['PrincipalAmount']  = filter_var($data['PrincipalAmount'], FILTER_SANITIZE_NUMBER_INT);
-        $data['MandatoryAmount']  = filter_var($data['MandatoryAmount'], FILTER_SANITIZE_NUMBER_INT);
+
+        $data['PrincipalAmount']  = getName($golonganPokok, "product_savings", "principal_deposit"); //filter_var($data['PrincipalAmount'], FILTER_SANITIZE_NUMBER_INT);
+        $data['MandatoryAmount']  = getName($golonganWajib, "product_savings", "mandatory_deposit"); //filter_var($data['MandatoryAmount'], FILTER_SANITIZE_NUMBER_INT);
         $data['PrincipalAccount'] = implode('.', ["01", $golonganPokok, $data['Code']]);
         $data['MandatoryAccount'] = implode('.', ["01", $golonganWajib, $data['Code']]);
         unset($data['saving_mandatory']);

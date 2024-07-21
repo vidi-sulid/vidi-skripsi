@@ -71,7 +71,7 @@
                             $idTable = uniqid();
                         @endphp
                         <table class="table table-bordered table-striped text-center  mb-0" style="font-size: 12px;"
-                            id="testTable">
+                            id="tableReport">
                             <div wire:loading.flex
                                 class="col-12 position-absolute justify-content-center align-items-center"
                                 style="top:0;right:0;left:0;bottom:0;background-color: rgba(255,255,255,0.5);z-index: 99;">
@@ -156,62 +156,21 @@
     </div>
     @push('custom_js')
         <script>
-            $("#testTable").dataTable().fnDestroy()
-            $('#testTable').DataTable({
-                "deferRender": true,
-                stateSave: true,
-                responsive: true,
-                paging: false,
-                retrieve: true,
+            initializeDataTable();
+            Livewire.hook('component.init', ({
+                component,
+                cleanup
+            }) => {
+                initializeDataTable();
+                select2Custom();
             });
             Livewire.on('refresh', () => {
-                // table.destroy();
-                // $('#example').DataTable({
-
-                //     retrieve: true,
-                //     responsive: true,
-                //     paging: false,
-                // });
+                setTimeout(() => {
+                    initializeDataTable();
+                }, 1000);
 
             });
         </script>
     @endpush
 
 </div>
-
-
-@section('addon_js')
-    <script>
-        var s, i, e = $(".select2"),
-            e = (e.length && e.each(function() {
-                var e = $(this);
-                e.wrap('<div class="position-relative"></div>').select2({
-                    dropdownParent: e.parent(),
-                    placeholder: e.data("placeholder")
-                })
-            }), $(".form-repeater"));
-        e.length && (s = 2, i = 1, e.on("submit", function(e) {
-            e.preventDefault()
-        }), e.repeater({
-            show: function() {
-                var a = $(this).find(".form-control, .form-select"),
-                    t = $(this).find(".form-label");
-                a.each(function(e) {
-                    var r = "form-repeater-" + s + "-" + i;
-                    $(a[e]).attr("id", r), $(t[e]).attr("for", r), i++
-                }), s++, $(this).slideDown(), $(".select2-container").remove(), $(
-                    ".select2.form-select").select2({
-                    placeholder: "Placeholder text"
-                }), $(".select2-container").css("width", "100%"), $(
-                    ".form-repeater:first .form-select").select2({
-                    dropdownParent: $(this).parent(),
-                    placeholder: "Placeholder text"
-                }), $(".position-relative .select2").each(function() {
-                    $(this).select2({
-                        dropdownParent: $(this).closest(".position-relative")
-                    })
-                })
-            }
-        }))
-    </script>
-@endsection

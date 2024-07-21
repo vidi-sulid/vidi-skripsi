@@ -36,6 +36,8 @@ class UserDateDataTable extends DataTable
             ->addColumn('user_id', function ($data) {
                 return $data->user->name;
             })
+
+
             ->setRowId('id');
     }
 

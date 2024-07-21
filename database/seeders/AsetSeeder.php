@@ -5,8 +5,6 @@ namespace Database\Seeders;
 use App\Models\Master\ProductAset;
 use App\Models\Transaksi\Aset;
 use App\Models\Transaksi\AsetMutation;
-use Database\Factories\AsetFactory;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class AsetSeeder extends Seeder

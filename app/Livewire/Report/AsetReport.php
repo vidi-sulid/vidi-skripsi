@@ -69,6 +69,7 @@ class AsetReport extends Component
     public function generateReport()
     {
         $this->validate();
+        $this->dispatch('refresh', 1);
         $this->render();
     }
 

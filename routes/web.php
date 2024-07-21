@@ -26,6 +26,9 @@ Route::get('/', function () {
 
 Route::middleware('auth')->group(function () {
 
+    Route::get("info", function () {
+        phpinfo();
+    });
     Route::get('/dashboard', [HomeController::class, 'show'])->name('dashboard');
     Route::get('backup', [HomeController::class, 'backup'])->name('backup.index');
     Route::get('versi', [HomeController::class, 'versi'])->name('versi.index');

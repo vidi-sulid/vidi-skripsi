@@ -28,6 +28,14 @@ class UserDataTable extends DataTable
             ->addColumn('name', function ($data) {
                 return " <span class='badge  bg-label-primary m-1'> $data->name </span>";
             })
+
+            ->addColumn('rekening_kas', function ($data) {
+                return $data->rekening_kas . "-" . getName($data->rekening_kas, "coas", "name");
+            })
+            
+            ->addColumn('rekening_volt_id', function ($data) {
+                return $data->rekening_volt_id . "-" . getName($data->rekening_volt_id, "coas", "name");
+            })
             ->rawColumns(["name", "action"])
             ->setRowId('id');
     }
@@ -74,8 +82,10 @@ class UserDataTable extends DataTable
                 ->addClass('text-center')
                 ->addClass('align-middle'),
 
-            Column::make('name'),
+            Column::make('name')->title("Nama"),
             Column::make('email'),
+            Column::make('rekening_kas')->title("Rekening Kas"),
+            Column::make('rekening_volt_id')->title("Rekening Volt"),
 
         ];
     }

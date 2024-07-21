@@ -43,7 +43,7 @@
             <label class="form-label d-block" for="MandatoryAmount">Nominal Mutasi</label>
             <div class="input-group input-group-merge">
                 <input type="text" class="form-control numeral-mask" id="MandatoryAmounts" name="MandatoryAmount"
-                    value="{{ $nominalWajib }}" aria-describedby="MandatoryAmount" readonly>
+                    value="{{ $nominalWajib }}" aria-describedby="MandatoryAmount" readonly disabled>
                 <span class="input-group-text" id="MandatoryAmount">Rp.</span>
             </div>
         </div>
@@ -56,7 +56,7 @@
             <label class="form-label d-block" for="PrincipalAmount">Nominal Mutasi</label>
             <div class="input-group input-group-merge">
                 <input type="text" class="form-control numeral-mask" id="PrincipalAmount" name="PrincipalAmount"
-                    wire:model="nominalPokok" aria-describedby="PrincipalAmount" readonly>
+                    wire:model="nominalPokok" aria-describedby="PrincipalAmount" readonly disabled>
                 <span class="input-group-text" id="PrincipalAmount">Rp.</span>
             </div>
         </div>

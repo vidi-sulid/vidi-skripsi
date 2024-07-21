@@ -46,7 +46,6 @@
     <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
     <script src="{{ asset('assets/js/config.js') }}"></script>
     @livewireStyles
-
     
 </head>
 <body>
@@ -208,11 +207,11 @@
       </li>
       @can('setting_read')
     <li>
-                                                                                                                                                        <a class="dropdown-item" href="{{ route('setting.index') }}">
-                                                                                                                                                            <i class="bx bx-cog me-2"></i>
-                                                                                                                                                            <span class="align-middle">Settings</span>
-                                                                                                                                                        </a>
-                                                                                                                                                      </li>
+                                                                                                                                                                                                    <a class="dropdown-item" href="{{ route('setting.index') }}">
+                                                                                                                                                                                                        <i class="bx bx-cog me-2"></i>
+                                                                                                                                                                                                        <span class="align-middle">Settings</span>
+                                                                                                                                                                                                    </a>
+                                                                                                                                                                                                  </li>
 @endcan
       <li>
         <a class="dropdown-item"  target="_blank"  onclick="logout(event)">
@@ -303,7 +302,9 @@ data-bs-delay="2000" id="toastId">
 
 </body>
 
-<script>
+<script type="module">
+    // resources/js/app.js
+
     <?php echo @$jsTambahan; ?>
 </script>
 

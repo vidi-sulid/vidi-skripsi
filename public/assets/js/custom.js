@@ -1,3 +1,4 @@
+
 function save(url,type) {
     $(':button').prop('disabled', true);
     var data = $("#form1").serialize();
@@ -11,7 +12,9 @@ function save(url,type) {
         success: function(data) {
             var form = $('form')[0];
             if (form) {
-                form.reset();
+                if ( typeof form.reset === 'function') {
+                    form.reset();
+                }
             }
             $(':button').prop('disabled', false);
             info("Data Berhasil disimpan !",'bg-success');
@@ -178,7 +181,56 @@ function logout(event) {
                 console.error('Error during logout:', error);
             });
         }
-    })
-    
-    
+    })   
+}
+
+function initializeDataTable() {
+    // Hapus DataTable jika sudah ada untuk menghindari duplikasi
+    if ($.fn.DataTable.isDataTable('#tableReport')) {
+
+        $('#tableReport').DataTable().destroy();
+    }
+    // Inisialisasi ulang DataTable
+    $('#tableReport').DataTable({
+        // Konfigurasi DataTable Anda
+        paging: false,
+        searching: true,
+        info: false,
+        responsive:true
+        // ...opsi lainnya
+    });
+}
+
+function select2Custom(){
+    var s, i, e = $(".select2"),
+            e = (e.length && e.each(function() {
+                var e = $(this);
+                e.wrap('<div class="position-relative"></div>').select2({
+                    dropdownParent: e.parent(),
+                    placeholder: e.data("placeholder")
+                })
+            }), $(".form-repeater"));
+        e.length && (s = 2, i = 1, e.on("submit", function(e) {
+            e.preventDefault()
+        }), e.repeater({
+            show: function() {
+                var a = $(this).find(".form-control, .form-select"),
+                    t = $(this).find(".form-label");
+                a.each(function(e) {
+                    var r = "form-repeater-" + s + "-" + i;
+                    $(a[e]).attr("id", r), $(t[e]).attr("for", r), i++
+                }), s++, $(this).slideDown(), $(".select2-container").remove(), $(
+                    ".select2.form-select").select2({
+                    placeholder: "Placeholder text"
+                }), $(".select2-container").css("width", "100%"), $(
+                    ".form-repeater:first .form-select").select2({
+                    dropdownParent: $(this).parent(),
+                    placeholder: "Placeholder text"
+                }), $(".position-relative .select2").each(function() {
+                    $(this).select2({
+                        dropdownParent: $(this).closest(".position-relative")
+                    })
+                })
+            }
+        }));
 }

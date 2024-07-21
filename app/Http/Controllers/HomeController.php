@@ -161,8 +161,6 @@ class HomeController extends Controller
 
     public function versi()
     {
-
-        // dd($larinfo);
         $projectRoot = base_path();
         chdir($projectRoot);
         $output = shell_exec('git log');

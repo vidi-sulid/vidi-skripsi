@@ -98,11 +98,11 @@ class UserController extends Controller
             'role' => 'required'
         ]);
         $data = $request->all();
-        // $reset = $data['reset'];
-        // if ($reset == "1") {
-        //     $data['password'] = Hash::make('111');
-        // }
-        unset($data['_token'], $data['role']); //, $data['reset']
+        $reset = $data['reset'];
+        if ($reset == "1") {
+            $data['password'] = Hash::make('111');
+        }
+        unset($data['_token'], $data['role'], $data['reset']); //, 
         User::whereId($id)->update($data);
 
         $role = Role::whereId($request->role)->first();

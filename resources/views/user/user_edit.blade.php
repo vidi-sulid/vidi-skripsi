@@ -45,7 +45,7 @@
                         @foreach (App\Models\Master\Coa::where('type', 0)->get() as $rekening)
                             <option value="{{ $rekening->code }}"
                                 @if ($user->rekening_volt_id == $rekening->code) {{ 'selected' }} @endif>
-                                {{ $rekening->code . '-' . $rekening->name . $account->rekening_volt_id }}
+                                {{ $rekening->code . '-' . $rekening->name }}
                             </option>
                         @endforeach
                     </select>
@@ -60,7 +60,7 @@
                 </div>
 
             </div>
-            {{-- <div class="row">
+            <div class="row">
                 <div class="col mb-3">
                     <label class="form-check-label">Password Reset</label>
                     <div class="col mt-2">
@@ -76,7 +76,7 @@
                         </div>
                     </div>
                 </div>
-            </div> --}}
+            </div>
 
         </div>
         <div class="modal-footer">
