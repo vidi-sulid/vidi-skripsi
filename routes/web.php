@@ -13,6 +13,7 @@ use App\Http\Controllers\System\SettingController;
 use App\Http\Controllers\System\UserController;
 use App\Http\Controllers\System\UserDateController;
 use App\Http\Controllers\Transaksi\AsetController;
+use App\Http\Controllers\Transaksi\BookTransferController;
 use App\Http\Controllers\Transaksi\CashierController;
 use App\Http\Controllers\Transaksi\JournalController;
 use App\Http\Controllers\Transaksi\LoanController;
@@ -48,6 +49,11 @@ Route::middleware('auth')->group(function () {
     Route::resource('cashier', CashierController::class);
     Route::resource('profile-user', ProfileController::class);
     Route::resource('setting', SettingController::class);
+    Route::resource('booktransfer', BookTransferController::class);
+
+
+    Route::get('journal-closing', [JournalController::class, 'close'])->name('journal-closing');
+    Route::post('journal-closing', [JournalController::class, 'closed'])->name('journal-closing.store');
 
     Route::get('aset-report', [ReportController::class, 'asetReport'])
         ->name('aset-report.index');

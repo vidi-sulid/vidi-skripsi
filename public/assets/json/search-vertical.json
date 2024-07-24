@@ -76,6 +76,17 @@
             "icon": "bx-money",
             "url": "/journal/create"
         },
+        
+        {
+            "name": "Transaksi Pemindahbukuan",
+            "icon": "bx-money",
+            "url": "/booktransfer/create"
+        },
+        {
+            "name": "Transaksi Penutupan Jurnal",
+            "icon": "bx-money",
+            "url": "/journal-closing"
+        },
         {
             "name": "Jurnal Umum",
             "icon": "bx-book ",

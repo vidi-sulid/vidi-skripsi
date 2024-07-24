@@ -42,7 +42,6 @@ class Cashier extends Component
     }
     public function rekeningSelected($member)
     {
-        $this->eventName("eventName", "dfs");
         $this->rekening = $member['rekening'];
         $this->nama = $member['name'];
         $this->type = $member['type'];

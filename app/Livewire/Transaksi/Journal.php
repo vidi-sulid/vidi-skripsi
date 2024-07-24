@@ -5,6 +5,7 @@ namespace App\Livewire\Transaksi;
 use App\Models\Transaksi\Journal as TransaksiJournal;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class Journal extends Component
 {
@@ -72,9 +73,10 @@ class Journal extends Component
         unset($cartItems[$row_id]);
         session()->put('data_jurnal', $cartItems);
     }
+
     public function saveData()
     {
-        $invoice = invoice("KKK");
+        $invoice = invoice("KKK", true);
         $data = session()->get('data_jurnal', []);
         foreach ($data as $key => $value) {
 
@@ -101,6 +103,7 @@ class Journal extends Component
         }
 
         log_custom("Simpan menu tambah transaksi kas", $data);
+        Alert::info('Info Title', 'Berhasil disimpan');
 
         return redirect()->route('journal-report.index');
     }

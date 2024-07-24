@@ -25,11 +25,12 @@ function menu()
         "Master Anggota" => array("Member" => ["Write", "Read", "Update", "Delete"]),
         "Pembelian Aset" => array("Aset" => ["Write", "Read", "Update", "Delete"]),
         "Rubah Tanggal User" => array("UserDate" => ["Write", "Read", "Update", "Delete"]),
+        "Pinjaman" => array("Loan" => ["Write", "Read", "Update", "Delete"]),
         "Kasir" => array("cashier" => ["Write"]),
         "Neraca" => array("balancesheet_read" => ["Read"]),
         "Laba Rugi" => array("profitloss" => ["Read"]),
-
-        "Pinjaman" => array("Loan" => ["Write", "Read", "Update", "Delete"]),
+        "Pemindah Bukuan" => array("booktransfer" => ["Write"]),
+        "Penutupan Jurnal" => array("journalclosing" => ["Write"]),
 
     );
     return $data;

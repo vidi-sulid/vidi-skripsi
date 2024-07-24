@@ -146,14 +146,35 @@
         </li>
     @endcan
 
-    @can('journal_write')
-        <li class="menu-item" id="journal-create">
-            <a href="{{ route('journal.create') }}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-money"></i>
-                <div class="text-truncate" data-i18n="Transaksi Kas">Transaksi Kas</div>
-            </a>
-        </li>
-    @endcan
+    <li class="menu-item" id="akuntansi-transaksi">
+        <a href="javascript:void(0);" class="menu-link menu-toggle">
+            <i class='menu-icon tf-icons bx bx-money'></i>
+            <div class="text-truncate" data-i18n="Transaksi">Transaksi</div>
+        </a>
+        <ul class="menu-sub">
+            @can('journal_write')
+                <li class="menu-item" id="journal-create">
+                    <a href="{{ route('journal.create') }}" class="menu-link">
+                        <div class="text-truncate" data-i18n="Transaksi Kas">Transaksi Kas</div>
+                    </a>
+                </li>
+            @endcan
+            @can('booktransfer_write')
+                <li class="menu-item" id="booktransfer-create">
+                    <a href="{{ route('booktransfer.create') }}" class="menu-link">
+                        <div class="text-truncate" data-i18n="Pemindahbukuan">Pemindahbukuan</div>
+                    </a>
+                </li>
+            @endcan
+            @can('journalclosing_write')
+                <li class="menu-item" id="journalclosing-create">
+                    <a href="{{ route('journal-closing') }}" class="menu-link">
+                        <div class="text-truncate" data-i18n="Penutupan Jurnal">Penutupan Jurnal</div>
+                    </a>
+                </li>
+            @endcan
+        </ul>
+    </li>
     <li class="menu-item" id="akuntansi-report">
         <a href="javascript:void(0);" class="menu-link menu-toggle">
             <i class='menu-icon tf-icons bx bx-book-bookmark'></i>

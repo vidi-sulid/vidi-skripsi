@@ -97,6 +97,8 @@ class AsetReport extends Component
         }
 
         UpdAsetPenyusutan($invoice);
+
+        Alert::info("Info", "Data berhasil diposting");
         return redirect()->route('journal-report.index');
     }
 }

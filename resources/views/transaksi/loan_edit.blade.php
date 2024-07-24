@@ -8,7 +8,7 @@
         <div class="modal-body">
             <div class="row">
                 <div class="col">
-                    <label for="date_open" class="form-label">Tgl Pembelian</label>
+                    <label for="date_open" class="form-label">Tgl Pinjaman</label>
                     <input type="date" id="date_open" name="date_open" class="form-control" readonly disabled
                         value="{{ date('Y-m-d') }}" />
                 </div>

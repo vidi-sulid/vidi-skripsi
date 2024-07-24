@@ -36,8 +36,27 @@ class CoaSeeder extends Seeder
             ["code" => '1.150.10', "name" => "Aset Inventaris Perlengkapan Kantor", "type" => 0],
             ["code" => '1.151', "name" => "Akumulasi Penyusutan Aset Inventaris", "type" => 1],
             ["code" => '1.151.10', "name" => "Akumulasi Penyusutan Aset Inventaris", "type" => 0],
-            ["code" => '1.160', "name" => "Aset Lainnya", "type" => 1],
+            ["code" => '1.152', "name" => "Aset Kendaraan", "type" => 1],
+            ["code" => '1.152.10', "name" => "Aset Kendaraan", "type" => 0],
+            ["code" => '1.153', "name" => "Akumulasi Penyusutan Aset Kendaraan", "type" => 1],
+            ["code" => '1.153.10', "name" => "Akumulasi Penyusutan Aset Kendaraan", "type" => 0],
+            ["code" => '1.160', "name" => "Aset Persediaan", "type" => 1],
             ["code" => '1.160.10', "name" => "Materai", "type" => 0],
+            ["code" => '1.161', "name" => "Beban Dibayar di Muka", "type" => 1],
+            ["code" => '1.161.10', "name" => "Asuransi Dibayar di Muka", "type" => 0],
+            ["code" => '1.161.20', "name" => "Sewa Dibayar di Muka", "type" => 0],
+            ["code" => '1.162', "name" => "Uang Muka", "type" => 1],
+            ["code" => '1.162.10', "name" => " Uang Muka Pembelian", "type" => 0],
+            ["code" => '1.162.20', "name" => " Uang Muka Karyawan", "type" => 0],
+
+            ['kode' => "2.100", 'name' => 'Kewajiban  Jangka Pendek', "type" => 1],
+            ['kode' => "2.100.10", 'name' => 'Utang Usaha', "type" => 0],
+            ['kode' => "2.100.11", 'name' => 'Utang Pajak', "type" => 0],
+            ['kode' => "2.100.12", 'name' => 'Utang Pinjaman', "type" => 0],
+
+            ['kode' => "2.110", 'name' => 'Kewajiban  Jangka Panjang', "type" => 1],
+            ['kode' => "2.110.10", 'name' => 'Utang Bank Jangka Panjang', "type" => 0],
+
 
             ['kode' => "3.100", 'name' => 'Simpanan Anggota', "type" => 1],
             ['kode' => "3.100.10", 'name' => 'Simpanan Pokok', "type" => 0],
@@ -47,28 +66,51 @@ class CoaSeeder extends Seeder
             ['kode' => "3.200.10", 'name' => 'Dana Cadangan', "type" => 0],
 
             ['code' => '3.500', 'name' => 'SHU', 'type' => 1],
-            ['code' => '3.500.01', 'name' => 'SHU', 'type' => 0],
+            ['code' => '3.500.01', 'name' => 'SHU Tahun Berjalan', 'type' => 0],
+            ['code' => '3.500.02', 'name' => 'SHU Tahun Lalu', 'type' => 0],
 
-            ["code" => '4.100', "name" => "Pendapatan Simpanan ", "type" => 1],
-            ["code" => '4.100.10', "name" => "Pendapatan Administrasi", "type" => 0],
+            ["code" => '4.100', "name" => "Pendapatan Bunga", "type" => 1],
+            ["code" => '4.100.10', "name" => "Pendapatan Bunga Simpanan", "type" => 0],
+            ["code" => '4.100.20', "name" => "Pendapatan Bunga Pinjaman", "type" => 0],
 
-            ["code" => '4.200', "name" => "Pendapatan Pinjaman ", "type" => 1],
-            ["code" => '4.200.10', "name" => "Pendapatan Administrasi", "type" => 0],
-            ["code" => '4.200.20', "name" => "Pendapatan Provisi", "type" => 0],
-            ["code" => '4.200.30', "name" => "Pendapatan Bunga", "type" => 0],
+            ["code" => '4.200', "name" => " Pendapatan Administrasi ", "type" => 1],
+            ["code" => '4.200.10', "name" => "Pendapatan Biaya Administrasi Anggota", "type" => 0],
+            ["code" => '4.200.20', "name" => "Pendapatan Biaya Administrasi Pinjaman", "type" => 0],
+            ["code" => '4.200.30', "name" => " Pendapatan Biaya Layanan", "type" => 0],
 
-            ["code" => '4.490', "name" => "Pendapatan Lainnya ", "type" => 1],
-            ["code" => '4.490.10', "name" => "Pendapatan Lainnya ", "type" => 0],
-
+            ["code" => '4.300', "name" => "Pendapatan Lain-lain ", "type" => 1],
+            ["code" => '4.300.10', "name" => "Pendapatan dari Penjualan Aset", "type" => 0],
+            ["code" => '4.300.20', "name" => "Pendapatan dari Investasi", "type" => 0],
 
             ["code" => '4.500', "name" => "Pendapatan Non Operasional ", "type" => 1],
             ["code" => '4.500.10', "name" => "Pendapatan Non Operasional ", "type" => 0],
 
 
-            ["code" => '5.100', "name" => "Beban Penyusutan ", "type" => 1],
-            ["code" => '5.100.10', "name" => "Beban Penyususutan Aset Iventaris", "type" => 0],
-            ["code" => '5.110', "name" => "Beban Simpanan ", "type" => 1],
-            ["code" => '5.110.20', "name" => "Beban Simpanan", "type" => 0],
+            ["code" => '5.100', "name" => "Biaya Bunga", "type" => 1],
+            ["code" => '5.100.10', "name" => "Biaya Bunga Pinjaman Jangka Pendek", "type" => 0],
+            ["code" => '5.100.20', "name" => "Biaya Bunga Pinjaman Jangka Panjang", "type" => 0],
+
+            ["code" => '5.200', "name" => " Biaya Administrasi ", "type" => 1],
+            ["code" => '5.200.10', "name" => "Biaya Administrasi Operasional", "type" => 0],
+            ["code" => '5.200.20', "name" => "Biaya Administrasi Umum", "type" => 0],
+
+
+            ["code" => '5.300', "name" => " Biaya Penyusutan ", "type" => 1],
+            ["code" => '5.300.10', "name" => "Penyusutan Aset Inventaris Perlengkapan Kantor", "type" => 0],
+            ["code" => '5.300.20', "name" => "Penyusutan Kendaraan", "type" => 0],
+
+            ["code" => '5.400', "name" => " Biaya Umum dan Perlengkapan ", "type" => 1],
+            ["code" => '5.400.10', "name" => "Biaya Utilitas (Listrik, Air, Telepon)", "type" => 0],
+            ["code" => '5.400.20', "name" => "Biaya Perbaikan dan Pemeliharaan", "type" => 0],
+
+            ["code" => '5.410', "name" => "  Biaya Tenaga Kerja", "type" => 1],
+            ["code" => '5.410.10', "name" => "Gaji Karyawan Tetap", "type" => 0],
+            ["code" => '5.410.20', "name" => "Upah Karyawan Lepas", "type" => 0],
+
+
+            ["code" => '5.420', "name" => "  Biaya Lain-lain", "type" => 1],
+            ["code" => '5.420.10', "name" => " Biaya Transportasi", "type" => 0],
+            ["code" => '5.420.20', "name" => " Biaya Pelatihan", "type" => 0],
 
 
         ];
@@ -87,7 +129,7 @@ class CoaSeeder extends Seeder
             ], [
                 "invoice"     => $invoice,
                 "date"        => "2000-01-01",
-                "rekening"    => "1.100.20",    
+                "rekening"    => "1.100.20",
                 "description" => "Dana Cadangan",
                 "debit"       => 500000000,
                 "credit"      => 0,
@@ -110,11 +152,11 @@ class CoaSeeder extends Seeder
         ProductSaving::insert($vaProduct);
         $vaProduct = [
             [
-                "code" => 'PJ_01', "name" => "Modal Kerja", "account_loan" => "1.120.10", "account_income_administration" => "4.200.10", "account_income_interest" => "4.200.30",
+                "code" => 'PJ_01', "name" => "Modal Kerja", "account_loan" => "1.120.10", "account_income_administration" => "4.200.20", "account_income_interest" => "4.100.20",
                 "account_dutystamp" => "1.160.10",
             ],
             [
-                "code" => 'PJ_02', "name" => "Umum", "account_loan" => "1.120.10", "account_income_administration" => "4.200.10", "account_income_interest" => "4.200.30",
+                "code" => 'PJ_02', "name" => "Umum", "account_loan" => "1.120.10", "account_income_administration" => "4.200.20", "account_income_interest" => "4.100.20",
                 "account_dutystamp" => "1.160.10",
             ]
         ];

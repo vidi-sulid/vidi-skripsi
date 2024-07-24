@@ -5,7 +5,7 @@
     </h4>
 
     <div class="row">
-        <div class="col-sm-6 col-lg-6">
+        <div class="col-sm-6 col-lg-6 mb-2">
             <div class="card mb-6">
                 <h5 class="card-header">List data backup 30 hari terakhir</h5>
                 <div class="card-body">

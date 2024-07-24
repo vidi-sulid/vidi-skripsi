@@ -64,7 +64,7 @@ class CashierController extends Controller
 
         if ($data['type'] == "loan") {
             $bakidebet = Member::bakidebet($data['rekening'], getTgl());
-            if ($data['credit'] >= $bakidebet) {
+            if ($data['credit'] > $bakidebet) {
                 return response()->json([
                     'info' => 'The code field is required.',
                     'errors' => [
@@ -86,6 +86,16 @@ class CashierController extends Controller
                     'info' => 'The code field is required.',
                     'errors' => [
                         'error' => ['Setoran dan Penarikan tidak boleh berisi lebih dari 0']
+                    ]
+                ], 422);
+            }
+
+            $saldo = Member::saldoSimpanan($data['rekening'], getTgl());
+            if ($data['debit'] > $saldo && $data['debit'] > 0) {
+                return response()->json([
+                    'info' => 'The code field is required.',
+                    'errors' => [
+                        'error' => ['Penarikan tidak boleh melebihi saldo simpanan']
                     ]
                 ], 422);
             }

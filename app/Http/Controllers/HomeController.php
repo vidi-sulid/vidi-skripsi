@@ -9,6 +9,7 @@ use App\Models\Transaksi\Journal;
 use App\Models\Transaksi\SavingMutation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Storage;
@@ -130,9 +131,9 @@ class HomeController extends Controller
 
     function backup()
     {
-        abort_if(Gate::denies('backup_update'), 403);
 
-        $files = Storage::files('public/Koperasi');
+        abort_if(Gate::denies('backup_update'), 403);
+        $files = Storage::files('public/' . env("APP_NAME"));
         $data = Template::get();
         $data['pathBackup'] = array();
 

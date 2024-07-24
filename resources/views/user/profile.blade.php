@@ -28,11 +28,11 @@
                             </li>
                             <li class="mb-3">
                                 <span class="fw-medium me-2">Rekening Vault :</span>
-                                <span>{{ Auth::user()->account_volt }}</span>
+                                <span>{{ Auth::user()->rekening_volt_id }}</span>
                             </li>
                             <li class="mb-3">
                                 <span class="fw-medium me-2">Rekening Teller:</span>
-                                <span>{{ Auth::user()->account_cash }}</span>
+                                <span>{{ Auth::user()->rekening_kas }}</span>
                             </li>
                             <li class="mb-3">
                                 <span class="fw-medium me-2">Status:</span>

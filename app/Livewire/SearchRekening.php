@@ -2,6 +2,7 @@
 
 namespace App\Livewire;
 
+use App\Models\Master\Coa;
 use App\Models\Master\Saving;
 use App\Models\Transaksi\Loan;
 use Livewire\Component;
@@ -14,6 +15,7 @@ class SearchRekening extends Component
     public $search_results;
     public $rekening;
     public $tes;
+    public $rekeningCoa;
 
     protected $rules = [
         'keterangan' => 'required',
@@ -52,6 +54,12 @@ class SearchRekening extends Component
 
             foreach ($loan as $value) {
                 $data['data'][] = array("rekening" => $value->rekening, "name" => $value->member->name, "type" => "saving");
+            }
+            if ($this->rekeningCoa != "") {
+                $loan = Coa::where('name', "like", "%$rekening%")->where("type", 0)->get();
+                foreach ($loan as $value) {
+                    $data['data'][] = array("rekening" => $value->code, "name" => $value->name, "type" => "coa");
+                }
             }
             $this->search_results = $data;
         }

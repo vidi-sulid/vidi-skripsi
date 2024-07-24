@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Session;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class JournalController extends Controller
 {
@@ -36,6 +37,7 @@ class JournalController extends Controller
 
         $data = Template::get("datatable");
         $data['jsTambahan'] = "
+        $('#akuntansi-transaksi').addClass('open active');
         $('#journal-create').addClass('active');
         ";
         Session::forget('data_jurnal');
@@ -120,11 +122,21 @@ class JournalController extends Controller
         $request->validate([
             'mutation' => 'required|array',
         ]);
+        $tgl = getName($id, "journal", "date", "invoice");
+        if ($tgl != getTgl()) {
+            return response()->json([
+                'info' => 'The code field is required.',
+                'errors' => [
+                    'error' => ['Data sudah tidak bisa dihapus.']
+                ]
+            ], 422);
+        }
         $data = $request->all();
         foreach ($data['mutation'] as $value) {
             DB::table($value)->where("invoice", $id)->delete();
         }
         log_custom("Delete Mutasi Faktur $id", $data);
+        Alert::info("Info", "Data berhasil dihapus");
     }
 
     /**
@@ -133,5 +145,100 @@ class JournalController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function close()
+    {
+
+        abort_if(Gate::denies('journalclose_write'), 403);
+        log_custom("Buka menu penutupan jurnal");
+        $data = Template::get();
+        $data['jsTambahan'] = "
+        $('#akuntansi-transaksi').addClass('open active');
+        $('#journalclosing-create').addClass('active');
+        ";
+
+        return view('transaksi.journal_close', $data);
+        // return $dataTable->render('user.userdate', $data);
+    }
+    public function closed(Request $request)
+    {
+
+        abort_if(Gate::denies('journalclose_write'), 403);
+        $request->validate([
+            'periode' => 'required'
+        ]);
+        $data = $request->all();
+
+
+        $tgl = date("Y-12-t", strtotime($data['periode']));
+        $invoice = "PENUTUPAN-" . $request->periode;
+        Journal::where("invoice", $invoice)->delete();
+
+        $laba = 0;
+        $dataSaldoAwal = Journal::select(DB::raw("sum(credit-debit) total, rekening"))
+            ->where("date", "<=", $tgl)->where("rekening", "like", "4%")->groupBy("rekening")->get()->toArray();
+        foreach ($dataSaldoAwal as $value) {
+            $kredit = $debit = 0;
+
+            if ($value['total'] > 0) {
+                $debit = $value['total'];
+            } else {
+                $kredit = $value['total'];
+            }
+            $laba += $value['total'];
+            $mutation[] = [
+                "invoice"     => $invoice,
+                "date"        => getTgl(),
+                "rekening"    => $value['rekening'],
+                "description" => "Penutupan Jurnal 2024",
+
+                "debit"       => $debit,
+                "credit"      => $kredit,
+                "username"  => Auth::user()->name
+            ];
+        }
+        $dataSaldoAwal = Journal::select(DB::raw("sum(debit-credit) total, rekening"))
+            ->where("date", "<=", $tgl)->where("rekening", "like", "5%")->groupBy("rekening")->get()->toArray();
+        foreach ($dataSaldoAwal as $value) {
+            $kredit = $debit = 0;
+
+            if ($value['total'] > 0) {
+                $kredit = $value['total'];
+            } else {
+                $debit = $value['total'];
+            }
+            $laba -= $value['total'];
+            $mutation[] = [
+                "invoice"     => $invoice,
+                "date"        => getTgl(),
+                "rekening"    => $value['rekening'],
+                "description" => "Penutupan Jurnal " . $request->periode,
+
+                "debit"       => $debit,
+                "credit"      => $kredit,
+                "username"  => Auth::user()->name
+            ];
+        }
+        if ($laba != 0) {
+            $debit = $kredit = 0;
+            if ($laba < 0) {
+                $debit = abs($laba);
+            } else {
+                $kredit = abs($laba);
+            }
+            $rekening = getConfig("msLabaTahunLalu", "3.500.02");
+            $mutation[] = [
+                "invoice"     => "PENUTUPAN-2024",
+                "date"        => getTgl(),
+                "rekening"    => $rekening,
+                "description" => "Penutupan Jurnal 2024",
+
+                "debit"       => $debit,
+                "credit"      => $kredit,
+                "username"  => Auth::user()->name
+            ];
+        }
+        Journal::insert($mutation);
     }
 }

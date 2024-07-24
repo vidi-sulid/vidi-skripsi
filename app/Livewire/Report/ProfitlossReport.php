@@ -24,7 +24,8 @@ class ProfitlossReport extends Component
 
         $tglLalu = Carbon::parse($this->date_start)->subDay()->toDateString();
 
-        $account = Coa::where("code", ">=", "4")->get()->toArray();
+        $account = Coa::where("code", ">=", "4")->orderBy("code")->get()->toArray();
+
         $dataSaldoAwal = Journal::select(DB::raw("sum(debit) debit, sum(credit) credit, rekening"))
             ->where("date", "<=", $tglLalu)->groupBy("rekening")->get()->toArray();
 

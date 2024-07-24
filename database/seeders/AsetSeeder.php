@@ -17,8 +17,12 @@ class AsetSeeder extends Seeder
 
         $vaProduct = [
             [
-                "code" => 'AS_01', "name" => "Aset Inventaris", "account_aset" => "1.150.10", "account_depreciation" => "1.151.10", "account_cost" => "5.100.10",
-                "account_income" => "4.100.10"
+                "code" => 'AS_01', "name" => "Aset Peralatan", "account_aset" => "1.150.10", "account_depreciation" => "1.151.10", "account_cost" => "5.300.10",
+                "account_income" => "4.300.10"
+            ],
+            [
+                "code" => 'AS_02', "name" => "Aset Kendaraan", "account_aset" => "1.152.10", "account_depreciation" => "1.153.10", "account_cost" => "5.300.20",
+                "account_income" => "4.300.10"
             ]
         ];
         ProductAset::insert($vaProduct);
