@@ -63,7 +63,7 @@ class AsetController extends Controller
         $data['purchase_date'] =  getTgl();
         $data['username'] = Auth::user()->name;
         $data['code'] = str_pad($max_id ? $max_id + 1 : 1, 6, '0', STR_PAD_LEFT);
-        log_custom("Insert data master aset", $data);
+        log_custom("Insert data pembelian aset", $data);
         Aset::create($data);
 
         $vaMutasi = array(

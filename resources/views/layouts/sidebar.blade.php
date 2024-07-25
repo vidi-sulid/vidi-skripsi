@@ -203,6 +203,13 @@
                     </a>
                 </li>
             @endcan
+            @can('bookledger_read')
+                <li class="menu-item" id="bookledger-report">
+                    <a href="{{ route('bookledger-report.index') }}" class="menu-link">
+                        <div class="text-truncate" data-i18n="Buku Besar">Buku Besar</div>
+                    </a>
+                </li>
+            @endcan
 
         </ul>
     </li>

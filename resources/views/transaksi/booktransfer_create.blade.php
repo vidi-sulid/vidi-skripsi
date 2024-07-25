@@ -4,5 +4,5 @@
         <span class="text-muted fw-light">Transaksi /</span> Pemindahbukuan
     </h4>
 
-    <livewire:transaksi.booktransfer />
+    <livewire:transaksi.BookTransfer />
 @endsection

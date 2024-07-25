@@ -52,7 +52,7 @@ $account = true;
                 </div>
             </div>
         </div>
-        <div class="col-8">
+        <div class="col-lg-8 col-sm-12">
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">Data History Backdate User</h5>

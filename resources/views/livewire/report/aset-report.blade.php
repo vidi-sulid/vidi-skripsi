@@ -8,7 +8,8 @@
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label>Periode <span class="text-danger">*</span></label>
-                                    <select wire:model="periode" class="form-control select2" name="periode">
+                                    <select wire:model="periode" class="form-control select2" name="periode"
+                                        id="yourSelect2Element">
                                         <option value="">Pilih Bulan dan Tahun</option>
                                         @for ($year = 2030; $year >= 2015; $year--)
                                             @for ($month = 1; $month <= 12; $month++)
@@ -30,15 +31,14 @@
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label>Golongan Aset</label>
-                                    <div wire:ignore>
-                                        <select wire:model="product_asets" class="form-control select2"
-                                            name="product_aset_id">
-                                            <option value="">Golongan Aset</option>
-                                            @foreach ($productAset as $customer)
-                                                <option value="{{ $customer->id }}">{{ $customer->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                    <select wire:model="product_aset_id" class="form-control select2"
+                                        name="product_aset_id" id="yourSelect2Element1">
+                                        <option value="">Golongan Aset</option>
+                                        @foreach ($productAset as $customer)
+                                            <option value="{{ $customer->id }}">{{ $customer->name }}</option>
+                                        @endforeach
+                                    </select>
+
                                 </div>
                             </div>
                         </div>
@@ -163,9 +163,34 @@
             Livewire.on('refresh', () => {
                 setTimeout(() => {
                     initializeDataTable();
+
+                    select2Custom();
+                    $('#yourSelect2Element').on('change', function(e) {
+                        var data = $(this).val();
+                        @this.set('periode', data);
+                    });
+                    $('#yourSelect2Element1').on('change', function(e) {
+                        var data = $(this).val();
+                        console.log(data);
+                        @this.set('product_aset_id', data);
+                    });
                 }, 1000);
 
             });
         </script>
     @endpush
 </div>
+
+@push('custom_js')
+    <script>
+        $('#yourSelect2Element').on('change', function(e) {
+            var data = $(this).val();
+            @this.set('periode', data);
+        });
+        $('#yourSelect2Element1').on('change', function(e) {
+            var data = $(this).val();
+            console.log(data);
+            @this.set('product_aset_id', data);
+        });
+    </script>
+@endpush

@@ -35,7 +35,7 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="col-6">
+                <div class="col">
                     <label for="rekening_volt" class="form-label">Rekening Volt</label>
                     <select id="rekening_volt" name="rekening_volt_id" class="select2 form-select"
                         data-placeholder="Pilih Rekening">

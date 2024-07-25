@@ -22,6 +22,10 @@ class JournalReport extends Component
         "date_start" => "required"
     ];
 
+    public function update()
+    {
+    }
+
     public function mount($username)
     {
         $this->username = $username;
@@ -31,6 +35,7 @@ class JournalReport extends Component
 
     public function render()
     {
+
         $journal = Journal::with(['coa'])->whereBetween('date', [$this->date_start, $this->date_end])
 
             ->orderBy('id', 'desc')->paginate(100);

@@ -180,45 +180,47 @@ class JournalController extends Controller
             ->where("date", "<=", $tgl)->where("rekening", "like", "4%")->groupBy("rekening")->get()->toArray();
         foreach ($dataSaldoAwal as $value) {
             $kredit = $debit = 0;
+            if ($value['total'] != 0) {
+                if ($value['total'] > 0) {
+                    $debit = $value['total'];
+                } else {
+                    $kredit = $value['total'];
+                }
+                $laba += $value['total'];
+                $mutation[] = [
+                    "invoice"     => $invoice,
+                    "date"        => getTgl(),
+                    "rekening"    => $value['rekening'],
+                    "description" => "Penutupan Jurnal 2024",
 
-            if ($value['total'] > 0) {
-                $debit = $value['total'];
-            } else {
-                $kredit = $value['total'];
+                    "debit"       => $debit,
+                    "credit"      => $kredit,
+                    "username"  => Auth::user()->name
+                ];
             }
-            $laba += $value['total'];
-            $mutation[] = [
-                "invoice"     => $invoice,
-                "date"        => getTgl(),
-                "rekening"    => $value['rekening'],
-                "description" => "Penutupan Jurnal 2024",
-
-                "debit"       => $debit,
-                "credit"      => $kredit,
-                "username"  => Auth::user()->name
-            ];
         }
         $dataSaldoAwal = Journal::select(DB::raw("sum(debit-credit) total, rekening"))
             ->where("date", "<=", $tgl)->where("rekening", "like", "5%")->groupBy("rekening")->get()->toArray();
         foreach ($dataSaldoAwal as $value) {
             $kredit = $debit = 0;
+            if ($value['total'] != 0) {
+                if ($value['total'] > 0) {
+                    $kredit = $value['total'];
+                } else {
+                    $debit = $value['total'];
+                }
+                $laba -= $value['total'];
+                $mutation[] = [
+                    "invoice"     => $invoice,
+                    "date"        => getTgl(),
+                    "rekening"    => $value['rekening'],
+                    "description" => "Penutupan Jurnal " . $request->periode,
 
-            if ($value['total'] > 0) {
-                $kredit = $value['total'];
-            } else {
-                $debit = $value['total'];
+                    "debit"       => $debit,
+                    "credit"      => $kredit,
+                    "username"  => Auth::user()->name
+                ];
             }
-            $laba -= $value['total'];
-            $mutation[] = [
-                "invoice"     => $invoice,
-                "date"        => getTgl(),
-                "rekening"    => $value['rekening'],
-                "description" => "Penutupan Jurnal " . $request->periode,
-
-                "debit"       => $debit,
-                "credit"      => $kredit,
-                "username"  => Auth::user()->name
-            ];
         }
         if ($laba != 0) {
             $debit = $kredit = 0;

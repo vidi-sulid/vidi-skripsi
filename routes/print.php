@@ -11,7 +11,8 @@ Route::get('journal-pdf', function (Request $request) {
     $pdf = Pdf::loadView('print.journal', [
         'data' => $journal,
     ])->setPaper('a4', 'landscape');
-    return $pdf->stream();
+    $filename = "Journal-" . date("Y-m-d H:i:s") . ".pdf";
+    return $pdf->stream($filename);
 })->name('journal-pdf.index');
 
 
@@ -22,7 +23,9 @@ Route::get('member-pdf', function (Request $request) {
     $pdf = Pdf::loadView('print.member', [
         'data' => $data,
     ])->setPaper('a4', 'landscape');
-    return $pdf->stream('member.pdf', ['Content-Disposition' => 'inline']);
+
+    $filename = "Member-" . date("Y-m-d H:i:s") . ".pdf";
+    return $pdf->stream($filename, ['Content-Disposition' => 'inline']);
 })->name('member-pdf.index');
 
 Route::get('loan-pdf', function (Request $request) {
@@ -32,7 +35,9 @@ Route::get('loan-pdf', function (Request $request) {
     $pdf = Pdf::loadView('print.loan', [
         'data' => $data,
     ])->setPaper('a4', 'landscape');
-    return $pdf->stream('loan.pdf', ['Content-Disposition' => 'inline']);
+
+    $filename = "Pinjaman-" . date("Y-m-d H:i:s") . ".pdf";
+    return $pdf->stream($filename, ['Content-Disposition' => 'inline']);
 })->name('loan-pdf.index');
 
 
@@ -42,7 +47,9 @@ Route::get('balancesheet-pdf', function (Request $request) {
     $pdf = Pdf::loadView('print.balancesheet', [
         'data' => $data,
     ])->setPaper('a4');
-    return $pdf->stream('balancesheet.pdf', ['Content-Disposition' => 'inline']);
+
+    $filename = "Neraca-" . date("Y-m-d H:i:s") . ".pdf";
+    return $pdf->stream($filename, ['Content-Disposition' => 'inline']);
 })->name('balancesheet-pdf.index');
 
 
@@ -52,8 +59,23 @@ Route::get('profitloss-pdf', function (Request $request) {
     $pdf = Pdf::loadView('print.profitloss', [
         'data' => $data,
     ])->setPaper('a4');
-    return $pdf->stream('profitloss.pdf', ['Content-Disposition' => 'inline']);
+
+    $filename = "Labarugi-" . date("Y-m-d H:i:s") . ".pdf";
+    return $pdf->stream($filename, ['Content-Disposition' => 'inline']);
 })->name('profitloss-pdf.index');
+
+Route::get('bookledger-pdf', function (Request $request) {
+
+    $data = $request->session()->get('bookledger');
+
+    // return view('print.boodledger', ["data" => $data]);
+    $pdf = Pdf::loadView('print.bookledger', [
+        'data' => $data,
+    ])->setPaper('a4', 'landscape');
+
+    $filename = "Bukubesar-" . date("Y-m-d H:i:s") . ".pdf";
+    return $pdf->stream($filename, ['Content-Disposition' => 'inline']);
+})->name('bookledger-pdf.index');
 
 Route::get('aset-pdf', function (Request $request) {
 
@@ -62,7 +84,9 @@ Route::get('aset-pdf', function (Request $request) {
     $pdf = Pdf::loadView('print.aset', [
         'data' => $data,
     ])->setPaper('a4', 'landscape');
-    return $pdf->stream('aset.pdf', ['Content-Disposition' => 'inline']);
+
+    $filename = "Aset-" . date("Y-m-d H:i:s") . ".pdf";
+    return $pdf->stream($filename, ['Content-Disposition' => 'inline']);
 })->name('aset-pdf.index');
 
 Route::get('card-pdf', function (Request $request) {
@@ -81,5 +105,7 @@ Route::get('card-pdf', function (Request $request) {
     $data['data'] = $dataMember;
     // return view('print.' . $view, $data);
     $pdf = Pdf::loadView('print.' . $view, $data)->setPaper('a4', $landscpae);
-    return $pdf->stream('card.pdf', ['Content-Disposition' => 'inline']);
+
+    $filename = "Card-" . date("Y-m-d H:i:s") . ".pdf";
+    return $pdf->stream($filename, ['Content-Disposition' => 'inline']);
 })->name('card-pdf.index');

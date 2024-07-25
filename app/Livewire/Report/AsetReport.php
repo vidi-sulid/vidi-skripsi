@@ -29,6 +29,7 @@ class AsetReport extends Component
 
     public function mount($productAset)
     {
+
         $this->productAset = $productAset;
         $this->periode = date("Y-m");
         $this->product_aset_id = '';
@@ -48,10 +49,16 @@ class AsetReport extends Component
     }
     public function render()
     {
+
+        $this->dispatch('refresh', 1);
         $tanggalFilter = date("Y-m-t", strtotime($this->periode));
         $aset = Aset::with(['product'])->whereDate('purchase_date', '<=', $tanggalFilter)
+            ->orderBy('purchase_date', 'desc');
+        if ($this->product_aset_id != "") {
+            $aset->where('product_asset_id', $this->product_aset_id);
+        }
 
-            ->orderBy('purchase_date', 'desc')->paginate(20);
+        $aset = $aset->paginate(20);
         session()->put('aset', $aset);
         session()->put('periode', $this->periode);
         $exists = AsetMutation::where('description', 'like', 'Penyusutan aset ' . $this->periode . "%")->exists();
@@ -69,7 +76,6 @@ class AsetReport extends Component
     public function generateReport()
     {
         $this->validate();
-        $this->dispatch('refresh', 1);
         $this->render();
     }
 

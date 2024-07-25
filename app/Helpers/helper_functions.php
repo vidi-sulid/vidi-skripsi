@@ -29,6 +29,7 @@ function menu()
         "Kasir" => array("cashier" => ["Write"]),
         "Neraca" => array("balancesheet_read" => ["Read"]),
         "Laba Rugi" => array("profitloss" => ["Read"]),
+        "Bukubesar" => array("bookledger" => ["Read"]),
         "Pemindah Bukuan" => array("booktransfer" => ["Write"]),
         "Penutupan Jurnal" => array("journalclosing" => ["Write"]),
 

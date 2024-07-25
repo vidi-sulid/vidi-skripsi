@@ -79,4 +79,15 @@ class ReportController extends Controller
         ";
         return view('report.loan', $data);
     }
+
+    public function bookledgerReport()
+    {
+        abort_if(Gate::denies('bookledger_read'), 403);
+        $data = Template::get("datatable");
+        $data['jsTambahan'] = "
+        $('#bookledger-report').addClass('active');
+        $('#akuntansi-report').addClass('open active');
+        ";
+        return view('report.bookledger', $data);
+    }
 }

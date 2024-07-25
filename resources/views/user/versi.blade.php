@@ -6,7 +6,7 @@
 
     <div class="row">
         <!-- Timeline Basic-->
-        <div class="col-lg-6 col-sm-6">
+        <div class="col-lg-6 col-sm-6 ">
             <div class="card">
                 <h5 class="card-header">List history update</h5>
                 <div class="card-body">
@@ -54,7 +54,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-6 col-sm-6 h-100">
+        <div class="col-lg-6 col-sm-6 h-100 mt-2">
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card shadow-none bg-label-primary h-100">

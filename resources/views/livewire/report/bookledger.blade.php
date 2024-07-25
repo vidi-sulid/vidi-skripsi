@@ -27,15 +27,18 @@
                             </div>
                             <div class="col-lg-4">
                                 <div class="form-group">
-                                    <label>Username</label>
-                                    <div wire:ignore>
-                                        <select class="form-control select2" name="product_aset_id">
-                                            <option value="">Pilih User</option>
-                                            @foreach ($username as $data)
-                                                <option value="{{ $data->name }}">{{ $data->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                    <label>Rekening</label>
+
+                                    <select id="yourSelect2Element" class="form-control select2" wire:model="rekening"
+                                        name="rekening">
+                                        <option value="">Pilih Rekening</option>
+                                        @foreach ($coa as $data)
+                                            <option value="{{ $data->code }}">
+                                                {{ $data->code . '-' . $data->name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+
                                 </div>
                             </div>
                         </div>
@@ -49,7 +52,7 @@
                                         <i wire:target="generateReport" wire:loading.remove class="bx bx-sort"></i>
                                         Filter Report
                                     </button>
-                                    <a class="btn  btn-primary" href="{{ route('journal-pdf.index') }}"><i
+                                    <a class="btn  btn-primary" href="{{ route('bookledger-pdf.index') }}"><i
                                             class="bx bx-file"></i>Cetak</a>
                                 </div>
                             </div>
@@ -87,19 +90,39 @@
                                     <th>Keterangan</th>
                                     <th>Debet</th>
                                     <th>Kredit</th>
+                                    <th>Saldo</th>
                                     <th>Username</th>
-                                    <th></th>
 
                                 </tr>
                             </thead>
 
                             <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+
+                                    <td align="left">Saldo Awal</td>
+                                    <td></td>
+                                    <td></td>
+
+                                    <td align="right">{{ format_currency($saldo) }}</td>
+                                    <td></td>
+                                </tr>
                                 @php
                                     $totalDebit = 0;
                                     $totalCredit = 0;
                                 @endphp
                                 @foreach ($journal as $data)
                                     @php
+                                        if (
+                                            substr($data->rekening, 0, 1) == '1' ||
+                                            substr($data->rekening, 0, 1) == '5'
+                                        ) {
+                                            $saldo += $data->debit - $data->credit;
+                                        } else {
+                                            $saldo += $data->credit - $data->debit;
+                                        }
                                         $totalDebit += $data->debit;
                                         $totalCredit += $data->credit;
                                     @endphp
@@ -115,18 +138,9 @@
 
                                         <td align="right">{{ format_currency($data->debit) }}</td>
                                         <td align="right">{{ format_currency($data->credit) }}</td>
+                                        <td align="right">{{ format_currency($saldo) }}</td>
                                         <td>{{ $data->username }}</td>
-                                        <td>
-                                            <span class="text-nowrap">
-                                                @can('journal_delete')
-                                                    <button class="btn btn-sm btn-icon me-2"
-                                                        onclick="openModal('{{ route('journal.edit', $data->invoice) }}')"><i
-                                                            class="bx bx-edit"></i></button>
-                                                @endcan
 
-                                            </span>
-
-                                        </td>
 
                                     </tr>
                                 @endforeach
@@ -138,9 +152,10 @@
                                     <tr>
                                         <td colspan="4" align="right"><strong>Total</strong></td>
                                         <td align="right"><strong>{{ format_currency($totalDebit) }}</strong></td>
-                                        <td align="right"><strong>{{ format_currency($totalCredit) }}</strong>
+                                        <td align="right"><strong>{{ format_currency($totalCredit) }}</strong></td>
+                                        <td align="right"><strong>{{ format_currency($saldo) }}</strong>
                                         </td>
-                                        <td colspan="2"></td>
+                                        <td></td>
                                     </tr>
                                 @endif
                             </tfoot>
@@ -167,12 +182,14 @@
             Livewire.on('refresh', () => {
                 setTimeout(() => {
                     initializeDataTable();
+
+                    select2Custom();
                 }, 1000);
 
             });
             $('#yourSelect2Element').on('change', function(e) {
                 var data = $(this).val();
-                @this.set('yourModel', data);
+                @this.set('rekening', data);
             });
         </script>
     @endpush

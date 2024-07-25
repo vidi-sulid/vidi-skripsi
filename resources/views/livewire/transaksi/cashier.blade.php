@@ -1,7 +1,7 @@
 <div>
 
     <div class="row">
-        <div class="col-7">
+        <div class="col-lg-7 col-sm-12">
             <div class="card mb-4">
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">Form Mutasi
