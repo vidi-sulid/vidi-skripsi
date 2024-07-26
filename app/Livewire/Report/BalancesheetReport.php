@@ -27,6 +27,7 @@ class BalancesheetReport extends Component
     {
 
 
+        $this->dispatch('refresh', 1);
         $tglLalu = Carbon::parse($this->date_start)->subDay()->toDateString();
 
         $account = Coa::where("code", "<", "4")->orderBy("code")->get()->toArray();
@@ -122,7 +123,6 @@ class BalancesheetReport extends Component
     }
     public function generateReport()
     {
-        $this->dispatch('refresh', 1);
 
         $this->validate();
         $this->render();

@@ -19,8 +19,10 @@ class PermissionController extends Controller
      */
     public function index(RolePermissionDataTable $dataTable)
     {
-        //
+
+        abort_if(Gate::denies('permission'), 403);
         $data = Template::get("datatable");
+        log_custom("Buka menu role permission");
         $data['jsTambahan'] = "
         $('#permission').addClass('active');
         $('#role-permission').addClass('open active');
@@ -35,7 +37,9 @@ class PermissionController extends Controller
     public function create()
     {
 
+        abort_if(Gate::denies('permission'), 403);
         $data['menu'] = menu();
+        log_custom("Buka menu tambah role permission");
         return view('user.permission_create', $data);
     }
 
@@ -44,6 +48,7 @@ class PermissionController extends Controller
      */
     public function store(Request $request)
     {
+        abort_if(Gate::denies('permission'), 403);
         $request->validate([
             'name' => 'required|string|max:255|unique:roles',
             'permissions' => 'required|array',
@@ -52,6 +57,7 @@ class PermissionController extends Controller
         $role = Role::create([
             'name' => $request->name
         ]);
+        log_custom("Simpan data role permission " . $request->name);
         $role->givePermissionTo($request->permissions);
     }
 
@@ -68,6 +74,9 @@ class PermissionController extends Controller
      */
     public function edit(string $id)
     {
+
+        abort_if(Gate::denies('permission'), 403);
+        log_custom("Edit data role permission " . $id);
         $data['menu'] = menu();
         $data['role'] = Role::with(['permissions'])->where("id", $id)->first();
         return view('user.permission_edit', $data);
@@ -78,6 +87,7 @@ class PermissionController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        abort_if(Gate::denies('permission'), 403);
         $request->validate([
             'name' =>  ['required', Rule::unique('roles')->ignore($id)],
             'permissions' => 'required|array',
@@ -86,6 +96,7 @@ class PermissionController extends Controller
         $role = Role::whereid($id)->first();
         $role->syncPermissions($request->permissions);
         Role::whereid($id)->update(["name" => $request->name]);
+        log_custom("Update menu role permission $id", $role->toArray());
 
         return response()->json("ok");
     }
@@ -95,7 +106,8 @@ class PermissionController extends Controller
      */
     public function destroy(string $id)
     {
-
+        abort_if(Gate::denies('permission'), 403);
+        log_custom("Hapus data role permission $id");
         Role::where('id', $id)->delete();
     }
 }

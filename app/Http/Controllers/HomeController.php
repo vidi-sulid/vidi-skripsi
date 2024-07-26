@@ -19,7 +19,7 @@ class HomeController extends Controller
 {
     function show()
     {
-
+        log_custom("Buka menu dashboard");
         $date = date('Y-m-d');
         $data = Template::get();
         array_push($data['pilihCss'],  "chart",  "apex-charts", "card-analytics");
@@ -131,8 +131,8 @@ class HomeController extends Controller
 
     function backup()
     {
-
         abort_if(Gate::denies('backup_update'), 403);
+        log_custom("Buka menu backup");
         $files = Storage::files('public/' . env("APP_NAME"));
         $data = Template::get();
         $data['pathBackup'] = array();
@@ -162,6 +162,8 @@ class HomeController extends Controller
 
     public function versi()
     {
+
+        log_custom("Buka menu versi");
         $projectRoot = base_path();
         chdir($projectRoot);
         $output = shell_exec('git log');

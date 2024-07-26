@@ -35,7 +35,8 @@ $account = true;
                         <div class="row">
                             <div class="mb-3">
                                 <label class="form-label" for="description">Lama (Menit)</label>
-                                <input type="number" class="form-control" id="old" name="old" value="60">
+                                <input type="number" class="form-control" id="old" name="old" value="60"
+                                    max="60" min="0">
                             </div>
                         </div>
                         <div class="row">

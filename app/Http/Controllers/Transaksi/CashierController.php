@@ -19,7 +19,7 @@ class CashierController extends Controller
     public function index()
     {
         abort_if(Gate::denies('productloan_read'), 403);
-        log_custom("Buka menu master pinjaman");
+        log_custom("Buka menu kasir");
         $data = Template::get("datatable");
         $data['jsTambahan'] = "
         $('#cashier').addClass('active');
@@ -131,6 +131,7 @@ class CashierController extends Controller
             SavingMutation::create($mutation);
             UpdateJournalSaving($data['invoice']);
         }
+        log_custom("Simpan menu kasir", $data);
     }
 
     /**

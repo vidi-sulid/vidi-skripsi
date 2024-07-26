@@ -21,6 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'rekening_kas',
+        'rekening_volt_id',
     ];
 
     /**

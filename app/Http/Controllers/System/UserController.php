@@ -21,6 +21,7 @@ class UserController extends Controller
     public function index(UserDataTable $dataTable)
     {
         abort_if(Gate::denies('user_read'), 403);
+        log_custom("Buka menu master user");
         $data = Template::get("datatable");
         $data['jsTambahan'] = "
         $('#user').addClass('active');
@@ -36,6 +37,7 @@ class UserController extends Controller
     {
 
         abort_if(Gate::denies('user_write'), 403);
+        log_custom("Buka menu tambah master user");
         return view('user.user_create');
     }
 
@@ -54,10 +56,12 @@ class UserController extends Controller
             'rekening_volt_id' => 'required',
         ]);
         $data = $request->all();
+        log_custom("Simpan menu master user", $data);
         $data['password'] = Hash::make('123456789');
         $user = User::create($data);
         $role = Role::whereId($request->role)->first();
         $user->assignRole($role);
+
         return response()->json("ok");
     }
 
@@ -75,6 +79,7 @@ class UserController extends Controller
     public function edit(string $id)
     {
         abort_if(Gate::denies('user_update'), 403);
+        log_custom("Edit menu master user $id");
         $data['user'] = User::whereId($id)->first();
         return view('user.user_edit', $data);
     }
@@ -98,6 +103,7 @@ class UserController extends Controller
             'role' => 'required'
         ]);
         $data = $request->all();
+        log_custom("Update data master user", $data);
         $reset = $data['reset'];
         if ($reset == "1") {
             $data['password'] = Hash::make('111');
@@ -120,7 +126,7 @@ class UserController extends Controller
     {
 
         abort_if(Gate::denies('user_delete'), 403);
-
+        log_custom("Hapus data master user $id");
         $user = User::find($id);
         if ($user) {
             $user->roles()->detach();
