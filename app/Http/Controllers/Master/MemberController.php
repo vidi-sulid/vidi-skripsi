@@ -28,7 +28,7 @@ class MemberController extends Controller
     public function create()
     {
         abort_if(Gate::denies('productloan_write'), 403);
-        log_custom("Buka menu tambah master pinjaman");
+        log_custom("Buka menu tambah master anggota");
         $data = Template::get();
 
         array_push($data['pilihCss'],  "stepper", "form-validation");
@@ -98,6 +98,7 @@ class MemberController extends Controller
         SavingMutation::create($mutation);
 
         UpdateJournalSaving($mutation['invoice']);
+        log_custom("Simpan data anggota", $data);
         // logUser("Register Data Anggota", $data);
         return response()->json("ok");
     }
@@ -116,6 +117,7 @@ class MemberController extends Controller
     public function edit(Member $member)
     {
         abort_if(Gate::denies('member_update'), 403);
+
         log_custom("Buka menu edit master anggota " . $member->id);
         $data = Template::get();
 
@@ -175,7 +177,7 @@ class MemberController extends Controller
             }
         }
         UpdateJournalSaving($faktur);
-        log_custom("Penutupan Anggota");
+        log_custom("Penutupan Anggota", $member->toArray());
         // $member->date_close = $tgl;
         $member->update($vaUpdate);
         return response()->json("ok");

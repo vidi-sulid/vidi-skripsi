@@ -13,6 +13,7 @@ class ReportController extends Controller
     public function asetReport()
     {
         abort_if(Gate::denies('reports_read'), 403);
+        log_custom("Buka menu laporan aset");
         $data = Template::get("datatable");
         $data['jsTambahan'] = "
         $('#aset-report').addClass('active');
@@ -24,6 +25,7 @@ class ReportController extends Controller
     public function journalReport()
     {
         abort_if(Gate::denies('journal_read'), 403);
+        log_custom("Buka menu jurnal umum");
         $data = Template::get("datatable");
         $data['jsTambahan'] = "
         $('#journal-report').addClass('active');
@@ -35,6 +37,7 @@ class ReportController extends Controller
     public function memberReport()
     {
         abort_if(Gate::denies('member_read'), 403);
+        log_custom("Buka menu laporan anggota");
         $data = Template::get("datatable");
         $data['jsTambahan'] = "
         $('#member-report').addClass('active');
@@ -44,6 +47,7 @@ class ReportController extends Controller
     public function balancesheetReport()
     {
         abort_if(Gate::denies('balancesheet_read'), 403);
+        log_custom("Buka menu laporan neraca");
         $data = Template::get();
         $data['jsTambahan'] = "
         $('#balancesheet-report').addClass('active');
@@ -55,6 +59,7 @@ class ReportController extends Controller
     public function profitlossReport()
     {
         abort_if(Gate::denies('profitloss_read'), 403);
+        log_custom("Buka menu laporan laba rugi");
         $data = Template::get();
         $data['jsTambahan'] = "
         $('#profitloss-report').addClass('active');
@@ -71,6 +76,7 @@ class ReportController extends Controller
     {
 
         abort_if(Gate::denies('loan_read'), 403);
+        log_custom("Buka menu laporan pinjaman");
         $data = Template::get("datatable");
         $data['jsTambahan'] = "
         $('#loan-report-bil').addClass('active');
@@ -83,6 +89,7 @@ class ReportController extends Controller
     public function bookledgerReport()
     {
         abort_if(Gate::denies('bookledger_read'), 403);
+        log_custom("Buka menu laporan bukubesar");
         $data = Template::get("datatable");
         $data['jsTambahan'] = "
         $('#bookledger-report').addClass('active');

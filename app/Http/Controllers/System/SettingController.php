@@ -16,8 +16,8 @@ class SettingController extends Controller
      */
     public function index()
     {
-        log_custom("Buka menu setting");
         abort_if(Gate::denies('setting_read'), 403);
+        log_custom("Buka menu setting");
         $data = Template::get();
         array_push($data['pilihCss'],  "apex-charts", "card-analytics");
         $data['setting'] = Setting::first();
@@ -75,7 +75,7 @@ class SettingController extends Controller
         ]);
 
         $setting->update($request->all());
-        log_custom("Update config");
+        log_custom("Update config", $request->all());
         return response()->json("reload", 200);
     }
 
