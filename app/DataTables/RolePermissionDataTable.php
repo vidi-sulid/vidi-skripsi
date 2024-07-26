@@ -65,7 +65,7 @@ class RolePermissionDataTable extends DataTable
                     ->text('<i class="bx bx-copy"></i> Copy'),
                 Button::make('excel')
                     ->addClass("btn btn-sm btn-primary mt-2")
-                    ->text('<i class="bx bx-copy"></i> Excel'),
+                    ->text('<i class="bx bx-copy"></i> sExcel'),
             ])
 
 

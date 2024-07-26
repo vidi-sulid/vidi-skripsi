@@ -102,8 +102,10 @@ if (!function_exists('log_custom')) {
     function log_custom($info, $data = [])
     {
         $userName = Auth::user()->name;
+        $ip = isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : "";
+        $userAgent = isset($_SERVER['HTTP_USER_AGENT']) ?  $_SERVER['HTTP_USER_AGENT'] : "";
 
-        Log::info("$userName $info", $data);
+        Log::info("$ip $userAgent $userName $info", $data);
     }
 }
 
