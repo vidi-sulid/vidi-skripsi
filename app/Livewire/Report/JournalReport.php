@@ -20,7 +20,8 @@ class JournalReport extends Component
     public $user;
 
     protected $rules = [
-        "date_start" => "required"
+        "date_start" => "required",
+        "date_end" => "required"
     ];
 
     public function update()

@@ -13,6 +13,10 @@ class ProfitlossReport extends Component
     public $date_start;
     public $date_end;
 
+    protected $rules = [
+        "date_start" => "required",
+        "date_end" => "required"
+    ];
     public function mount()
     {
         $this->date_start = date("Y-m-d");
