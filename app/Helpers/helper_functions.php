@@ -278,7 +278,6 @@ function getRekeningLoan($code, $product)
 
 function getTgl($user_id = '')
 {
-    return date("Y-m-d");
     $user_id = ($user_id == "") ? Auth::user()->id : $user_id;
     $dTgl = date("Y-m-d");
     $dateNow = Date("Y-m-d H:i:s");
