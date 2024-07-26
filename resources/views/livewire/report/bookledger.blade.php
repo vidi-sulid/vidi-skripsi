@@ -52,8 +52,8 @@
                                         <i wire:target="generateReport" wire:loading.remove class="bx bx-sort"></i>
                                         Filter Report
                                     </button>
-                                    <a class="btn  btn-primary" href="{{ route('bookledger-pdf.index') }}"><i
-                                            class="bx bx-file"></i>Cetak</a>
+                                    <a class="btn  btn-primary" href="{{ route('bookledger-pdf.index') }}"
+                                        target="_blank"><i class="bx bx-file"></i>Cetak</a>
                                 </div>
                             </div>
 
@@ -184,6 +184,10 @@
                     initializeDataTable();
 
                     select2Custom();
+                    $('#yourSelect2Element').on('change', function(e) {
+                        var data = $(this).val();
+                        @this.set('rekening', data);
+                    });
                 }, 1000);
 
             });

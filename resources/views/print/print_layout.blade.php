@@ -154,8 +154,8 @@
             <table class="tableFooter" align="center">
                 <tr>
                     <td></td>
-                    <td align="center"><b>{{ 23 }}
-                            ,{{ tanggalIndonesia(date('Y-m-d')) }}</b>
+                    <td align="center"><b>
+                            {{ tanggalIndonesia(date('Y-m-d')) }}</b>
                     </td>
                     <td></td>
                 </tr>
@@ -168,7 +168,7 @@
                     <td style="height:50px;"></td>
                 </tr>
                 <tr>
-                    <td align="center"><b>Bendaharan</b></td>
+                    <td align="center"><b>Bendahara</b></td>
                     <td align="center"><b>Ketua </td>
                     <td align="center"><b>Seketaris</b> </td>
                 </tr>

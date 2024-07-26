@@ -159,10 +159,10 @@
                             <div class="row">
                                 <div class="col-xl mb-xl-0 mb-2">
                                     <div class="form-check custom-option custom-option-icon">
-                                        <label class="form-check-label custom-option-content" for="PropertyType">
+                                        <label class="form-check-label custom-option-content" for="PropertyTypeOwn">
                                             <span class="custom-option-body">
                                                 <i class="bx bx-home"></i>
-                                                <span class="custom-option-title">Rumah Sendiri</span>
+                                                <span class="custom-option-title">Rumah Sendirsi</span>
                                                 <small>Rumah Milik Sendiri</small>
                                             </span>
                                             <input name="PropertyType" class="form-check-input" type="radio"

@@ -35,7 +35,7 @@
                                 <i wire:target="generateReport" wire:loading.remove class="bx bx-sort"></i>
                                 Filter Report
                             </button>
-                            <a class="btn  btn-primary" href="{{ route('member-pdf.index') }}"><i
+                            <a class="btn  btn-primary" href="{{ route('member-pdf.index') }}" target="_blank"><i
                                     class="bx bx-file"></i>Cetak</a>
                         </div>
                     </form>

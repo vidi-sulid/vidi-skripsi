@@ -28,14 +28,13 @@
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label>Username</label>
-                                    <div wire:ignore>
-                                        <select class="form-control select2" name="product_aset_id">
-                                            <option value="">Pilih User</option>
-                                            @foreach ($username as $data)
-                                                <option value="{{ $data->name }}">{{ $data->name }}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
+                                    <select class="form-control select2" name="user" wire:model="user"
+                                        id="yourSelect2Element">
+                                        <option value="">Pilih User</option>
+                                        @foreach ($username as $data)
+                                            <option value="{{ $data->name }}">{{ $data->name }}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                             </div>
                         </div>
@@ -49,8 +48,8 @@
                                         <i wire:target="generateReport" wire:loading.remove class="bx bx-sort"></i>
                                         Filter Report
                                     </button>
-                                    <a class="btn  btn-primary" href="{{ route('journal-pdf.index') }}"><i
-                                            class="bx bx-file"></i>Cetak</a>
+                                    <a class="btn  btn-primary" href="{{ route('journal-pdf.index') }}"
+                                        target="_blank"><i class="bx bx-file"></i>Cetak</a>
                                 </div>
                             </div>
 
@@ -168,11 +167,14 @@
                 setTimeout(() => {
                     initializeDataTable();
                 }, 1000);
-
+                $('#yourSelect2Element').on('change', function(e) {
+                    var data = $(this).val();
+                    @this.set('user', data);
+                });
             });
             $('#yourSelect2Element').on('change', function(e) {
                 var data = $(this).val();
-                @this.set('yourModel', data);
+                @this.set('user', data);
             });
         </script>
     @endpush

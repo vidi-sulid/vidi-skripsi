@@ -116,4 +116,11 @@ class BalancesheetReport extends Component
 
         return view('livewire.report.balancesheet-report', $data);
     }
+    public function generateReport()
+    {
+        $this->dispatch('refresh', 1);
+
+        $this->validate();
+        $this->render();
+    }
 }

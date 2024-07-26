@@ -17,6 +17,7 @@ class JournalReport extends Component
     public $username;
     public $date_start;
     public $date_end;
+    public $user;
 
     protected $rules = [
         "date_start" => "required"
@@ -35,10 +36,13 @@ class JournalReport extends Component
 
     public function render()
     {
+        $journal = Journal::with(['coa'])->whereBetween('date', [$this->date_start, $this->date_end]);
 
-        $journal = Journal::with(['coa'])->whereBetween('date', [$this->date_start, $this->date_end])
 
-            ->orderBy('id', 'desc')->paginate(100);
+        if ($this->user != "") {
+            $journal->where("username", $this->user);
+        }
+        $journal = $journal->orderBy('id', 'desc')->paginate(100);
         session()->put('journal', $journal);
         $judul = tanggalIndonesia($this->date_start) . " s/d " . tanggalIndonesia($this->date_end);
         session()->put('judulJournal', $judul);

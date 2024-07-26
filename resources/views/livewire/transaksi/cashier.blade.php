@@ -177,7 +177,7 @@
                 <div class="card-header d-flex justify-content-between align-items-center">
                     <h5 class="mb-0">Data Mutasi</h5>
                     @if (count($mutation) > 0)
-                        <a class="btn  btn-primary" href="{{ route('card-pdf.index') }}"><i
+                        <a class="btn  btn-primary" href="{{ route('card-pdf.index') }}" target="_blank"><i
                                 class="bx bx-file"></i>Cetak</a>
                     @endif
                 </div>

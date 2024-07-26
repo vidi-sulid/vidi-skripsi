@@ -2,7 +2,7 @@
 @section('content')
     <div class="title-laporan">
         <h3>Laporan Daftar Anggota</h3>
-        <p>{{ tanggalIndonesia(session()->get('judulMember')) }} </p>
+        <p>{{ 'Sampai tanggal ' . tanggalIndonesia(session()->get('judulMember')) }} </p>
     </div>
     <table class="data">
         <tr>

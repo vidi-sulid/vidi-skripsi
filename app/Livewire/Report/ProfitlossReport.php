@@ -84,4 +84,11 @@ class ProfitlossReport extends Component
         session()->put('judulProfitloss', $judul);
         return view('livewire.report.profitloss-report', $data);
     }
+    public function generateReport()
+    {
+        $this->dispatch('refresh', 1);
+
+        $this->validate();
+        $this->render();
+    }
 }

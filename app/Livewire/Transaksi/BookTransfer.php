@@ -217,8 +217,8 @@ class BookTransfer extends Component
                     "date"            => getTgl(),
                     "rekening"        => $value['id'],
                     "description"     => $value['keterangan'],
-                    "credit"          => $data['pokokKredit'],
-                    "credit_interest" => $data['bungaKredit'],
+                    "credit"          => $value['pokokKredit'],
+                    "credit_interest" => $value['bungaKredit'],
                     "username"        => Auth::user()->name,
                     "cash"            => 'N'
                 ];

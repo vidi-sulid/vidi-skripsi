@@ -49,8 +49,8 @@
                                 <i wire:target="generateReport" wire:loading.remove class="bx bx-sort"></i>
                                 Filter Report
                             </button>
-                            <a class="btn  btn-primary" href="{{ route('aset-pdf.index') }}"><i
-                                    class="bx bx-file"></i>Cetak</a>
+                            <a class="btn  btn-primary" href="{{ route('aset-pdf.index') }}"><i class="bx bx-file"
+                                    target="_blank"></i>Cetak</a>
                             @if (!$postingStatus)
                                 <button type="button" class="btn btn-primary" wire:click="posting">
                                     <i class="bx bx-book"></i>
