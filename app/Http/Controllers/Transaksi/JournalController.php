@@ -122,8 +122,10 @@ class JournalController extends Controller
         $request->validate([
             'mutation' => 'required|array',
         ]);
-        $tgl = getName($id, "journal", "date", "invoice");
+        $tgl = getName($id, "journals", "date", "invoice");
         if ($tgl != getTgl()) {
+
+            Alert::info("Info", "Data sudah tidak bisa dihapus");
             return response()->json([
                 'info' => 'The code field is required.',
                 'errors' => [
@@ -173,6 +175,15 @@ class JournalController extends Controller
 
         $tgl = date("Y-12-t", strtotime($data['periode']));
         $invoice = "PENUTUPAN-" . $request->periode;
+        $existingTransaction = Journal::where('invoice', $invoice)->first();
+        if ($existingTransaction) {
+            return response()->json([
+                'info' => 'The code field is required.',
+                'errors' => [
+                    'error' => ['Data sudah ada didatabase']
+                ]
+            ], 422);
+        }
         Journal::where("invoice", $invoice)->delete();
 
         $laba = 0;

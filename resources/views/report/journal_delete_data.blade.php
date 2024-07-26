@@ -50,7 +50,8 @@
         }).then((result) => {
             if (result.value) {
                 var ajaxPost = save('{{ route('journal.update', $invoice) }}', 'put');
-                window.location.href = "{{ route('journal-report.index') }}";
+                // window.location.href = "{{ route('journal-report.index') }}";
+                location.reload();
                 console.log(ajaxPost);
             }
         })
