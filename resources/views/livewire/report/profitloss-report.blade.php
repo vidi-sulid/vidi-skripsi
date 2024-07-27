@@ -8,9 +8,9 @@
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label>Tanggal Awal <span class="text-danger">*</span></label>
-                                    <input wire:model="start_date" type="date" class="form-control" name="start_date"
+                                    <input wire:model="date_start" type="date" class="form-control" name="date_start"
                                         value="{{ $date_start }}">
-                                    @error('start_date')
+                                    @error('date_start')
                                         <span class="text-danger mt-1">{{ $message }}</span>
                                     @enderror
                                 </div>
@@ -18,9 +18,9 @@
                             <div class="col-lg-4">
                                 <div class="form-group">
                                     <label>Tanggal Akhir <span class="text-danger">*</span></label>
-                                    <input wire:model="end_date" type="date" class="form-control" name="end_date"
+                                    <input wire:model="date_end" type="date" class="form-control" name="date_end"
                                         value="{{ $date_end }}">
-                                    @error('end_date')
+                                    @error('date_end')
                                         <span class="text-danger mt-1">{{ $message }}</span>
                                     @enderror
                                 </div>

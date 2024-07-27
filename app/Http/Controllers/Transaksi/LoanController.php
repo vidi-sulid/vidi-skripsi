@@ -62,6 +62,7 @@ class LoanController extends Controller
         ]);
 
         $data = $request->all();
+        $data['date_open'] = getTgl();
         $data['member_code'] = str_pad($data['member_code'], "7", "0", STR_PAD_LEFT);
         $data['invoice'] = invoice("PJA", true);
         $data['username']  =  Auth::user()->name;
@@ -74,7 +75,7 @@ class LoanController extends Controller
         $mutation = [
             "status"  => 0,
             "invoice"         => $data['invoice'],
-            "date"            => date("Y-m-d"),
+            "date"            => getTgl(),
             "rekening"        => $data['rekening'],
             "description"     => "Pencairan Pinjaman Anggota an. " . $member->name,
             "credit"           => 0,

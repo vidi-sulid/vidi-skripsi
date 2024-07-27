@@ -68,7 +68,7 @@ class MemberController extends Controller
 
         $vaRekening = [
             "rekening" => $data['MandatoryAccount'],
-            "date_open" => date("Y-m-d"),
+            "date_open" => getTgl(),
             "product_saving_id" => $golonganWajib,
             "member_code" => $data['Code'],
             "username" => Auth::user()->name

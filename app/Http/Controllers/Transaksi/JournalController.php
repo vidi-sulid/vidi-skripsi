@@ -59,7 +59,7 @@ class JournalController extends Controller
 
             $mutation = [
                 "invoice"     => $invoice,
-                "date"        => date("Y-m-d"),
+                "date"        => getTgl(),
                 "rekening"    => $value['id'],
                 "description" => $value['keterangan'],
                 "debit"       => $value['debit'],
